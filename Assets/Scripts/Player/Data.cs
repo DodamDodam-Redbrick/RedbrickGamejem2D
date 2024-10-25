@@ -16,6 +16,12 @@ public enum EntityIndex
     wolf = 102,
 }
 
+public enum RewardIndex
+{
+    gold = 0,
+
+}
+
 public class Entity
 {
     public Entity(string path, double hp, double damage, double def, double moveSpeed, int weight)
@@ -37,9 +43,14 @@ public class Entity
     public int weight; //저지 가능 수 (적은 보통 1)
 }
 
+public class Reward
+{
+    public string imagePath;
+    public string description;
+}
+
 public static class Data
 {
     public static Dictionary<EntityIndex, Entity> EntityData;
-
-
+    public static Dictionary<RewardIndex, Reward> RewardData;
 }

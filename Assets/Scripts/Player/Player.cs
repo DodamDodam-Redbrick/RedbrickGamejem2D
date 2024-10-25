@@ -6,6 +6,9 @@ public class Player : MonoBehaviour
 {
     public static Player Instance;
 
+    public int gold;
+    public int playerCharacter;
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
