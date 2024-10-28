@@ -27,7 +27,7 @@ public class RewardPopup : MonoBehaviour
 
     public void Set(RewardIndex index)
     {
-        rewardImage.sprite = Resources.Load<Sprite>(Data.RewardData[index].imagePath);
-        rewardDescription.text = Data.RewardData[index].description;
+        rewardImage.sprite = Resources.Load<Sprite>(DataManager.RewardData[index].imagePath);
+        rewardDescription.text = DataManager.RewardData[index].description;
     }
 }
