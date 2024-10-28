@@ -19,6 +19,12 @@ public class RoomManager : MonoBehaviour
     float mapGenerateTime = 0.3f;
 
     [SerializeField]
+    Transform minimapPanel;
+
+    [SerializeField]
+    Transform player;
+
+    [SerializeField]
     GameObject mapGeneratorPrefab;
 
     GameObject mapGenerator;
@@ -55,7 +61,9 @@ public class RoomManager : MonoBehaviour
         }
 
         rooms.Clear();
-        mapGenerator = Instantiate(mapGeneratorPrefab);
+        mapGenerator = Instantiate(mapGeneratorPrefab, minimapPanel);
+        mapGenerator.transform.localPosition = Vector3.zero;
+        //mapGenerator.transform.localScale = new Vector3(15, 15, 0);
 
         StartCoroutine(CoCheckMapeGenerateComplete());
     }
@@ -81,7 +89,8 @@ public class RoomManager : MonoBehaviour
 
         int specialCount = Random.Range(minRandomRange, maxRandomRange);
 
-        for(int i=0;i<specialCount; i++)
+        //각 방의 타입을 정해줌
+        for (int i=0;i<specialCount; i++)
         {
             int rand = Random.Range(1, rooms.Count - 1); //첫번째방은 start방이고 마지막방은 boss방
             Room room = rooms[rand].GetComponent<Room>();
@@ -97,10 +106,19 @@ public class RoomManager : MonoBehaviour
         rooms[0].GetComponent<Room>().roomType = RoomType.start;
         rooms[rooms.Count - 1].GetComponent<Room>().roomType = RoomType.boss;
 
+        //방에 걸맞는 벽을 세워줌
         for (int i = 0; i < rooms.Count; i++)
         {
-            rooms[i].GetComponent<Room>().SetWall();
+            Room room = rooms[i].GetComponent<Room>();
+            room.SetRoom();
+            room.HideArrow();
+            room.HideRoom();
         }
+
+        //플레이어를 시작방으로 이동
+        player.transform.position = rooms[0].transform.position;
+        rooms[0].GetComponent<Room>().ShowRoom();
+
     }
 
 }
