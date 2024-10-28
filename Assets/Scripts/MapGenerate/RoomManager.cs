@@ -87,12 +87,15 @@ public class RoomManager : MonoBehaviour
 
         isSecond = true;
 
-        int specialCount = Random.Range(minRandomRange, maxRandomRange);
-
         //각 방의 타입을 정해줌
+
+        int rand = Random.Range(1, rooms.Count - 1);
+        rooms[rand].GetComponent<Room>().roomType = RoomType.shop;
+
+        int specialCount = Random.Range(minRandomRange, maxRandomRange);
         for (int i=0;i<specialCount; i++)
         {
-            int rand = Random.Range(1, rooms.Count - 1); //첫번째방은 start방이고 마지막방은 boss방
+            rand = Random.Range(1, rooms.Count - 1); //첫번째방은 start방이고 마지막방은 boss방
             Room room = rooms[rand].GetComponent<Room>();
             if (room.roomType != RoomType.battle)
             {
