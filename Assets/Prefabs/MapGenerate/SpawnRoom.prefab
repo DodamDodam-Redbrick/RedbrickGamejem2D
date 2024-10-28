@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &11915958012308223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 587883259424246415}
+  m_Layer: 0
+  m_Name: Arrows
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &587883259424246415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11915958012308223}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7501220734446747931}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &841947480084626712
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +184,7 @@ Transform:
   m_Children:
   - {fileID: 4451416819873876740}
   - {fileID: 1579364951959420973}
+  - {fileID: 587883259424246415}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1747375257199397790
@@ -206,6 +238,12 @@ MonoBehaviour:
   - {fileID: 355404290511336432}
   - {fileID: 4868836155869652983}
   - {fileID: 3646986814276233138}
+  arrowPrefabs:
+  - {fileID: 1632495322416389774, guid: 4f1f3bfe92f22b1408ffd45884bdb54a, type: 3}
+  - {fileID: 711672941303343277, guid: 6e23c9e61beb50c4185f009011ea9877, type: 3}
+  - {fileID: 6180437918627838950, guid: 802d9ea2dd045e947baf8df6af47041e, type: 3}
+  - {fileID: 2803738675616326988, guid: 15fec72f67a7a114f8b4da2b1e944542, type: 3}
+  arrowParent: {fileID: 11915958012308223}
   connectRate: 6
 --- !u!61 &33825572081030048
 BoxCollider2D:

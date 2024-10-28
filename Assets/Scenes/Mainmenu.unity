@@ -468,7 +468,7 @@ GameObject:
   - component: {fileID: 643628826}
   - component: {fileID: 643628825}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: GameTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1082,6 +1082,7 @@ GameObject:
   - component: {fileID: 2010125169}
   - component: {fileID: 2010125168}
   - component: {fileID: 2010125167}
+  - component: {fileID: 2010125170}
   m_Layer: 5
   m_Name: StartGameButton
   m_TagString: Untagged
@@ -1152,7 +1153,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2010125168}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2010125170}
+        m_TargetAssemblyTypeName: StartGame, Assembly-CSharp
+        m_MethodName: OnClickStartGameButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2010125168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1191,6 +1204,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2010125165}
   m_CullTransparentMesh: 1
+--- !u!114 &2010125170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2010125165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 793aedc3557cf974ba2449cdde047687, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeSceneName: 0
 --- !u!1 &2011879582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,8 +1226,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2011879583}
+  - component: {fileID: 2011879585}
+  - component: {fileID: 2011879584}
   m_Layer: 0
-  m_Name: PlayerData
+  m_Name: DataManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1222,6 +1250,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2011879584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011879582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b11da1550bdb834c8dc45b283b71152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gold: 0
+  playerCharacter: 0
+--- !u!114 &2011879585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011879582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10dd079338a96df40a8c67cfb24adc2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossSprite: {fileID: 21300000, guid: dbbfa84d29518134aa07e2859c98733c, type: 3}
+  battleSprite: {fileID: 21300000, guid: 5683758db3563e4439e981f1e7a41097, type: 3}
+  shopSprite: {fileID: 21300000, guid: 26b82300003770548ba6f8feef01cfa0, type: 3}
+  randomEventSprite: {fileID: 21300000, guid: 71644a7e33c67864ba84c671dce0b50d, type: 3}
+  startSprite: {fileID: 21300000, guid: cb8f17adbb3b40b46ae6f7461a398ce0, type: 3}
 --- !u!1 &2077064293
 GameObject:
   m_ObjectHideFlags: 0

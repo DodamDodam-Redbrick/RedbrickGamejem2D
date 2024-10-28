@@ -61,6 +61,12 @@ public class Room : MonoBehaviour
     [SerializeField, Tooltip("left, right, top, bottom 순으로 정렬해야함")]
     SpawnPoint[] spawnPoints;
 
+    [SerializeField, Tooltip("left, right, top, bottom 순으로 정렬해야함")]
+    GameObject[] arrowPrefabs;
+
+    [SerializeField]
+    GameObject arrowParent;
+
     [SerializeField, Tooltip("방이 생성되는 확률, 기준은 할")]
     int connectRate = 6;
 
@@ -76,7 +82,7 @@ public class Room : MonoBehaviour
         }
     }
 
-    bool[] connectedRoom = new bool[4];
+    Room[] connectedRoom = new Room[4];
     RoomDirection[] reverseDirection = { RoomDirection.right, RoomDirection.left, RoomDirection.bottom, RoomDirection.top };
 
     void Start()
@@ -112,26 +118,39 @@ public class Room : MonoBehaviour
 
             if(rand < connectRate)
             {
-                GameObject inst = Instantiate(roomPrefab, transform.parent);
-                inst.transform.position = spawnPoints[dir].transform.position;
-                inst.transform.rotation = Quaternion.identity;
-                inst.GetComponent<Room>().ConnectRoom(reverseDirection[dir]);
-                connectedRoom[dir] = true;
+                Room roomInst = Instantiate(roomPrefab, transform.parent).GetComponent<Room>();
+                roomInst.transform.position = spawnPoints[dir].transform.position;
+                roomInst.transform.rotation = Quaternion.identity;
+                roomInst.ConnectRoom(reverseDirection[dir], this);
+                connectedRoom[dir] = roomInst;
             }
 
             yield return null;
         }
     }
 
-    public void SetWall()
+    public void HideArrow()
+    {
+        arrowParent.gameObject.SetActive(false);
+    }
+
+    void ShowArrow()
+    {
+        arrowParent.gameObject.SetActive(true); 
+    }
+
+    public void SetRoom()
     {
         int wallMask = 0;
         int binary = 1;
         for(int i=0; i<4; i++)
         {
-            if (connectedRoom[i])
+            if (connectedRoom[i] != null)
             {
                 wallMask |= binary;
+
+                Arrow arrowInst = Instantiate(arrowPrefabs[i], arrowParent.transform).GetComponent<Arrow>();
+                arrowInst.MoveRoom = connectedRoom[i];
             }
 
             binary *= 2;
@@ -140,9 +159,29 @@ public class Room : MonoBehaviour
         Instantiate(wallDic[(wallType)wallMask], this.transform);
     }
 
-    public void ConnectRoom(RoomDirection dir)
+    public void HideRoom()
     {
-        connectedRoom[(int)dir] = true;
+        gameObject.SetActive(false);
+    }
+
+    public void ShowRoom()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void ShowNearbyRoom()
+    {
+        foreach (var room in connectedRoom) {
+            if(room != null)
+            {
+                room.ShowRoom();
+            }
+        }
+    }
+
+    public void ConnectRoom(RoomDirection dir, Room room)
+    {
+        connectedRoom[(int)dir] = room;
     }
 
     public void OnRoomTypeChanged(RoomType newValue)
@@ -164,6 +203,24 @@ public class Room : MonoBehaviour
             case RoomType.randomEvent:
                 roomTypeSprite.sprite = DataManager.ImageData[ImageIndex.map_randomEvent];
                 break;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            ShowArrow();
+            ShowNearbyRoom();
+            //여기에서 배틀 진입하면 될듯
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            HideArrow();
         }
     }
 }
