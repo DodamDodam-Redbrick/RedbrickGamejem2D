@@ -17,46 +17,50 @@ public class NodePriorityQueue
     public void Enqueue(Node data)
     {
         heap.Add(data);
-        int now = heap.Count - 1; //추가한 노드 위치
+
+        int now = heap.Count - 1;
 
         while(now > 0)
         {
-            int next = (now - 1) / 2;//부모 노드(트리)
-
+            int next = (now - 1) / 2;
             if (heap[now].fcost > heap[next].fcost) break;
 
-            //부모노드보다 추가한게 같거나 작으면 Swap
-            Node temp = heap[now];
+            Node tmp = heap[now];
             heap[now] = heap[next];
-            heap[next] = temp;
+            heap[next] = tmp;
+
             now = next;
         }
     }
 
     public Node Dequeue()
     {
-        //값을 빼내고 우선순위가 가장 높은 거를 젤 부모로 보내는 작업
         Node ret = heap[0];
+
         int lastIndex = heap.Count - 1;
         heap[0] = heap[lastIndex];
         heap.RemoveAt(lastIndex);
-        lastIndex = -1;
-        int now = 0;
+        lastIndex--;
 
+        int now = 0;
         while (true)
         {
             int left = 2 * now + 1;
             int right = 2 * now + 2;
             int next = now;
 
-            if (left <= lastIndex && heap[next].fcost > heap[left].fcost) next = left; //왼쪽보다 크면 왼쪽으로 보내기
-            else if(right <= lastIndex && heap[next].fcost > heap[right].fcost) next = right; //오른쪽보다 크면 오른쪽으로 보내기
+            if(left<=lastIndex && heap[next].fcost > heap[left].fcost)
+                next = left;
 
-            if (next == now) break;
+            if(right <= lastIndex && heap[next].fcost > heap[right].fcost)
+                next = right;
 
-            Node temp=heap[now];
+            if (next == now)
+                break;
+
+            Node tmp = heap[now];
             heap[now] = heap[next];
-            heap[next] = temp;
+            heap[next] = tmp;
 
             now = next;
         }
@@ -65,30 +69,23 @@ public class NodePriorityQueue
     }
 }
 
-public class PathFinding : MonoBehaviour
+public static class PathFinding
 {
-    // Start is called before the first frame update
-    Grid grid;
-    private void Start()
-    {
-        grid = GetComponent<Grid>();
-    }
-
-    public List<Node> PathFind(Vector3 startPos, Vector3 endPos)
+    public static List<Node> PathFind(Vector3 startPos, Vector3 endPos)
     {
         NodePriorityQueue openList = new NodePriorityQueue();
         HashSet<Node> closedList = new HashSet<Node>(); //closedList는 포함되어 있는지만 확인하기 때문에 hashSet으로 (중복없음)
-        Node startNode = grid.GetNodeFromVector(startPos);
-        Node endNode = grid.GetNodeFromVector(endPos);
+        Node startNode = Grid.Instance.GetNodeFromVector(startPos);
+        Node endNode = Grid.Instance.GetNodeFromVector(endPos);
         openList.Enqueue(startNode);
         while (openList.Count > 0)
-        { //지금 길찾기 경로가 비효율적임. 이상하니까 한번 알아보자
+        {
             Node curNode = openList.Dequeue(); //현재를 시작으로 지정
             closedList.Add(curNode);
 
             if (curNode == endNode) return Retrace(startNode, curNode); //도착지면 탐색을 종료하고 endNode부터 역방향 탐색 시작
 
-            foreach(Node neightborNode in grid.SearchNeightborNode(curNode))
+            foreach(Node neightborNode in Grid.Instance.SearchNeightborNode(curNode))
             {
                 if(neightborNode.canWalk && !closedList.Contains(neightborNode))
                 {
@@ -100,7 +97,7 @@ public class PathFinding : MonoBehaviour
                     {//방문할 예정이 아니거나 새로 구한 gCost가 더 작을 경우엔 gCost를 다시 계산한 값으로 설정한다.
                         neightborNode.gCost = newCost;
                         neightborNode.hCost = GetDistance(neightborNode, endNode);
-                        neightborNode.par = curNode;
+                        neightborNode.parent = curNode;
 
                         if(!openList.Contains(neightborNode)) openList.Enqueue(neightborNode);
                     }
@@ -109,22 +106,22 @@ public class PathFinding : MonoBehaviour
         }
         return null; //모든 길을 탐색해도 목적지가 없으면 null 반환
     }
-    
-    List<Node> Retrace(Node start, Node end)
+
+    static List<Node> Retrace(Node start, Node end)
     { //PathFind에서 각각 노드에 길을 찾아놓은 걸 토대로 루트를 확립해주는 작업
         List<Node> path = new List<Node>();
         Node curNode = end;
         while(curNode != start)
         { //각각의 par들을 계속해서 방문해주고 리스트에 넣음
             path.Add(curNode);
-            curNode = curNode.par;
+            curNode = curNode.parent;
         }
         path.Reverse();
-        grid.path = path;
+        Grid.Instance.path = path;
         return path;
     }
 
-    int GetDistance(Node aNode, Node bNode)
+    static int GetDistance(Node aNode, Node bNode)
     {
         int x = Mathf.Abs(aNode.myX - bNode.myX);
         int y = Mathf.Abs(aNode.myY - bNode.myY);

@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
+    public static Grid Instance;
+
     public Vector2 worldSize; //게임 상 맵 크기
     public float nodeSize; //노드의 크기
     [SerializeField]Node[,] myNode; //전체 노드를 관리할 배열
@@ -19,8 +21,10 @@ public class Grid : MonoBehaviour
         { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 }
     }; //탐색 가능한 방향 (현재는 4방향)
 
-    private void Start()
+    private void Awake()
     {
+        Instance = this;
+
         nodeCountX = Mathf.CeilToInt(worldSize.x / nodeSize); //노드의 크기에 따라서 개수가 달라진다
         //노드가 커지면 개수가 작고, 정확도는 낮지만 계산이 빨라짐
         nodeCountY = Mathf.CeilToInt(worldSize.y / nodeSize);
