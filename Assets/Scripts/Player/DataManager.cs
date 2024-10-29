@@ -32,8 +32,12 @@ public enum ImageIndex
     map_start,
 }
 
-public class Entity
+public class Entity : MonoBehaviour
 {
+    public Entity()
+    {
+    }
+
     public Entity(string path, double hp, double damage, double def, double moveSpeed, int weight)
     {
         this.prefabPath = path;

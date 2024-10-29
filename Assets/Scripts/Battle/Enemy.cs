@@ -10,7 +10,7 @@ public enum EnemyState
     attack,
 }
 
-public class Enemy : MonoBehaviour
+public class Enemy : Entity
 {
     [SerializeField]
     private float speed = 3f;
