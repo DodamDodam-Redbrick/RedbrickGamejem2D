@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 
-public class Grid : MonoBehaviour
+public class MapGrid : MonoBehaviour
 {
-    public static Grid Instance;
-
     public Vector2 worldSize; //게임 상 맵 크기
     public float nodeSize; //노드의 크기
     [SerializeField]Node[,] myNode; //전체 노드를 관리할 배열
@@ -23,8 +21,6 @@ public class Grid : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
-
         nodeCountX = Mathf.CeilToInt(worldSize.x / nodeSize); //노드의 크기에 따라서 개수가 달라진다
         //노드가 커지면 개수가 작고, 정확도는 낮지만 계산이 빨라짐
         nodeCountY = Mathf.CeilToInt(worldSize.y / nodeSize);
@@ -39,7 +35,7 @@ public class Grid : MonoBehaviour
         {
             for (int j = 0; j < nodeCountY; j++)
             {
-                Vector3 pos = new Vector3(i * nodeSize, j * nodeSize); //노드의 좌표
+                Vector3 pos = new Vector3(transform.position.x + i * nodeSize, transform.position.y + j * nodeSize); //노드의 좌표
                 Collider2D hit = Physics2D.OverlapBox(pos, new Vector2(nodeSize / 2, nodeSize / 2), 0, obstacle);
                 myNode[i, j] = new Node(hit == null, pos, i, j);
             }

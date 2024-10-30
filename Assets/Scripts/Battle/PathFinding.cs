@@ -71,21 +71,21 @@ public class NodePriorityQueue
 
 public static class PathFinding
 {
-    public static List<Node> PathFind(Vector3 startPos, Vector3 endPos)
+    public static List<Node> PathFind(Vector3 startPos, Vector3 endPos, MapGrid mapGrid)
     {
         NodePriorityQueue openList = new NodePriorityQueue();
         HashSet<Node> closedList = new HashSet<Node>(); //closedList는 포함되어 있는지만 확인하기 때문에 hashSet으로 (중복없음)
-        Node startNode = Grid.Instance.GetNodeFromVector(startPos);
-        Node endNode = Grid.Instance.GetNodeFromVector(endPos);
+        Node startNode = mapGrid.GetNodeFromVector(startPos);
+        Node endNode = mapGrid.GetNodeFromVector(endPos);
         openList.Enqueue(startNode);
         while (openList.Count > 0)
         {
             Node curNode = openList.Dequeue(); //현재를 시작으로 지정
             closedList.Add(curNode);
 
-            if (curNode == endNode) return Retrace(startNode, curNode); //도착지면 탐색을 종료하고 endNode부터 역방향 탐색 시작
+            if (curNode == endNode) return Retrace(startNode, curNode, mapGrid); //도착지면 탐색을 종료하고 endNode부터 역방향 탐색 시작
 
-            foreach(Node neightborNode in Grid.Instance.SearchNeightborNode(curNode))
+            foreach(Node neightborNode in mapGrid.SearchNeightborNode(curNode))
             {
                 if(neightborNode.canWalk && !closedList.Contains(neightborNode))
                 {
@@ -107,7 +107,7 @@ public static class PathFinding
         return null; //모든 길을 탐색해도 목적지가 없으면 null 반환
     }
 
-    static List<Node> Retrace(Node start, Node end)
+    static List<Node> Retrace(Node start, Node end, MapGrid mapGrid)
     { //PathFind에서 각각 노드에 길을 찾아놓은 걸 토대로 루트를 확립해주는 작업
         List<Node> path = new List<Node>();
         Node curNode = end;
@@ -117,7 +117,7 @@ public static class PathFinding
             curNode = curNode.parent;
         }
         path.Reverse();
-        Grid.Instance.path = path;
+        mapGrid.path = path;
         return path;
     }
 

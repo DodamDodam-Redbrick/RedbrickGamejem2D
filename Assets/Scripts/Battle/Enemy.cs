@@ -90,7 +90,7 @@ public class Enemy : Entity
     {
         foreach (Vector3 wayPoint in wayPoints)
         {
-            if (!Grid.Instance.GetNodeFromVector(wayPoint).canWalk)
+            if (!mapGrid.GetNodeFromVector(wayPoint).canWalk)
             {
                 Debug.Log($"{wayPoint.x}, {wayPoint.y}는 걸어갈 수 없는 위치입니다");
                 continue;
@@ -105,8 +105,8 @@ public class Enemy : Entity
     {
         List<Node> newWay = null;
 
-        if (Grid.Instance.IsOutOfBind(goalPosition) && Grid.Instance.GetNodeFromVector(transform.position) != Grid.Instance.GetNodeFromVector(goalPosition))
-            newWay = PathFinding.PathFind(transform.position, goalPosition);
+        if (mapGrid.IsOutOfBind(goalPosition) && mapGrid.GetNodeFromVector(transform.position) != mapGrid.GetNodeFromVector(goalPosition))
+            newWay = PathFinding.PathFind(transform.position, goalPosition, mapGrid);
 
         if (newWay != null)
         {
@@ -143,7 +143,7 @@ public class Enemy : Entity
             transform.position = Vector2.MoveTowards(transform.position, targetNode.myPos, Time.deltaTime * speed);
 
             //보는 방향
-            int characterX = Grid.Instance.GetNodeFromVector(transform.position).myX;
+            int characterX = mapGrid.GetNodeFromVector(transform.position).myX;
 
             if (characterX < targetNode.myX)
             {
