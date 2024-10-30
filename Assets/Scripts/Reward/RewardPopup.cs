@@ -6,12 +6,11 @@ using UnityEngine.UI;
 
 public class RewardPopup : MonoBehaviour
 {
-    [SerializeField]
     Image rewardImage;
 
-    [SerializeField]
     TextMeshProUGUI rewardDescription;
 
+    RewardType rewardType;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +24,7 @@ public class RewardPopup : MonoBehaviour
         
     }
 
-    public void Set(RewardIndex index)
+    public void Set(RewardType index)
     {
         rewardImage.sprite = Resources.Load<Sprite>(DataManager.RewardData[index].imagePath);
         rewardDescription.text = DataManager.RewardData[index].description;
