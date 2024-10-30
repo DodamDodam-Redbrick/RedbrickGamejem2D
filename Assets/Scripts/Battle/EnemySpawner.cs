@@ -13,6 +13,7 @@ public class SpawnData
 {
     public EnemyInfo enemyInfo;
     public float spawnTime;
+    public List<Vector3> wayPoints;
 }
 
 public class EnemySpawner : MonoBehaviour
@@ -33,7 +34,7 @@ public class EnemySpawner : MonoBehaviour
 
         while (nextSpawnIndex < spawnDataList.Count && spawnDataList[nextSpawnIndex].spawnTime <= timer)
         {
-            SpawnEnemy(spawnDataList[nextSpawnIndex].enemyInfo);
+            SpawnEnemy(spawnDataList[nextSpawnIndex]);
             nextSpawnIndex++;
         }
     }
@@ -46,10 +47,10 @@ public class EnemySpawner : MonoBehaviour
         nextSpawnIndex = 0;
     }
 
-    private void SpawnEnemy(EnemyInfo enemyInfo)
+    private void SpawnEnemy(SpawnData spawnData)
     {
         GameObject enemyPrefab = null;
-        switch (enemyInfo)
+        switch (spawnData.enemyInfo)
         {
             case EnemyInfo.Enemy1:
                 enemyPrefab = enemy1Prefab;
@@ -64,8 +65,10 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
             enemy.transform.SetParent(transform.parent, true);
             Enemy enemyScript = enemy.GetComponent<Enemy>();
+            
             if (enemyScript != null)
             {
+                enemyScript.SetWayPoints(spawnData.wayPoints);
                 enemyScript.StartMove(); 
             }
         }
