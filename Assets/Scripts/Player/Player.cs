@@ -10,17 +10,47 @@ public enum PlayerCharacter
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance;
+
     [SerializeField]
     Animator animator;
 
     public PlayerCharacter playerCharacter = PlayerCharacter.firstCharacter;
 
+    int gold;
+
+    [SerializeField]//디버깅용
+    List<Unit> unitList = new List<Unit>();
+
     Coroutine coMoveRoom;
-    private void Start()
+    private void Awake()
     {
         DontDestroyOnLoad(this);
 
-        GameSystem.Instance.MyPlayer = this;
+        Instance = this;
+    }
+
+    private void Start()
+    {
+
+    }
+
+    public void ChangeGold(int value)
+    {
+        //돈을 써도 이걸 부르기
+        gold += value;
+
+        //gold관련 ui 동기화
+    }
+
+    public void AddUnit(Unit unit)
+    {
+        unitList.Add(unit);
+    }
+
+    public void RemoveUnit(Unit unit)
+    {
+        unitList.Remove(unit);
     }
 
     public void MoveRoom(Room room)

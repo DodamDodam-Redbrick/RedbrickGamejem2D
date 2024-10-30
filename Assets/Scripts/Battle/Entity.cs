@@ -35,8 +35,8 @@ public class Entity : MonoBehaviour
     public double fireRate;
     public int weight; //저지 가능 수 (적은 보통 1)
 
-    private void Start()
+    protected virtual void Start()
     {
-        mapGrid = transform.parent.GetComponent<MapGrid>();
+        mapGrid = transform.parent.GetComponent<BattleManager>().mapGrid;
     }
 }

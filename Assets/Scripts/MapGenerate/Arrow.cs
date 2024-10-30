@@ -16,7 +16,7 @@ public class Arrow : MonoBehaviour
 
     public void OnClickArrow()
     {
-        GameSystem.Instance.MyPlayer.MoveRoom(moveRoom);
+        Player.Instance.MoveRoom(moveRoom);
     }
 
     // Start is called before the first frame update
