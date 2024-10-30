@@ -6,18 +6,18 @@ using UnityEngine;
 
 public enum EntityType
 {
-    //¾Æ±º ¿£Æ¼Æ¼
+    //아군 엔티티
     tank = 0,
     sword = 1,
     bow = 2,
     caster = 3,
     healer = 4,
 
-    //Àû ¿£Æ¼Æ¼
+    //적 엔티티
     slime = 100,
     wolf = 101,
 
-    //ÃÑ¾Ë ¿£Æ¼Æ¼
+    //엔티티 투사체
     bowBullet = 200,
 }
 
@@ -98,12 +98,13 @@ public class DataManager : MonoBehaviour
     [SerializeField]
     GameObject swordPrefab;
 
-    public static Dictionary<RewardType, Reward> rewardData = new Dictionary<RewardType, Reward>(); //º¸»ó¿¡ ÇÊ¿äÇÑ Á¤º¸µé
-    public static Dictionary<ImageIndex, Sprite> imageData = new Dictionary<ImageIndex, Sprite>(); //°¢ ÀÌ¹ÌÁöµé °ü¸®ÇÏ´Â ¿ë
-    public static Dictionary<EntityType, GameObject> prefabData = new Dictionary<EntityType, GameObject>(); //°¢ ÇÁ¸®ÆÕµé °ü¸®ÇÏ´Â ¿ë
-    public static Dictionary<EntityType, Entity> entityData = new Dictionary<EntityType, Entity>(); //¼ÒÈ¯ÇÒ ¶§ ÇÁ¸®ÆÕ °ª ÃÊ±âÈ­ ¿ë
+    public static Dictionary<ImageIndex, Sprite> imageData = new Dictionary<ImageIndex, Sprite>(); //이미지 데이터 관리용
+    public static Dictionary<EntityType, GameObject> prefabData = new Dictionary<EntityType, GameObject>(); //프리팹 데이터 관리용
+    public static Dictionary<MapType, List<SpawnData>> enemySpawners = new Dictionary<MapType, List<SpawnData>>(); //맵 별 스폰데이터 관리용
 
-    public static Dictionary<MapType, List<SpawnData>> enemySpawners = new Dictionary<MapType, List<SpawnData>>();
+    public static Dictionary<RewardType, Reward> rewardData = new Dictionary<RewardType, Reward>(); //보상 데이터 저장용
+    public static Dictionary<EntityType, Entity> entityData = new Dictionary<EntityType, Entity>(); //엔티티 데이터 저장용
+
 
     private void Awake()
     {

@@ -27,12 +27,6 @@ public class RewardPopup : MonoBehaviour
 #endif
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Set(Reward reward)
     {
         this.reward = reward;
@@ -43,6 +37,7 @@ public class RewardPopup : MonoBehaviour
 
     public void OnClickCard()
     {
+        //1. 데이터에 자기 리워드 추가시켜주고
         switch (reward.rewardType)
         {
             case RewardType.gold:
@@ -53,8 +48,12 @@ public class RewardPopup : MonoBehaviour
                 break;
         }
 
-        //1. 데이터에 자기 리워드 추가시켜주고
         //2. 부모가 되는 리워드 레이아웃 삭제
+        //일단 Destroy하는데 재활용으로 변경추천
+        //transform.parent.gameObject.SetActive(false);
+        Destroy(transform.parent);
+
         //3. 다음 스텝 진행
+        //go to minimap
     }
 }
