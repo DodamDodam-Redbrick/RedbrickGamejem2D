@@ -19,8 +19,7 @@ public class Player : MonoBehaviour
 
     int gold;
 
-    [SerializeField]//디버깅용
-    List<Unit> unitList = new List<Unit>();
+    List<UnitInfo> unitList = new List<UnitInfo>();
 
     Coroutine coMoveRoom;
     private void Awake()
@@ -43,12 +42,15 @@ public class Player : MonoBehaviour
         //gold관련 ui 동기화
     }
 
-    public void AddUnit(Unit unit)
+    public void AddUnit(UnitInfo unit)
     {
+#if UNITY_EDITOR
+        Debug.Log($"{unit.unitType.ToString()} is added to unitList");
+#endif
         unitList.Add(unit);
     }
 
-    public void RemoveUnit(Unit unit)
+    public void RemoveUnit(UnitInfo unit)
     {
         unitList.Remove(unit);
     }

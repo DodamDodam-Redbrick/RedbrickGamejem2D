@@ -10,18 +10,32 @@ public enum UnitType
     healer,
 }
 
-public class Unit : Entity
+public class UnitInfo : Entity
 {
-    UnitType unitType;
+    public UnitInfo(EntityStats entityStats, UnitType unitType, Sprite thumbnail, GameObject unitPrefab, GameObject bulletPrefab = null)
+    {
+        base.entityStats = entityStats;
+        this.unitType = unitType;
+        this.thumbnail = thumbnail;
 
-    Sprite portrait;
+        base.entityPrefab = unitPrefab;
+        base.bulletPrefab = bulletPrefab;
+    }
 
-    Node placedNode;
+    public UnitType unitType;
 
-    double skillCoolTime;
+    public Sprite thumbnail;
+
+}
+
+public class Unit : MonoBehaviour
+{
+    public UnitInfo unitInfo;
+
+    public Node placedNode;
 
     // Start is called before the first frame update
-    protected override void Start()
+    void Start()
     {
         
     }
