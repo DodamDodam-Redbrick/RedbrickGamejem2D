@@ -2,16 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyInfo // Àû Á¤º¸
-{
-    Enemy1,
-    Enemy2,
-}
-
 [System.Serializable]
 public class SpawnData
 {
-    public EnemyInfo enemyInfo;
+    public EntityType enemyType;
     public float spawnTime;
     public List<Vector3> wayPoints;
 }
@@ -49,16 +43,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy(SpawnData spawnData)
     {
-        GameObject enemyPrefab = null;
-        switch (spawnData.enemyInfo)
-        {
-            case EnemyInfo.Enemy1:
-                enemyPrefab = enemy1Prefab;
-                break;
-            case EnemyInfo.Enemy2:
-                enemyPrefab = enemy2Prefab;
-                break;
-        }
+        GameObject enemyPrefab = DataManager.entityData[spawnData.enemyType].entityPrefab;
 
         if (enemyPrefab != null)
         {

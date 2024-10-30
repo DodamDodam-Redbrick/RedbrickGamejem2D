@@ -111,49 +111,45 @@ public class DataManager : MonoBehaviour
 
         Instance = this;
 
+        ApplyImageDatas();
+        ApplyPrefabDatas();
+        ApplyEnemySpawners();
+        ApplyEntityDatas();
+    }
+
+    private void ApplyImageDatas()
+    {
         imageData[ImageIndex.map_boss] = bossSprite;
         imageData[ImageIndex.map_battle] = battleSprite;
         imageData[ImageIndex.map_randomEvent] = randomEventSprite;
         imageData[ImageIndex.map_shop] = shopSprite;
         imageData[ImageIndex.map_start] = startSprite;
         imageData[ImageIndex.unit_sword_thumbnail] = swordSprite;
+    }
 
+    private void ApplyPrefabDatas()
+    {
         prefabData[EntityType.sword] = swordPrefab;
-
-        ApplyEnemySpawners();
-        
-        //Áß¿ä!! ÀÌ¹ÌÁö µ¥ÀÌÅÍ¶û ÇÁ¸®ÆÕ µ¥ÀÌÅÍº¸´Ù µÚ¿¡¿Ã°Í
-        EntityStats swordStat = new EntityStats(100, 5, 1, 1, 1, 10, 1);
-        entityData[EntityType.sword] = new UnitInfo(swordStat, UnitType.sword, imageData[ImageIndex.unit_sword_thumbnail], swordPrefab);
 
     }
 
     private void ApplyEnemySpawners()
     {
-        enemySpawners[MapType.stage_one] = CreateEnemySpawnerForStageOne();
-        enemySpawners[MapType.stage_two] = CreateEnemySpawnerForStageTwo();
+        enemySpawners[MapType.stage_one] = new List<SpawnData>
+        {
+            new SpawnData { enemyType = EntityType.wolf, spawnTime = 1.0f, wayPoints = new List<Vector3> { new Vector3(0, 0, 0), new Vector3(1, 1, 0) } },
+            new SpawnData { enemyType = EntityType.wolf, spawnTime = 2.0f, wayPoints = new List<Vector3> { new Vector3(2, 2, 0), new Vector3(3, 3, 0) } },
+        };
+        enemySpawners[MapType.stage_two] = new List<SpawnData>
+        {
+            new SpawnData { enemyType = EntityType.slime, spawnTime = 1.0f, wayPoints = new List<Vector3> { new Vector3(0, 0, 0), new Vector3(1, 1, 0) } },
+            new SpawnData { enemyType = EntityType.wolf, spawnTime = 2.0f, wayPoints = new List<Vector3> { new Vector3(2, 2, 0), new Vector3(3, 3, 0) } },
+        };
     }
 
-    private List<SpawnData> CreateEnemySpawnerForStageOne() // stage one setting enemy
+    private void ApplyEntityDatas()
     {
-        List<SpawnData> spawnData = new List<SpawnData>
-        {
-            new SpawnData { enemyInfo = EnemyInfo.Enemy1, spawnTime = 1.0f, wayPoints = new List<Vector3> { new Vector3(0, 0, 0), new Vector3(1, 1, 0) } },
-            new SpawnData { enemyInfo = EnemyInfo.Enemy1, spawnTime = 2.0f, wayPoints = new List<Vector3> { new Vector3(2, 2, 0), new Vector3(3, 3, 0) } },
-        };
-
-        return spawnData;
-    }
-
-    private List<SpawnData> CreateEnemySpawnerForStageTwo() // stage two setting enemy
-    {
-
-        List<SpawnData> spawnData = new List<SpawnData>
-        {
-            new SpawnData { enemyInfo = EnemyInfo.Enemy2, spawnTime = 1.0f, wayPoints = new List<Vector3> { new Vector3(0, 0, 0), new Vector3(1, 1, 0) } },
-            new SpawnData { enemyInfo = EnemyInfo.Enemy2, spawnTime = 2.0f, wayPoints = new List<Vector3> { new Vector3(2, 2, 0), new Vector3(3, 3, 0) } },
-        };
-
-        return spawnData;
+        EntityStats swordStat = new EntityStats(100, 5, 1, 1, 1, 10, 1);
+        entityData[EntityType.sword] = new UnitInfo(swordStat, UnitType.sword, imageData[ImageIndex.unit_sword_thumbnail], swordPrefab);
     }
 }
