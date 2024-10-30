@@ -41,21 +41,8 @@ public class EnemySpawner : MonoBehaviour
                 break;
         }
 
-        if (enemyPrefab != null)
-        {
-            GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-            Enemy enemyScript = enemy.GetComponent<Enemy>();
-            if (enemyScript != null)
-            {
-                enemyScript.StartMove(); // 적 이동 시작
-            }
-        }
+    private void Start()
+    {
+        mapGrid = transform.parent.GetComponent<MapGrid>();
     }
-}
-
-[System.Serializable]
-public class SpawnData
-{
-    public EnemyInfo enemyInfo;
-    public float spawnTime;
 }

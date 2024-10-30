@@ -36,7 +36,10 @@ public class Reward
 {
     public string imagePath;
     public string description;
-    public RewardType type;
+    public RewardType rewardType;
+
+    public Unit unit;
+    public int gold;
 }
 
 public class DataManager : MonoBehaviour

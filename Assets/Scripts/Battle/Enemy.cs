@@ -50,9 +50,11 @@ public class Enemy : Entity
 
     }
 
-    private void Start()
+    protected override void Start()
     {
-        //StartMove(); //µð¹ö±ë¿ë
+        base.Start();
+
+        StartMove(); //µð¹ö±ë¿ë
     }
 
     // Update is called once per frame
