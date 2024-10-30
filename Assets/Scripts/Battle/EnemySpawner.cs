@@ -39,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void SpawnEnemies(List<SpawnData> spawnDataList) 
+    public void SpawnEnemies(List<SpawnData> spawnDataList)
     {
         this.spawnDataList = spawnDataList;
         this.spawnDataList.Sort((x, y) => x.spawnTime.CompareTo(y.spawnTime)); // 스폰 시간을 기준으로 정렬
@@ -65,12 +65,14 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
             enemy.transform.SetParent(transform.parent, true);
             Enemy enemyScript = enemy.GetComponent<Enemy>();
-            
+
             if (enemyScript != null)
             {
+                enemyScript.SetMapGrid();
                 enemyScript.SetWayPoints(spawnData.wayPoints);
-                enemyScript.StartMove(); 
+                enemyScript.StartMove();
             }
+
         }
     }
 }

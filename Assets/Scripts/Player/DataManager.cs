@@ -61,7 +61,7 @@ public class DataManager : MonoBehaviour
     [SerializeField]
     Sprite startSprite;
 
-    public static Dictionary<EntityType, Entity> EntityData = new Dictionary<EntityType, Entity>();
+   // public static Dictionary<EntityType, Entity> EntityData = new Dictionary<EntityType, Entity>();
     public static Dictionary<RewardType, Reward> RewardData = new Dictionary<RewardType, Reward>();
     public static Dictionary<ImageIndex, Sprite> ImageData = new Dictionary<ImageIndex, Sprite>();
 

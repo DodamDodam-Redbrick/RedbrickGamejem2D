@@ -2,47 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyInfo
+
+public class Entity : MonoBehaviour
 {
-    Enemy1,
-    Enemy2,
-}
-
-public class EnemySpawner : MonoBehaviour
-{
-    [SerializeField] private List<SpawnData> spawnDataList; // 스폰 데이터를 받을 리스트
-    [SerializeField] private GameObject enemy1Prefab;
-    [SerializeField] private GameObject enemy2Prefab;
-
-    private float timer = 0f;
-    private int spawnIndex = 0;
-
-    void Update()
+    public Entity()
     {
-        timer += Time.deltaTime;
-
-        while (spawnIndex < spawnDataList.Count && spawnDataList[spawnIndex].spawnTime <= timer)
-        {
-            SpawnEnemy(spawnDataList[spawnIndex].enemyInfo);
-            spawnIndex++;
-        }
     }
 
-    private void SpawnEnemy(EnemyInfo enemyInfo)
+    public void SetStat(string path, double hp, double damage, double def, double moveSpeed, double fireRate, int weight)
     {
-        GameObject enemyPrefab = null;
-        switch (enemyInfo)
-        {
-            case EnemyInfo.Enemy1:
-                enemyPrefab = enemy1Prefab;
-                break;
-            case EnemyInfo.Enemy2:
-                enemyPrefab = enemy2Prefab;
-                break;
-        }
+        this.prefabPath = path;
+        this.hp = hp;
+        this.damage = damage;
+        this.def = def;
+        this.moveSpeed = moveSpeed;
+        this.fireRate = fireRate;
+        this.weight = weight;
+    }
 
-    private void Start()
+    public GameObject unitPrefab;
+
+    public GameObject bulletPrefab;
+
+    public MapGrid mapGrid;
+
+    public string prefabPath;
+    //프리팹 소환할 때 기본 수치들 적용시켜주기
+    public double hp;
+    public double damage;
+    public double def;
+    public double moveSpeed;
+    public double fireRate;
+    public int weight; //저지 가능 수 (적은 보통 1)
+
+    protected virtual void Start()
     {
-        mapGrid = transform.parent.GetComponent<MapGrid>();
+        mapGrid = transform.parent.GetComponent<BattleManager>().mapGrid;
+    }
+
+    public void SetMapGrid()    
+    {
+        mapGrid = transform.parent.GetComponent<BattleManager>().mapGrid;
     }
 }
