@@ -1,22 +1,23 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 public enum EntityType
 {
-    //¾Æ±º ¿£Æ¼Æ¼
+    //Â¾Ã†Â±Âº Â¿Â£Ã†Â¼Ã†Â¼
     tank = 0,
     sword = 1,
     bow = 2,
     caster = 3,
     healer = 4,
 
-    //Àû ¿£Æ¼Æ¼
+    //Ã€Ã» Â¿Â£Ã†Â¼Ã†Â¼
     slime = 100,
     wolf = 101,
 
-    //ÃÑ¾Ë ¿£Æ¼Æ¼
+    //ÃƒÃ‘Â¾Ã‹ Â¿Â£Ã†Â¼Ã†Â¼
     bowBullet = 200,
 }
 
@@ -35,6 +36,12 @@ public enum ImageIndex
     map_start,
 
     unit_sword_thumbnail,
+}
+
+public enum MapType
+{
+    stage_one,
+    stage_two,
 }
 
 public class Reward
@@ -91,10 +98,12 @@ public class DataManager : MonoBehaviour
     [SerializeField]
     GameObject swordPrefab;
 
-    public static Dictionary<RewardType, Reward> rewardData = new Dictionary<RewardType, Reward>(); //º¸»ó¿¡ ÇÊ¿äÇÑ Á¤º¸µé
-    public static Dictionary<ImageIndex, Sprite> imageData = new Dictionary<ImageIndex, Sprite>(); //°¢ ÀÌ¹ÌÁöµé °ü¸®ÇÏ´Â ¿ë
-    public static Dictionary<EntityType, GameObject> prefabData = new Dictionary<EntityType, GameObject>(); //°¢ ÇÁ¸®ÆÕµé °ü¸®ÇÏ´Â ¿ë
-    public static Dictionary<EntityType, Entity> entityData = new Dictionary<EntityType, Entity>(); //¼ÒÈ¯ÇÒ ¶§ ÇÁ¸®ÆÕ °ª ÃÊ±âÈ­ ¿ë
+    public static Dictionary<RewardType, Reward> rewardData = new Dictionary<RewardType, Reward>(); //ÂºÂ¸Â»Ã³Â¿Â¡ Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ ÃÂ¤ÂºÂ¸ÂµÃ©
+    public static Dictionary<ImageIndex, Sprite> imageData = new Dictionary<ImageIndex, Sprite>(); //Â°Â¢ Ã€ÃŒÂ¹ÃŒÃÃ¶ÂµÃ© Â°Ã¼Â¸Â®Ã‡ÃÂ´Ã‚ Â¿Ã«
+    public static Dictionary<EntityType, GameObject> prefabData = new Dictionary<EntityType, GameObject>(); //Â°Â¢ Ã‡ÃÂ¸Â®Ã†Ã•ÂµÃ© Â°Ã¼Â¸Â®Ã‡ÃÂ´Ã‚ Â¿Ã«
+    public static Dictionary<EntityType, Entity> entityData = new Dictionary<EntityType, Entity>(); //Â¼Ã’ÃˆÂ¯Ã‡Ã’ Â¶Â§ Ã‡ÃÂ¸Â®Ã†Ã• Â°Âª ÃƒÃŠÂ±Ã¢ÃˆÂ­ Â¿Ã«
+
+    public static Dictionary<MapType, List<SpawnData>> enemySpawners = new Dictionary<MapType, List<SpawnData>>();
 
     private void Awake()
     {
@@ -111,8 +120,40 @@ public class DataManager : MonoBehaviour
 
         prefabData[EntityType.sword] = swordPrefab;
 
-        //Áß¿ä!! ÀÌ¹ÌÁö µ¥ÀÌÅÍ¶û ÇÁ¸®ÆÕ µ¥ÀÌÅÍº¸´Ù µÚ¿¡¿Ã°Í
+        ApplyEnemySpawners();
+        
+        //ÃÃŸÂ¿Ã¤!! Ã€ÃŒÂ¹ÃŒÃÃ¶ ÂµÂ¥Ã€ÃŒÃ…ÃÂ¶Ã» Ã‡ÃÂ¸Â®Ã†Ã• ÂµÂ¥Ã€ÃŒÃ…ÃÂºÂ¸Â´Ã™ ÂµÃšÂ¿Â¡Â¿ÃƒÂ°Ã
         EntityStats swordStat = new EntityStats(100, 5, 1, 1, 1, 10, 1);
         entityData[EntityType.sword] = new UnitInfo(swordStat, UnitType.sword, imageData[ImageIndex.unit_sword_thumbnail], swordPrefab);
+
+    }
+
+    private void ApplyEnemySpawners()
+    {
+        enemySpawners[MapType.stage_one] = CreateEnemySpawnerForStageOne();
+        enemySpawners[MapType.stage_two] = CreateEnemySpawnerForStageTwo();
+    }
+
+    private List<SpawnData> CreateEnemySpawnerForStageOne() // stage one setting enemy
+    {
+        List<SpawnData> spawnData = new List<SpawnData>
+        {
+            new SpawnData { enemyInfo = EnemyInfo.Enemy1, spawnTime = 1.0f, wayPoints = new List<Vector3> { new Vector3(0, 0, 0), new Vector3(1, 1, 0) } },
+            new SpawnData { enemyInfo = EnemyInfo.Enemy1, spawnTime = 2.0f, wayPoints = new List<Vector3> { new Vector3(2, 2, 0), new Vector3(3, 3, 0) } },
+        };
+
+        return spawnData;
+    }
+
+    private List<SpawnData> CreateEnemySpawnerForStageTwo() // stage two setting enemy
+    {
+
+        List<SpawnData> spawnData = new List<SpawnData>
+        {
+            new SpawnData { enemyInfo = EnemyInfo.Enemy2, spawnTime = 1.0f, wayPoints = new List<Vector3> { new Vector3(0, 0, 0), new Vector3(1, 1, 0) } },
+            new SpawnData { enemyInfo = EnemyInfo.Enemy2, spawnTime = 2.0f, wayPoints = new List<Vector3> { new Vector3(2, 2, 0), new Vector3(3, 3, 0) } },
+        };
+
+        return spawnData;
     }
 }

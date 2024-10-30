@@ -33,5 +33,4 @@ public class Entity
     public GameObject bulletPrefab;
 
     public EntityStats entityStats;
-
 }
