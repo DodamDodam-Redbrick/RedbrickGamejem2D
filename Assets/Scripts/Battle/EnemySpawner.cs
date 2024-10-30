@@ -2,12 +2,74 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EnemyInfo // 적 정보
+{
+    Enemy1,
+    Enemy2,
+}
+
+[System.Serializable]
+public class SpawnData
+{
+    public EnemyInfo enemyInfo;
+    public float spawnTime;
+}
+
 public class EnemySpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public GameObject SpawnEnemy(GameObject enemyPrefab)
+    [SerializeField] private GameObject enemy1Prefab;
+    [SerializeField] private GameObject enemy2Prefab;
+
+    private List<SpawnData> spawnDataList;
+    private float timer = 0f;
+    private int nextSpawnIndex = 0;
+
+    void Update()
     {
-        //스폰 후 받은 개체(enemy 스크립트)에 wayPoint 지정해주고 startmove로 움직이게 해준다.
-        return Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+        if (spawnDataList == null || nextSpawnIndex >= spawnDataList.Count)
+            return;
+
+        timer += Time.deltaTime;
+
+        while (nextSpawnIndex < spawnDataList.Count && spawnDataList[nextSpawnIndex].spawnTime <= timer)
+        {
+            SpawnEnemy(spawnDataList[nextSpawnIndex].enemyInfo);
+            nextSpawnIndex++;
+        }
+    }
+
+    public void SpawnEnemies(List<SpawnData> spawnDataList) 
+    {
+        this.spawnDataList = spawnDataList;
+        this.spawnDataList.Sort((x, y) => x.spawnTime.CompareTo(y.spawnTime)); // 스폰 시간을 기준으로 정렬
+        timer = 0f;
+        nextSpawnIndex = 0;
+    }
+
+    private void SpawnEnemy(EnemyInfo enemyInfo)
+    {
+        GameObject enemyPrefab = null;
+        switch (enemyInfo)
+        {
+            case EnemyInfo.Enemy1:
+                enemyPrefab = enemy1Prefab;
+                break;
+            case EnemyInfo.Enemy2:
+                enemyPrefab = enemy2Prefab;
+                break;
+        }
+
+        if (enemyPrefab != null)
+        {
+            GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            enemy.transform.SetParent(transform.parent, true);
+            Enemy enemyScript = enemy.GetComponent<Enemy>();
+            if (enemyScript != null)
+            {
+                enemyScript.StartMove(); 
+            }
+        }
     }
 }
+
+
