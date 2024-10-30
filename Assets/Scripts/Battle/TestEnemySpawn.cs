@@ -5,17 +5,50 @@ using UnityEngine;
 public class TestEnemySpawn : MonoBehaviour
 {
     public EnemySpawner enemySpawner;
-
+    MapType currentMapType;
     private void Start()
     {
-        List<SpawnData> spawnDataList = new List<SpawnData>
-        {
-            new SpawnData { enemyInfo = EnemyInfo.Enemy1, spawnTime = 1.0f, wayPoints = new List<Vector3> { new Vector3(5, 5, 0), new Vector3(12, 10, 0) } },
-            new SpawnData { enemyInfo = EnemyInfo.Enemy1, spawnTime = 3.0f, wayPoints = new List<Vector3> { new Vector3(0, 2, 0), new Vector3(2, 2, 0) } },
-            new SpawnData { enemyInfo = EnemyInfo.Enemy2, spawnTime = 2.0f, wayPoints = new List<Vector3> { new Vector3(1, 0, 0), new Vector3(1, 1, 0) } },
-            new SpawnData { enemyInfo = EnemyInfo.Enemy2, spawnTime = 3.0f, wayPoints = new List<Vector3> { new Vector3(2, 0, 0), new Vector3(2, 1, 0) } },
-        };
+    }
 
-        enemySpawner.SpawnEnemies(spawnDataList);
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.H))
+            {
+            SelectMapType(2);
+        }
+        if(Input.GetKeyDown(KeyCode.V))
+        {
+            SelectMapType(1);
+        }
+    }
+
+    public void SelectMapType(int index)
+    {
+        if (index == 2)
+        {
+            currentMapType = MapType.stage_two;
+            UpdateEnemySpawner();
+        }
+        if(index == 1)
+        {
+            currentMapType = MapType.stage_one;
+            UpdateEnemySpawner();
+        }
+      
+    }
+    public void UpdateEnemySpawner()
+    {
+        int index = (int)currentMapType;
+        switch (index)
+        {
+            case 0:
+                enemySpawner.SpawnEnemies(DataManager.enemySpawners[MapType.stage_one]);
+                break;
+
+            case 1:
+                enemySpawner.SpawnEnemies(DataManager.enemySpawners[MapType.stage_two]);
+                break;
+
+        }
     }
 }
