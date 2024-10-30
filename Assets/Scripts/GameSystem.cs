@@ -11,13 +11,6 @@ public class GameSystem : MonoBehaviour
 
     public float MapMoveTime { get { return mapMoveTime; } }
 
-    Player myPlayer;
-
-    public Player MyPlayer {  
-        get { return myPlayer; }
-        set { myPlayer = value; }
-    }
-
     private void Awake()
     {
         Instance = this;

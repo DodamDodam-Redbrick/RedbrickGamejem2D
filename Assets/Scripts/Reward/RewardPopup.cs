@@ -6,12 +6,11 @@ using UnityEngine.UI;
 
 public class RewardPopup : MonoBehaviour
 {
-    [SerializeField]
     Image rewardImage;
 
-    [SerializeField]
     TextMeshProUGUI rewardDescription;
 
+    Reward reward;
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +24,28 @@ public class RewardPopup : MonoBehaviour
         
     }
 
-    public void Set(RewardIndex index)
+    public void Set(Reward reward)
     {
-        rewardImage.sprite = Resources.Load<Sprite>(DataManager.RewardData[index].imagePath);
-        rewardDescription.text = DataManager.RewardData[index].description;
+        this.reward = reward;
+
+        rewardImage.sprite = Resources.Load<Sprite>(DataManager.RewardData[reward.rewardType].imagePath);
+        rewardDescription.text = DataManager.RewardData[reward.rewardType].description;
+    }
+
+    public void OnClickCard()
+    {
+        switch (reward.rewardType)
+        {
+            case RewardType.gold:
+                Player.Instance.ChangeGold(reward.gold);
+                break;
+            case RewardType.unit:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+        }
+
+        //1. 데이터에 자기 리워드 추가시켜주고
+        //2. 부모가 되는 리워드 레이아웃 삭제
+        //3. 다음 스텝 진행
     }
 }

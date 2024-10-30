@@ -7,6 +7,7 @@ TagManager:
   - SpawnPoint
   - Room
   - Minimap
+  - NotRoad
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - UI
   - Minimap
   - Player
-  - 
-  - 
+  - Wall
+  - HighPlace
   - 
   - 
   - 
