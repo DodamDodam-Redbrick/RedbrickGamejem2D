@@ -189,19 +189,19 @@ public class Room : MonoBehaviour
         switch (newValue)
         {
             case RoomType.shop:
-                roomTypeSprite.sprite = DataManager.ImageData[ImageIndex.map_shop];
+                roomTypeSprite.sprite = DataManager.imageData[ImageIndex.map_shop];
             break;
             case RoomType.start:
-                roomTypeSprite.sprite = DataManager.ImageData[ImageIndex.map_start];
+                roomTypeSprite.sprite = DataManager.imageData[ImageIndex.map_start];
                 break;
             case RoomType.boss:
-                roomTypeSprite.sprite = DataManager.ImageData[ImageIndex.map_boss];
+                roomTypeSprite.sprite = DataManager.imageData[ImageIndex.map_boss];
                 break;
             case RoomType.battle:
-                roomTypeSprite.sprite = DataManager.ImageData[ImageIndex.map_battle];
+                roomTypeSprite.sprite = DataManager.imageData[ImageIndex.map_battle];
                 break;
             case RoomType.randomEvent:
-                roomTypeSprite.sprite = DataManager.ImageData[ImageIndex.map_randomEvent];
+                roomTypeSprite.sprite = DataManager.imageData[ImageIndex.map_randomEvent];
                 break;
         }
     }

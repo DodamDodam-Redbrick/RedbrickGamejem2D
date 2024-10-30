@@ -10,11 +10,13 @@ public enum EnemyState
     attack,
 }
 
-public class Enemy : Entity
+public class EnemyInfo : Entity
 {
-    [SerializeField]
-    private float speed = 3f;
+    public float speed = 3f;
+}
 
+public class Enemy : MonoBehaviour
+{
     [SerializeField]
     Animator anim;
 
@@ -25,6 +27,10 @@ public class Enemy : Entity
 
     Coroutine coMove;
     Coroutine coMoveToWayPoint;
+
+    MapGrid mapGrid;
+
+    EnemyInfo enemyInfo;
 
     EnemyState state;
     public EnemyState State
@@ -50,13 +56,6 @@ public class Enemy : Entity
 
     }
 
-    protected override void Start()
-    {
-        base.Start();
-
-        StartMove(); //디버깅용
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -70,6 +69,10 @@ public class Enemy : Entity
         }
 #endif
 
+    }
+    public void SetMapGrid()
+    {
+        mapGrid = transform.parent.GetComponent<BattleManager>().mapGrid;
     }
 
     public void SetWayPoints(List<Vector3> wayPoints)
@@ -142,7 +145,7 @@ public class Enemy : Entity
 
                 targetNode = myWay[index];
             }
-            transform.position = Vector2.MoveTowards(transform.position, targetNode.myPos, Time.deltaTime * speed);
+            transform.position = Vector2.MoveTowards(transform.position, targetNode.myPos, Time.deltaTime * enemyInfo.speed);
 
             //보는 방향
             int characterX = mapGrid.GetNodeFromVector(transform.position).myX;

@@ -6,8 +6,10 @@ using UnityEngine.UI;
 
 public class RewardPopup : MonoBehaviour
 {
+    [SerializeField]
     Image rewardImage;
 
+    [SerializeField]
     TextMeshProUGUI rewardDescription;
 
     Reward reward;
@@ -15,7 +17,14 @@ public class RewardPopup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+#if UNITY_EDITOR
+        //µð¹ö±ë
+        UnitInfo unit = (UnitInfo)DataManager.entityData[EntityType.sword];
+ 
+        reward = new Reward(DataManager.imageData[ImageIndex.unit_sword_thumbnail], "hi", RewardType.unit, unit);
+
+        Set(reward);
+#endif
     }
 
     // Update is called once per frame
@@ -28,8 +37,8 @@ public class RewardPopup : MonoBehaviour
     {
         this.reward = reward;
 
-        rewardImage.sprite = Resources.Load<Sprite>(DataManager.RewardData[reward.rewardType].imagePath);
-        rewardDescription.text = DataManager.RewardData[reward.rewardType].description;
+        rewardImage.sprite = reward.thumbnail;
+        rewardDescription.text = reward.description;
     }
 
     public void OnClickCard()

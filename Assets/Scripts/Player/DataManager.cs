@@ -6,16 +6,19 @@ using UnityEngine;
 
 public enum EntityType
 {
-    //�Ʊ� ��ƼƼ
+    //¾Æ±º ¿£Æ¼Æ¼
     tank = 0,
     sword = 1,
     bow = 2,
     caster = 3,
     healer = 4,
 
-    //�� ��ƼƼ
-    slime = 101,
-    wolf = 102,
+    //Àû ¿£Æ¼Æ¼
+    slime = 100,
+    wolf = 101,
+
+    //ÃÑ¾Ë ¿£Æ¼Æ¼
+    bowBullet = 200,
 }
 
 public enum RewardType
@@ -31,6 +34,8 @@ public enum ImageIndex
     map_shop,
     map_randomEvent,
     map_start,
+
+    unit_sword_thumbnail,
 }
 
 public enum MapType
@@ -41,11 +46,30 @@ public enum MapType
 
 public class Reward
 {
-    public string imagePath;
+    public Reward(Sprite thumbnail, string description, RewardType rewardType, int gold = 0)
+    {
+        SetInfo(thumbnail, description, rewardType);
+        this.gold = gold;
+    }
+
+    public Reward(Sprite thumbnail, string description, RewardType rewardType, UnitInfo unit = null)
+    {
+        SetInfo(thumbnail, description, rewardType);
+        this.unit = unit;
+    }
+
+    void SetInfo(Sprite thumbnail, string description, RewardType rewardType)
+    {
+        this.thumbnail = thumbnail;
+        this.description = description;
+        this.rewardType = rewardType;
+    }
+
+    public Sprite thumbnail;
     public string description;
     public RewardType rewardType;
 
-    public Unit unit;
+    public UnitInfo unit;
     public int gold;
 }
 
@@ -68,9 +92,16 @@ public class DataManager : MonoBehaviour
     [SerializeField]
     Sprite startSprite;
 
-    public static Dictionary<EntityType, Entity> EntityData = new Dictionary<EntityType, Entity>();
-    public static Dictionary<RewardType, Reward> RewardData = new Dictionary<RewardType, Reward>();
-    public static Dictionary<ImageIndex, Sprite> ImageData = new Dictionary<ImageIndex, Sprite>();
+    [SerializeField]
+    Sprite swordSprite;
+
+    [SerializeField]
+    GameObject swordPrefab;
+
+    public static Dictionary<RewardType, Reward> rewardData = new Dictionary<RewardType, Reward>(); //º¸»ó¿¡ ÇÊ¿äÇÑ Á¤º¸µé
+    public static Dictionary<ImageIndex, Sprite> imageData = new Dictionary<ImageIndex, Sprite>(); //°¢ ÀÌ¹ÌÁöµé °ü¸®ÇÏ´Â ¿ë
+    public static Dictionary<EntityType, GameObject> prefabData = new Dictionary<EntityType, GameObject>(); //°¢ ÇÁ¸®ÆÕµé °ü¸®ÇÏ´Â ¿ë
+    public static Dictionary<EntityType, Entity> entityData = new Dictionary<EntityType, Entity>(); //¼ÒÈ¯ÇÒ ¶§ ÇÁ¸®ÆÕ °ª ÃÊ±âÈ­ ¿ë
 
     public static Dictionary<MapType, List<SpawnData>> enemySpawners = new Dictionary<MapType, List<SpawnData>>();
 
@@ -80,13 +111,21 @@ public class DataManager : MonoBehaviour
 
         Instance = this;
 
-        ImageData[ImageIndex.map_boss] = bossSprite;
-        ImageData[ImageIndex.map_battle] = battleSprite;
-        ImageData[ImageIndex.map_randomEvent] = randomEventSprite;
-        ImageData[ImageIndex.map_shop] = shopSprite;
-        ImageData[ImageIndex.map_start] = startSprite;
+        imageData[ImageIndex.map_boss] = bossSprite;
+        imageData[ImageIndex.map_battle] = battleSprite;
+        imageData[ImageIndex.map_randomEvent] = randomEventSprite;
+        imageData[ImageIndex.map_shop] = shopSprite;
+        imageData[ImageIndex.map_start] = startSprite;
+        imageData[ImageIndex.unit_sword_thumbnail] = swordSprite;
+
+        prefabData[EntityType.sword] = swordPrefab;
 
         ApplyEnemySpawners();
+        
+        //Áß¿ä!! ÀÌ¹ÌÁö µ¥ÀÌÅÍ¶û ÇÁ¸®ÆÕ µ¥ÀÌÅÍº¸´Ù µÚ¿¡¿Ã°Í
+        EntityStats swordStat = new EntityStats(100, 5, 1, 1, 1, 10, 1);
+        entityData[EntityType.sword] = new UnitInfo(swordStat, UnitType.sword, imageData[ImageIndex.unit_sword_thumbnail], swordPrefab);
+
     }
 
     private void ApplyEnemySpawners()
