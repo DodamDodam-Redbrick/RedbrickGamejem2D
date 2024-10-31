@@ -232,7 +232,7 @@ MonoBehaviour:
     - Key: 15
       Value: {fileID: 1384366362914734, guid: 10c65f0c164d2e04e9c3daf97304609a, type: 3}
   roomPrefab: {fileID: 2685066841457720518}
-  roomTypeSprite: {fileID: 7793464610107381157}
+  roomTypeSpriteRenderer: {fileID: 7793464610107381157}
   spawnPoints:
   - {fileID: 2829118771758917720}
   - {fileID: 355404290511336432}

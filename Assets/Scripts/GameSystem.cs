@@ -13,8 +13,22 @@ public class GameSystem : MonoBehaviour
     float mapMoveTime = 2;
 
     [SerializeField]
+    GameObject playerLayout;
+
+    [SerializeField]
     GameObject minimapPrefab;
-    GameObject minimap;
+    RoomManager minimap;
+
+    [SerializeField]
+    GameObject battleMapPrefab;
+    BattleManager battleMap;
+
+    int stage = 1;
+
+    Dictionary<int, List<MapType>> stageMaps = new Dictionary<int, List<MapType>>()
+    {
+        {1, new List<MapType>(){MapType.firstStage_one, MapType.firstStage_two } },
+    };
 
     public float MapMoveTime { get { return mapMoveTime; } }
 
@@ -67,14 +81,53 @@ public class GameSystem : MonoBehaviour
         //1. 맵 랜덤생성
         if(minimap != null)
         {
-            Destroy(minimap);
+            Destroy(minimap.gameObject);
             minimap = null;
         }
 
-        minimap = Instantiate(minimapPrefab);
-        RoomManager minimapManager = minimap.GetComponent<RoomManager>();
-        minimapManager.Init();
-        minimapManager.GenerateRandomMap();
+        minimap = Instantiate(minimapPrefab).GetComponent<RoomManager>();
+        minimap.Init();
+        minimap.GenerateRandomMap();
+    }
+
+    public void EnterNewRoom(RoomType roomType)
+    {
+        switch (roomType)
+        {
+            case RoomType.battle:
+                StartBattle();
+                break;
+            case RoomType.boss:
+                StartBossBattle();
+                break;
+        }
+    }
+
+    public void StartBattle()
+    {
+        playerLayout.SetActive(true);
+
+
+        //랜덤맵 정해서 배틀맵 보여주기
+    }
+
+    public void StartBossBattle()
+    {
+        playerLayout.SetActive(true);
+
+        //보스맵으로 배틀맵 보여주기
+    }
+
+    public void FinishBattle()
+    {
+        playerLayout.SetActive(false);
+
+        //할거 다하고 메인메뉴로 가기 (가기전에 통계표 보여주는것도 ㄱㅊ을듯
+    }
+
+    public void DefeatedBattle()
+    {
+
     }
 
     public void ShowRandomRewardPopup(int count)

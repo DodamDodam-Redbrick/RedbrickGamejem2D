@@ -13,40 +13,32 @@ public class TestEnemySpawn : MonoBehaviour
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.H))
-            {
-            SelectMapType(2);
+        {
+            SelectMapType(MapType.firstStage_one);
         }
         if(Input.GetKeyDown(KeyCode.V))
         {
-            SelectMapType(1);
+            SelectMapType(MapType.firstStage_two);
         }
     }
 
-    public void SelectMapType(int index)
+    public void SelectMapType(MapType index)
     {
-        if (index == 2)
-        {
-            currentMapType = MapType.stage_two;
-            UpdateEnemySpawner();
-        }
-        if(index == 1)
-        {
-            currentMapType = MapType.stage_one;
-            UpdateEnemySpawner();
-        }
-      
+        currentMapType = index;
+        UpdateEnemySpawner();
     }
+
     public void UpdateEnemySpawner()
     {
         int index = (int)currentMapType;
         switch (index)
         {
             case 0:
-                enemySpawner.SpawnEnemies(DataManager.enemySpawners[MapType.stage_one]);
+                enemySpawner.SpawnEnemies(DataManager.enemySpawners[MapType.firstStage_one]);
                 break;
 
             case 1:
-                enemySpawner.SpawnEnemies(DataManager.enemySpawners[MapType.stage_two]);
+                enemySpawner.SpawnEnemies(DataManager.enemySpawners[MapType.firstStage_two]);
                 break;
 
         }

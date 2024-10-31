@@ -29,7 +29,7 @@ public class RoomManager : MonoBehaviour
     Player player;
 
     [HideInInspector]
-    public List<GameObject> rooms;
+    public List<Room> rooms;
 
     bool isSecond;
 
@@ -82,16 +82,40 @@ public class RoomManager : MonoBehaviour
 
         isSecond = true;
 
-        //각 방의 타입을 정해줌
 
+        SetEachRoomType();
+
+        //방에 걸맞는 벽을 세워줌
+        for (int i = 0; i < rooms.Count; i++)
+        {
+            rooms[i].SetRoom();
+            rooms[i].HideArrow();
+            rooms[i].HideRoom();
+        }
+
+        rooms[0].ShowRoom();
+        //플레이어를 시작방으로 이동
+        player.transform.position = rooms[0].transform.position;
+    }
+
+
+    void SetEachRoomType()
+    {
+        //각 방의 타입을 정해줌
         int rand = Random.Range(1, rooms.Count - 1);
-        rooms[rand].GetComponent<Room>().roomType = RoomType.shop;
+        rooms[rand].roomType = RoomType.shop;
+
+        //기본이 battle이기 때문에 한번 초기화해줌
+        foreach (Room room in rooms)
+        {
+            room.roomType = RoomType.battle;
+        }
 
         int specialCount = Random.Range(minRandomRange, maxRandomRange);
-        for (int i=0;i<specialCount; i++)
+        for (int i = 0; i < specialCount; i++)
         {
             rand = Random.Range(1, rooms.Count - 1); //첫번째방은 start방이고 마지막방은 boss방
-            Room room = rooms[rand].GetComponent<Room>();
+            Room room = rooms[rand];
             if (room.roomType != RoomType.battle)
             {
                 i--;
@@ -101,22 +125,7 @@ public class RoomManager : MonoBehaviour
             room.roomType = RoomType.randomEvent;
         }
 
-        rooms[0].GetComponent<Room>().roomType = RoomType.start;
-        rooms[rooms.Count - 1].GetComponent<Room>().roomType = RoomType.boss;
-
-        //방에 걸맞는 벽을 세워줌
-        for (int i = 0; i < rooms.Count; i++)
-        {
-            Room room = rooms[i].GetComponent<Room>();
-            room.SetRoom();
-            room.HideArrow();
-            room.HideRoom();
-        }
-
-        //플레이어를 시작방으로 이동
-        player.transform.position = rooms[0].transform.position;
-        rooms[0].GetComponent<Room>().ShowRoom();
-
+        rooms[0].roomType = RoomType.start;
+        rooms[rooms.Count - 1].roomType = RoomType.boss;
     }
-
 }

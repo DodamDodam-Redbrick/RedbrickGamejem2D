@@ -56,7 +56,7 @@ public class Room : MonoBehaviour
     GameObject roomPrefab;
 
     [SerializeField]
-    SpriteRenderer roomTypeSprite;
+    SpriteRenderer roomTypeSpriteRenderer;
 
     [SerializeField, Tooltip("left, right, top, bottom 순으로 정렬해야함")]
     SpawnPoint[] spawnPoints;
@@ -70,7 +70,11 @@ public class Room : MonoBehaviour
     [SerializeField, Tooltip("방이 생성되는 확률, 기준은 할")]
     int connectRate = 6;
 
+    Sprite roomTypeSprite;
+
     RoomType _roomType;
+
+    bool isVisited;
 
     public RoomType roomType
     {
@@ -87,7 +91,7 @@ public class Room : MonoBehaviour
 
     void Start()
     {
-        RoomManager.Instance.rooms.Add(this.gameObject);
+        RoomManager.Instance.rooms.Add(this);
 
         StartCoroutine(SpawnRoom());
     }
@@ -167,6 +171,14 @@ public class Room : MonoBehaviour
     public void ShowRoom()
     {
         gameObject.SetActive(true);
+        if (!isVisited)
+        {
+            roomTypeSpriteRenderer.sprite = DataManager.imageData[ImageIndex.map_unknown];
+        }
+        else
+        {
+            roomTypeSpriteRenderer.sprite = roomTypeSprite;
+        }
     }
 
     public void ShowNearbyRoom()
@@ -189,20 +201,23 @@ public class Room : MonoBehaviour
         switch (newValue)
         {
             case RoomType.shop:
-                roomTypeSprite.sprite = DataManager.imageData[ImageIndex.map_shop];
+                roomTypeSprite = DataManager.imageData[ImageIndex.map_shop];
             break;
             case RoomType.start:
-                roomTypeSprite.sprite = DataManager.imageData[ImageIndex.map_start];
-                break;
+                roomTypeSprite = DataManager.imageData[ImageIndex.map_start];
+            break;
             case RoomType.boss:
-                roomTypeSprite.sprite = DataManager.imageData[ImageIndex.map_boss];
-                break;
+                roomTypeSprite = DataManager.imageData[ImageIndex.map_boss];
+            break;
             case RoomType.battle:
-                roomTypeSprite.sprite = DataManager.imageData[ImageIndex.map_battle];
-                break;
+                roomTypeSprite = DataManager.imageData[ImageIndex.map_battle];
+            break;
             case RoomType.randomEvent:
-                roomTypeSprite.sprite = DataManager.imageData[ImageIndex.map_randomEvent];
-                break;
+                roomTypeSprite = DataManager.imageData[ImageIndex.map_randomEvent];
+            break;
+            default:
+                roomTypeSprite = null;
+            break;
         }
     }
 
@@ -210,9 +225,16 @@ public class Room : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            if(isVisited == false)
+            {
+                isVisited = true; //무조건 ShowRoom보다 먼저
+                //자기 방 타입에 맞는 이벤트 진입
+
+            }
+
+            ShowRoom();
             ShowArrow();
             ShowNearbyRoom();
-            //여기에서 배틀 진입하면 될듯
         }
     }
 
