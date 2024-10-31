@@ -22,12 +22,11 @@ public class RoomManager : MonoBehaviour
     Transform minimapPanel;
 
     [SerializeField]
-    Transform player;
-
-    [SerializeField]
     GameObject mapGeneratorPrefab;
 
     GameObject mapGenerator;
+
+    Player player;
 
     [HideInInspector]
     public List<GameObject> rooms;
@@ -41,18 +40,14 @@ public class RoomManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
+    public void Init()
     {
-        GenerateRandomMap();
+        Instance = this;
+
+        player = Player.Instance;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void GenerateRandomMap()
+    public void GenerateRandomMap()
     {
         if(mapGenerator != null)
         {

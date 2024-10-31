@@ -12,23 +12,14 @@ public class RewardPopup : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI rewardDescription;
 
+    RewardPanel rewardPanel;
+
     Reward reward;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Set(Reward reward, RewardPanel panel)
     {
-#if UNITY_EDITOR
-        //디버깅
-        UnitInfo unit = (UnitInfo)DataManager.entityData[EntityType.sword];
- 
-        reward = new Reward(DataManager.imageData[ImageIndex.unit_sword_thumbnail], "hi", RewardType.unit, unit);
+        rewardPanel = panel;
 
-        Set(reward);
-#endif
-    }
-
-    public void Set(Reward reward)
-    {
         this.reward = reward;
 
         rewardImage.sprite = reward.thumbnail;
@@ -51,7 +42,7 @@ public class RewardPopup : MonoBehaviour
         //2. 부모가 되는 리워드 레이아웃 삭제
         //일단 Destroy하는데 재활용으로 변경추천
         //transform.parent.gameObject.SetActive(false);
-        Destroy(transform.parent);
+        rewardPanel.HidePopupPanel();
 
         //3. 다음 스텝 진행
         //go to minimap
