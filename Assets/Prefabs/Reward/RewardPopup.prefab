@@ -138,7 +138,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rewardImage: {fileID: 3796880159466862854}
   rewardDescription: {fileID: 7648516171361844323}
-  rewardPanel: {fileID: 0}
 --- !u!114 &5800077015489304833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,8 +291,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: aa33810298aed8147837b410030afe7a, type: 2}
+  m_sharedMaterial: {fileID: -1969702673288749243, guid: aa33810298aed8147837b410030afe7a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -2,14 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum UnitType
-{
-    tanker,
-    sword,
-    ranger,
-    healer,
-}
-
 public class UnitInfo : Entity
 {
     public UnitInfo(EntityStats entityStats, UnitType unitType, Sprite thumbnail, GameObject unitPrefab, GameObject bulletPrefab = null)

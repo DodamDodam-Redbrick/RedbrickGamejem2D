@@ -5510,6 +5510,7 @@ MonoBehaviour:
   randomEventSprite: {fileID: 21300000, guid: 71644a7e33c67864ba84c671dce0b50d, type: 3}
   startSprite: {fileID: 21300000, guid: cb8f17adbb3b40b46ae6f7461a398ce0, type: 3}
   unknownSprite: {fileID: 21300000, guid: 3fc3bc906de06034db72328d93713058, type: 3}
+  goldSprite: {fileID: 21300000, guid: 0caf4f341ce837442b5c4f49a9a5b277, type: 3}
   swordThumbnail: {fileID: 613658156, guid: 1bc6097228993f045852159e71f81d5b, type: 3}
   swordPrefab: {fileID: 0}
 --- !u!4 &1356933290
@@ -7632,8 +7633,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rewardPanel: {fileID: 2036620124}
   mapMoveTime: 1
-  playerLayout: {fileID: 0}
+  playerLayout: {fileID: 863807034}
   minimapPrefab: {fileID: 6274140249890337117, guid: 5b3ec0cce63a1ee4a89ef2123a0a3853, type: 3}
+  battleMapPrefab: {fileID: 5911118916348384798, guid: a432a732e3ed63d4b8901692b2750148, type: 3}
+  rewardAmount: 3
+  minRewardGold: 5
+  maxRewardGold: 10
 --- !u!4 &2147320674
 Transform:
   m_ObjectHideFlags: 0

@@ -12,14 +12,10 @@ public class RewardPopup : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI rewardDescription;
 
-    RewardPanel rewardPanel;
-
     Reward reward;
 
-    public void Set(Reward reward, RewardPanel panel)
+    public void Set(Reward reward)
     {
-        rewardPanel = panel;
-
         this.reward = reward;
 
         rewardImage.sprite = reward.thumbnail;
@@ -34,15 +30,13 @@ public class RewardPopup : MonoBehaviour
             case RewardType.gold:
                 Player.Instance.ChangeGold(reward.gold);
                 break;
-            case RewardType.unit:
+            case RewardType.unit_sword:
                 Player.Instance.AddUnit(reward.unit);
                 break;
         }
 
-        //2. 부모가 되는 리워드 레이아웃 삭제
-        //일단 Destroy하는데 재활용으로 변경추천
-        //transform.parent.gameObject.SetActive(false);
-        rewardPanel.HidePopupPanel();
+        //2. 부모가 되는 리워드 레이아웃 숨김
+        GameSystem.Instance.FinishGetReward();
 
         //3. 다음 스텝 진행
         //go to minimap

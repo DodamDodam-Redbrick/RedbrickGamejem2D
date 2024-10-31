@@ -23,6 +23,15 @@ public class GameSystem : MonoBehaviour
     GameObject battleMapPrefab;
     BattleManager battleMap;
 
+    [SerializeField]
+    int rewardAmount = 3;
+
+    [SerializeField]
+    int minRewardGold = 5;
+
+    [SerializeField]
+    int maxRewardGold = 10;
+
     int stage = 1;
 
     Dictionary<int, List<MapType>> stageMaps = new Dictionary<int, List<MapType>>()
@@ -40,21 +49,11 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-#if UNITY_EDITOR
-        //리워드 창 만드는 예시
-        //List<Reward> rewards = new List<Reward>();
-        
-        //UnitInfo unit = (UnitInfo)DataManager.entityData[EntityType.sword];
-
-        //Reward reward = new Reward(DataManager.imageData[ImageIndex.unit_sword_thumbnail], "hi", RewardType.unit, unit);
-
-        //rewards.Add(reward);
-        //rewards.Add(reward);
-
-        //ShowRewardPopup(rewards);
-#endif
-
         OnStartGame();
+
+#if UNITY_EDITOR
+        GetReward();
+#endif
     }
 
     // Update is called once per frame
@@ -103,6 +102,15 @@ public class GameSystem : MonoBehaviour
         }
     }
 
+    public void CloseBattleMap()
+    {
+        if (battleMap != null)
+        {
+            Destroy(battleMap.gameObject);
+            battleMap = null;
+        }
+    }
+
     public void StartBattle()
     {
         playerLayout.SetActive(true);
@@ -122,12 +130,55 @@ public class GameSystem : MonoBehaviour
     {
         playerLayout.SetActive(false);
 
-        //할거 다하고 메인메뉴로 가기 (가기전에 통계표 보여주는것도 ㄱㅊ을듯
+        GetReward();
+        //리워드 받고 화면 꺼지길 원하면 Coroutine으로
+        CloseBattleMap();
+    }
+
+    public void GetReward()
+    {
+        //랜덤으로 리워드 정하기
+        List<Reward> rewards = new List<Reward>();
+
+        for(int i = 0; i < rewardAmount; i++)
+        {
+            RewardType rewardType = GetRandomRewardType();
+            Reward reward = new Reward(DataManager.rewardData[rewardType].thumbnail, DataManager.rewardData[rewardType].description
+                        , rewardType);
+
+            if(rewardType == RewardType.gold)
+            {
+                reward.gold = Random.Range(minRewardGold, maxRewardGold);
+            }
+
+            switch (rewardType)
+            {
+                case RewardType.gold:
+                    break;
+                case RewardType.unit_sword:
+                    UnitType unitType = GetRandomUnitType();
+                    UnitInfo originUnitInfo = (UnitInfo)DataManager.entityData[(EntityType)unitType]; //얕은 복사
+                    UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab); //깊은 복사
+                    reward.unit = unit;
+                    break;
+            }
+
+            rewards.Add(reward);
+        }
+
+        rewardPanel.ShowPopupPanel(rewards);
+    }
+
+    public void FinishGetReward()
+    {
+        rewardPanel.HidePopupPanel();
+        //미니맵 열기
     }
 
     public void DefeatedBattle()
     {
 
+        //할거 다하고 메인메뉴로 가기 (가기전에 통계표 보여주는것도 ㄱㅊ을듯
     }
 
     public void ShowRandomRewardPopup(int count)
@@ -145,5 +196,17 @@ public class GameSystem : MonoBehaviour
     public void ShowRewardPopup(List<Reward> rewards)
     {
         rewardPanel.ShowPopupPanel(rewards);
+    }
+
+    RewardType GetRandomRewardType()
+    {
+        var enumValues = System.Enum.GetValues(enumType: typeof(RewardType));
+        return (RewardType)enumValues.GetValue(Random.Range(0, enumValues.Length));
+    }
+
+    UnitType GetRandomUnitType()
+    {
+        var enumValues = System.Enum.GetValues(enumType: typeof(UnitType));
+        return (UnitType)enumValues.GetValue(Random.Range(0, enumValues.Length));
     }
 }

@@ -19,24 +19,43 @@ public enum EntityType
 
     //엔티티 투사체
     bowBullet = 200,
+
+    //그 외
+    gold = 300,
+}
+public enum UnitType
+{
+    sword = EntityType.sword,
+    //밑에는 값 만들고 주석 풀기
+    //tank = EntityType.tank,
+    //bow = EntityType.bow,
+    //healer = EntityType.healer,
+    //caster = EntityType.caster,
 }
 
 public enum RewardType
 {
-    gold,
-    unit,
+    gold = EntityType.gold,
+    unit_sword = EntityType.sword,
+    //마찬가지
+    //unit_tank = EntityType.tank,
+    //unit_bow = EntityType.bow,
+    //unit_healer = EntityType.healer,
+    //unit_caster = EntityType.caster,
 }
 
 public enum ImageIndex
 {
+    unit_sword_thumbnail = EntityType.sword,
+
+    reward_gold = EntityType.gold,
+
     map_boss,
     map_battle,
     map_shop,
     map_randomEvent,
     map_start,
     map_unknown,
-
-    unit_sword_thumbnail,
 }
 
 public enum MapType
@@ -47,10 +66,9 @@ public enum MapType
 
 public class Reward
 {
-    public Reward(Sprite thumbnail, string description, RewardType rewardType, int gold = 0)
+    public Reward(Sprite thumbnail, string description, RewardType rewardType)
     {
         SetInfo(thumbnail, description, rewardType);
-        this.gold = gold;
     }
 
     public Reward(Sprite thumbnail, string description, RewardType rewardType, UnitInfo unit = null)
@@ -97,6 +115,9 @@ public class DataManager : MonoBehaviour
     Sprite unknownSprite;
 
     [SerializeField]
+    Sprite goldSprite;
+
+    [SerializeField]
     Sprite swordThumbnail;
 
     [SerializeField]
@@ -116,9 +137,10 @@ public class DataManager : MonoBehaviour
 
         Instance = this;
 
-        ApplyImageDatas();
+        ApplyImageDatas(); //항상 이미지가 가장 먼저
         ApplyPrefabDatas();
         ApplyEnemySpawners();
+        ApplyRewardDatas();
         ApplyEntityDatas();
     }
 
@@ -131,7 +153,21 @@ public class DataManager : MonoBehaviour
         imageData[ImageIndex.map_start] = startSprite;
         imageData[ImageIndex.map_unknown] = unknownSprite;
 
+        imageData[ImageIndex.reward_gold] = goldSprite;
+
         imageData[ImageIndex.unit_sword_thumbnail] = swordThumbnail;
+    }
+
+    private void ApplyRewardDatas()
+    {
+        //일반 보상 넣는 법
+        rewardData[RewardType.gold] = new Reward(imageData[ImageIndex.reward_gold], "돈 입니다.", RewardType.gold);
+
+        //유닛 보상 넣는 법 | 스탯 순서(hp, damagae, def, moveSpeed, fireRate, skillCoolTime, weight)
+        EntityStats unitStat = new EntityStats(100, 5, 1, 1, 1, 10, 1);
+        //원거리 유닛이면 총알 맨 뒤에 추가해줘야함
+        UnitInfo unit = new UnitInfo(unitStat, UnitType.sword, imageData[ImageIndex.unit_sword_thumbnail], prefabData[EntityType.sword]);
+        rewardData[RewardType.unit_sword] = new Reward(unit.thumbnail, "근거리에서 싸우는 유닛입니다", RewardType.unit_sword);
     }
 
     private void ApplyPrefabDatas()

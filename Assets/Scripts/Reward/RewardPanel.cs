@@ -11,7 +11,7 @@ public class RewardPanel : MonoBehaviour
     [SerializeField]
     GameObject RewardLayout;
 
-    List<GameObject> rewardPools = new List<GameObject>();
+    List<RewardPopup> rewardPools = new List<RewardPopup>();
 
     public void ShowPopupPanel(List<Reward> rewards)
     {
@@ -19,37 +19,37 @@ public class RewardPanel : MonoBehaviour
 
         foreach (Reward reward in rewards)
         {
-            GameObject rewardPopup = GetUnUseRewardPool();
+            RewardPopup rewardPopup = GetUnUseRewardPool();
             //ÀçÈ°¿ëÀ¸·Î ¹Ù²Ü ¿¹Á¤
             if (rewardPopup != null)
             {
-                rewardPopup.SetActive(true);
+                rewardPopup.gameObject.SetActive(true);
             }
             else
             {
-                rewardPopup = Instantiate(RewardPopupPrefab, RewardLayout.transform);
+                rewardPopup = Instantiate(RewardPopupPrefab, RewardLayout.transform).GetComponent<RewardPopup>();
                 rewardPools.Add(rewardPopup);
             }
 
-            rewardPopup.GetComponent<RewardPopup>().Set(reward, this);
+            rewardPopup.Set(reward);
         }
     }
     
     public void HidePopupPanel()
     {
-        foreach(GameObject rewardPopup in rewardPools) //±ò²ûÇÏ°Ô ²ø¶§ ÀüºÎ ²¨¹ö¸²
+        foreach(RewardPopup rewardPopup in rewardPools) //±ò²ûÇÏ°Ô ²ø¶§ ÀüºÎ ²¨¹ö¸²
         {
-            rewardPopup.SetActive(false);
+            rewardPopup.gameObject.SetActive(false);
         }
 
         gameObject.SetActive(false);
     }
 
-    GameObject GetUnUseRewardPool()
+    RewardPopup GetUnUseRewardPool()
     {
-        foreach (GameObject reward in rewardPools)
+        foreach (RewardPopup reward in rewardPools)
         {
-            if(reward.activeInHierarchy == false)
+            if(reward.gameObject.activeInHierarchy == false)
             {
                 return reward;
             }
