@@ -35,11 +35,6 @@ public class RoomManager : MonoBehaviour
 
     public bool IsSpawnComplete { get { return roomCount <= rooms.Count; } }
 
-    private void Awake()
-    {
-        Instance = this;
-    }
-
     public void Init()
     {
         Instance = this;

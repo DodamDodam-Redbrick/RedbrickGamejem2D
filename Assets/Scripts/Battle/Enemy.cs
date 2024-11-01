@@ -12,7 +12,7 @@ public enum EnemyState
 
 public class EnemyInfo : Entity
 {
-    public EnemyInfo(EntityStats enemyStat, EntityType enemyType, GameObject enemyPrefab, GameObject bulletPrefab = null)
+    public EnemyInfo(EntityStats enemyStat, EnemyType enemyType, GameObject enemyPrefab, GameObject bulletPrefab = null)
     {
         base.entityStats = entityStats;
         this.unitType = enemyType;
@@ -21,7 +21,7 @@ public class EnemyInfo : Entity
         base.bulletPrefab = bulletPrefab;
     }
 
-    public EntityType unitType;
+    public EnemyType unitType;
 
 }
 
@@ -68,6 +68,13 @@ public class Enemy : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+#if UNITY_EDITOR
+        SetMapGrid();
+#endif
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -105,6 +112,8 @@ public class Enemy : MonoBehaviour
 
     IEnumerator CoMoveToWayPoint()
     {
+        yield return null;
+
         foreach (Vector3 wayPoint in wayPoints)
         {
             if (!mapGrid.GetNodeFromVector(wayPoint).canWalk)
@@ -157,7 +166,8 @@ public class Enemy : MonoBehaviour
 
                 targetNode = myWay[index];
             }
-            transform.position = Vector2.MoveTowards(transform.position, targetNode.myPos, Time.deltaTime * enemyInfo.entityStats.moveSpeed);
+            //transform.position = Vector2.MoveTowards(transform.position, targetNode.myPos, Time.deltaTime * enemyInfo.entityStats.moveSpeed);
+            transform.position = Vector2.MoveTowards(transform.position, targetNode.myPos, Time.deltaTime * 5);
 
             //보는 방향
             int characterX = mapGrid.GetNodeFromVector(transform.position).myX;

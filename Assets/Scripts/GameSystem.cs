@@ -18,8 +18,6 @@ public class GameSystem : MonoBehaviour
     [SerializeField]
     int maxRewardGold = 10;
 
-    int stage = 1;
-
     [Header("Panels")]
     [SerializeField]
     public EventPanel eventPanel;
@@ -35,19 +33,13 @@ public class GameSystem : MonoBehaviour
     GameObject minimapPrefab;
     RoomManager minimap;
 
-    [SerializeField]
-    GameObject battleMapPrefab;
-    BattleManager battleMap;
-
     [Header("Layouts")]
     [SerializeField]
     GameObject playerLayout;
 
+    int stage = 1;
 
-    Dictionary<int, List<MapType>> stageMaps = new Dictionary<int, List<MapType>>()
-    {
-        {1, new List<MapType>(){MapType.firstStage_one, MapType.firstStage_two } },
-    };
+    BattleManager battleMap;
 
     public float MapMoveTime { get { return mapMoveTime; } }
 
@@ -59,10 +51,23 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        OnStartGame();
+        StartCoroutine(CoStartGame());
+
 #if UNITY_EDITOR
-        // GetReward();
+        //GetReward();
+        //GetEvent();
+
 #endif
+    }
+
+    IEnumerator CoStartGame()
+    {
+        while (!DataManager.Instance.isFinishLoad)
+        {
+            yield return null;
+        }
+
+        OnStartGame();
     }
 
     // Update is called once per frame
@@ -110,7 +115,7 @@ public class GameSystem : MonoBehaviour
                 break;
 
             case RoomType.randomEvent:
-                GetEvent();
+                StartRandomEvent();
                 break;
 
         }
@@ -127,26 +132,41 @@ public class GameSystem : MonoBehaviour
 
     public void StartRandomEvent()
     {
+        EventType eventType = GetRandomEnumType<EventType>();
+        Event currentEvent = DataManager.eventData[eventType];
 
+        eventPanel.ShowEventPanel(currentEvent);
     }
+
+    void SetMinimapLayout()
+    {
+        Player.Instance.GetComponentInChildren<AudioListener>().enabled = true;
+        playerLayout.SetActive(false);
+    }
+
+    void SetBattleLayout()
+    {
+        Player.Instance.GetComponentInChildren<AudioListener>().enabled = false;
+        playerLayout.SetActive(true);
+    }
+
     public void StartBattle()
     {
-        playerLayout.SetActive(true);
-
-
+        SetBattleLayout();
         //랜덤맵 정해서 배틀맵 보여주기
+        MapType mapType = GetRandomEnumType<MapType>();
+        battleMap = Instantiate(DataManager.mapDatas[mapType]).GetComponent<BattleManager>();
     }
 
     public void StartBossBattle()
     {
-        playerLayout.SetActive(true);
-
+        SetBattleLayout();
         //보스맵으로 배틀맵 보여주기
     }
 
     public void FinishBattle()
     {
-        playerLayout.SetActive(false);
+        SetMinimapLayout();
 
         GetReward();
         //리워드 받고 화면 꺼지길 원하면 Coroutine으로
@@ -216,27 +236,16 @@ public class GameSystem : MonoBehaviour
         rewardPanel.ShowPopupPanel(rewards);
     }
 
-
-    T GetRandomEnumType<T>()
-    {
-        var enumValues = System.Enum.GetValues(enumType: typeof(T));
-        return (T)enumValues.GetValue(Random.Range(0, enumValues.Length));
-    }
-
-    public void GetEvent()
-    {
-        EventType eventType = GetRandomEnumType<EventType>();
-        Event currentEvent = DataManager.eventData[eventType];
-
-        eventPanel.ShowEventPanel(currentEvent);
-
-    }
-
-
-    
     public void FinishGetEvent()
     {
         eventPanel.HidePopUpPanel();
+    }
+
+    public T GetRandomEnumType<T>()
+
+    {
+        var enumValues = System.Enum.GetValues(enumType: typeof(T));
+        return (T)enumValues.GetValue(Random.Range(0, enumValues.Length));
     }
 
     public void ShowLoadingPanel()
