@@ -6,7 +6,7 @@ public class GameSystem : MonoBehaviour
 {
     public static GameSystem Instance;
 
-    [SerializeField, Tooltip("ÃÊ´ÜÀ§")]
+    [SerializeField, Tooltip("ì´ˆë‹¨ìœ„")]
     float mapMoveTime = 2;
 
     [SerializeField]
@@ -17,6 +17,8 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField]
     int maxRewardGold = 10;
+
+    public EventPanel eventPanel;
 
     int stage = 1;
 
@@ -39,6 +41,7 @@ public class GameSystem : MonoBehaviour
     [Header("Layouts")]
     [SerializeField]
     GameObject playerLayout;
+
 
     Dictionary<int, List<MapType>> stageMaps = new Dictionary<int, List<MapType>>()
     {
@@ -83,8 +86,8 @@ public class GameSystem : MonoBehaviour
 
     void OnStartGame()
     {
-        //°ÔÀÓ ½ÃÀÛÇÏ¸é
-        //1. ¸Ê ·£´ı»ı¼º
+        //ê²Œì„ ì‹œì‘í•˜ë©´
+        //1. ë§µ ëœë¤ìƒì„±
         if(minimap != null)
         {
             Destroy(minimap.gameObject);
@@ -108,6 +111,7 @@ public class GameSystem : MonoBehaviour
                 break;
 
             case RoomType.randomEvent:
+                GetEvent();
                 break;
 
         }
@@ -131,14 +135,14 @@ public class GameSystem : MonoBehaviour
         playerLayout.SetActive(true);
 
 
-        //·£´ı¸Ê Á¤ÇØ¼­ ¹èÆ²¸Ê º¸¿©ÁÖ±â
+        //ëœë¤ë§µ ì •í•´ì„œ ë°°í‹€ë§µ ë³´ì—¬ì£¼ê¸°
     }
 
     public void StartBossBattle()
     {
         playerLayout.SetActive(true);
 
-        //º¸½º¸ÊÀ¸·Î ¹èÆ²¸Ê º¸¿©ÁÖ±â
+        //ë³´ìŠ¤ë§µìœ¼ë¡œ ë°°í‹€ë§µ ë³´ì—¬ì£¼ê¸°
     }
 
     public void FinishBattle()
@@ -146,13 +150,13 @@ public class GameSystem : MonoBehaviour
         playerLayout.SetActive(false);
 
         GetReward();
-        //¸®¿öµå ¹Ş°í È­¸é ²¨Áö±æ ¿øÇÏ¸é CoroutineÀ¸·Î
+        //ë¦¬ì›Œë“œ ë°›ê³  í™”ë©´ êº¼ì§€ê¸¸ ì›í•˜ë©´ Coroutineìœ¼ë¡œ
         CloseBattleMap();
     }
 
     public void GetReward()
     {
-        //·£´ıÀ¸·Î ¸®¿öµå Á¤ÇÏ±â
+        //ëœë¤ìœ¼ë¡œ ë¦¬ì›Œë“œ ì •í•˜ê¸°
         List<Reward> rewards = new List<Reward>();
 
         for(int i = 0; i < rewardAmount; i++)
@@ -172,8 +176,8 @@ public class GameSystem : MonoBehaviour
                     break;
                 case RewardType.unit_sword:
                     UnitType unitType = GetRandomUnitType();
-                    UnitInfo originUnitInfo = (UnitInfo)DataManager.entityData[(EntityType)unitType]; //¾èÀº º¹»ç
-                    UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab); //±íÀº º¹»ç
+                    UnitInfo originUnitInfo = (UnitInfo)DataManager.entityData[(EntityType)unitType]; //ì–•ì€ ë³µì‚¬
+                    UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab); //ê¹Šì€ ë³µì‚¬
                     reward.unit = unit;
                     break;
             }
@@ -187,13 +191,13 @@ public class GameSystem : MonoBehaviour
     public void FinishGetReward()
     {
         rewardPanel.HidePopupPanel();
-        //¹Ì´Ï¸Ê ¿­±â
+        //ë¯¸ë‹ˆë§µ ì—´ê¸°
     }
 
     public void DefeatedBattle()
     {
 
-        //ÇÒ°Å ´ÙÇÏ°í ¸ŞÀÎ¸Ş´º·Î °¡±â (°¡±âÀü¿¡ Åë°èÇ¥ º¸¿©ÁÖ´Â°Íµµ ¤¡¤ºÀ»µí
+        //í• ê±° ë‹¤í•˜ê³  ë©”ì¸ë©”ë‰´ë¡œ ê°€ê¸° (ê°€ê¸°ì „ì— í†µê³„í‘œ ë³´ì—¬ì£¼ëŠ”ê²ƒë„ ã„±ã…Šì„ë“¯
     }
 
     public void ShowRandomRewardPopup(int count)
@@ -202,7 +206,7 @@ public class GameSystem : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            //º¸»ó Áß ·£´ıÇÏ°Ô rewards¿¡ Ãß°¡
+            //ë³´ìƒ ì¤‘ ëœë¤í•˜ê²Œ rewardsì— ì¶”ê°€
         }
 
         ShowRewardPopup(rewards);
