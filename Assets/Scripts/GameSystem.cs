@@ -18,8 +18,6 @@ public class GameSystem : MonoBehaviour
     [SerializeField]
     int maxRewardGold = 10;
 
-    public EventPanel eventPanel;
-
     int stage = 1;
 
     [Header("Panels")]
