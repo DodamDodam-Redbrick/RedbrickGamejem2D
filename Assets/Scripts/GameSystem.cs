@@ -11,12 +11,15 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField]
     int rewardAmount = 3;
+    int shopAmount = 3;
 
     [SerializeField]
     int minRewardGold = 5;
 
     [SerializeField]
     int maxRewardGold = 10;
+
+    int stage = 1;
 
     [Header("Panels")]
     [SerializeField]
@@ -26,6 +29,9 @@ public class GameSystem : MonoBehaviour
     public RewardPanel rewardPanel;
 
     [SerializeField]
+    public ShopPanel shopPanel;
+
+    [SerializeField]
     GameObject loadingPanel;
 
     [Header("Prefabs")]
@@ -33,13 +39,19 @@ public class GameSystem : MonoBehaviour
     GameObject minimapPrefab;
     RoomManager minimap;
 
+    [SerializeField]
+    GameObject battleMapPrefab;
+    BattleManager battleMap;
+
     [Header("Layouts")]
     [SerializeField]
     GameObject playerLayout;
 
-    int stage = 1;
 
-    BattleManager battleMap;
+    Dictionary<int, List<MapType>> stageMaps = new Dictionary<int, List<MapType>>()
+    {
+        {1, new List<MapType>(){MapType.firstStage_one } },
+    };
 
     public float MapMoveTime { get { return mapMoveTime; } }
 
@@ -51,23 +63,11 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(CoStartGame());
-
-#if UNITY_EDITOR
-        //GetReward();
-        //GetEvent();
-
-#endif
-    }
-
-    IEnumerator CoStartGame()
-    {
-        while (!DataManager.Instance.isFinishLoad)
-        {
-            yield return null;
-        }
-
         OnStartGame();
+#if UNITY_EDITOR
+        GetShop();
+        // GetReward();
+#endif
     }
 
     // Update is called once per frame
@@ -115,7 +115,7 @@ public class GameSystem : MonoBehaviour
                 break;
 
             case RoomType.randomEvent:
-                StartRandomEvent();
+                GetEvent();
                 break;
 
         }
@@ -132,41 +132,26 @@ public class GameSystem : MonoBehaviour
 
     public void StartRandomEvent()
     {
-        EventType eventType = GetRandomEnumType<EventType>();
-        Event currentEvent = DataManager.eventData[eventType];
 
-        eventPanel.ShowEventPanel(currentEvent);
     }
-
-    void SetMinimapLayout()
-    {
-        Player.Instance.GetComponentInChildren<AudioListener>().enabled = true;
-        playerLayout.SetActive(false);
-    }
-
-    void SetBattleLayout()
-    {
-        Player.Instance.GetComponentInChildren<AudioListener>().enabled = false;
-        playerLayout.SetActive(true);
-    }
-
     public void StartBattle()
     {
-        SetBattleLayout();
+        playerLayout.SetActive(true);
+
+
         //랜덤맵 정해서 배틀맵 보여주기
-        MapType mapType = GetRandomEnumType<MapType>();
-        battleMap = Instantiate(DataManager.mapDatas[mapType]).GetComponent<BattleManager>();
     }
 
     public void StartBossBattle()
     {
-        SetBattleLayout();
+        playerLayout.SetActive(true);
+
         //보스맵으로 배틀맵 보여주기
     }
 
     public void FinishBattle()
     {
-        SetMinimapLayout();
+        playerLayout.SetActive(false);
 
         GetReward();
         //리워드 받고 화면 꺼지길 원하면 Coroutine으로
@@ -235,19 +220,57 @@ public class GameSystem : MonoBehaviour
     {
         rewardPanel.ShowPopupPanel(rewards);
     }
+    public void GetEvent()
+    {
+        EventType eventType = GetRandomEnumType<EventType>();
+        Event currentEvent = DataManager.eventData[eventType];
 
+        eventPanel.ShowEventPanel(currentEvent);
+
+    }
     public void FinishGetEvent()
     {
         eventPanel.HidePopUpPanel();
     }
 
-    public T GetRandomEnumType<T>()
 
+    public void GetShop()
+    {
+        List<Reward> shops = new List<Reward>();
+        int index = 0;
+        while(index <= shopAmount)
+        {
+            RewardType rewardType = GetRandomEnumType<RewardType>();
+            if (rewardType == RewardType.gold)
+                continue;
+
+            Reward shop = new Reward(DataManager.rewardData[rewardType].thumbnail, DataManager.rewardData[rewardType].description, rewardType);
+            switch (rewardType)
+            {
+                case RewardType.unit_sword:
+                    UnitType unitType = GetRandomEnumType<UnitType>();
+                    UnitInfo originUnitInfo = (UnitInfo)DataManager.entityData[(EntityType)unitType]; //얕은 복사
+                    UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab); //깊은 복사
+                    shop.unit = unit;
+                    break;
+            }
+
+            shops.Add(shop);
+            index++;
+        }
+        shopPanel.ShowShopPanel(shops);
+
+    }
+
+    T GetRandomEnumType<T>()
     {
         var enumValues = System.Enum.GetValues(enumType: typeof(T));
         return (T)enumValues.GetValue(Random.Range(0, enumValues.Length));
     }
 
+    
+
+    // Loading Panel
     public void ShowLoadingPanel()
     {
         loadingPanel.SetActive(true);
