@@ -64,6 +64,12 @@ public enum MapType
     firstStage_two,
 }
 
+public enum EventType
+{
+    one,
+    two,
+}
+
 public class Reward
 {
     public Reward(Sprite thumbnail, string description, RewardType rewardType)
@@ -90,6 +96,27 @@ public class Reward
 
     public UnitInfo unit;
     public int gold;
+}
+
+public class Event
+{
+    public Event(string mainEvent, string optionOne, string optionTwo, EventType eventType)
+    {
+        SetEventInfo(mainEvent, optionOne, optionTwo, eventType);
+    }
+
+    void SetEventInfo(string mainEvent, string optionOne, string optionTwo, EventType eventType)
+    {
+        this.mainEvent = mainEvent;
+        this.optionOne = optionOne;
+        this.optionTwo = optionTwo;
+        this.eventType = eventType;
+    }
+
+    public string mainEvent;
+    public string optionOne;
+    public string optionTwo;
+    public EventType eventType;
 }
 
 public class DataManager : MonoBehaviour
@@ -129,7 +156,8 @@ public class DataManager : MonoBehaviour
 
     public static Dictionary<RewardType, Reward> rewardData = new Dictionary<RewardType, Reward>(); //보상 데이터 저장용
     public static Dictionary<EntityType, Entity> entityData = new Dictionary<EntityType, Entity>(); //엔티티 데이터 저장용
-
+    public static Dictionary<EventType, Event> eventData = new Dictionary<EventType, Event>(); // 이벤트 데이터 저장용
+  
 
     private void Awake()
     {
@@ -142,6 +170,7 @@ public class DataManager : MonoBehaviour
         ApplyEnemySpawners();
         ApplyRewardDatas();
         ApplyEntityDatas();
+        ApplyEventDatas();
     }
 
     private void ApplyImageDatas()
@@ -195,5 +224,12 @@ public class DataManager : MonoBehaviour
     {
         EntityStats swordStat = new EntityStats(100, 5, 1, 1, 1, 10, 1);
         entityData[EntityType.sword] = new UnitInfo(swordStat, UnitType.sword, imageData[ImageIndex.unit_sword_thumbnail], swordPrefab);
+    }
+
+    private void ApplyEventDatas()
+    {
+        // 옵션 별 보상 추가해야함. 
+        eventData[EventType.one] = new Event("메인 이벤트_01", "옵션 1", "옵션 2", EventType.one);
+        eventData[EventType.two] = new Event("메인 이벤트_02", "옵션 1", "옵션 2", EventType.two);
     }
 }

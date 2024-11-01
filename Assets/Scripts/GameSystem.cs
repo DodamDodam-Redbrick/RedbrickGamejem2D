@@ -9,6 +9,7 @@ public class GameSystem : MonoBehaviour
     [SerializeField]
     public RewardPanel rewardPanel;
 
+    public EventPanel eventPanel;
     [SerializeField, Tooltip("√ ¥‹¿ß")]
     float mapMoveTime = 2;
 
@@ -53,6 +54,7 @@ public class GameSystem : MonoBehaviour
 
 #if UNITY_EDITOR
         GetReward();
+        GetEvent();
 #endif
     }
 
@@ -209,4 +211,21 @@ public class GameSystem : MonoBehaviour
         var enumValues = System.Enum.GetValues(enumType: typeof(UnitType));
         return (UnitType)enumValues.GetValue(Random.Range(0, enumValues.Length));
     }
+
+
+    public void GetEvent()
+    {
+        EventType eventType = GetRandomEventType();
+        Event currentEvent = new Event(DataManager.eventData[eventType].mainEvent, DataManager.eventData[eventType].optionOne, DataManager.eventData[eventType].optionTwo, eventType);
+
+        eventPanel.ShowEventPanel(currentEvent);
+
+    }
+
+    EventType GetRandomEventType()
+    {
+        var enumValues = System.Enum.GetValues(enumType: typeof(EventType));
+        return (EventType)enumValues.GetValue(Random.Range(0, enumValues.Length));
+    }
+    
 }
