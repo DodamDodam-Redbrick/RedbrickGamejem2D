@@ -18,8 +18,6 @@ public class GameSystem : MonoBehaviour
     [SerializeField]
     int maxRewardGold = 10;
 
-    int stage = 1;
-
     [Header("Panels")]
     [SerializeField]
     public EventPanel eventPanel;
@@ -32,19 +30,13 @@ public class GameSystem : MonoBehaviour
     GameObject minimapPrefab;
     RoomManager minimap;
 
-    [SerializeField]
-    GameObject battleMapPrefab;
-    BattleManager battleMap;
-
     [Header("Layouts")]
     [SerializeField]
     GameObject playerLayout;
 
+    int stage = 1;
 
-    Dictionary<int, List<MapType>> stageMaps = new Dictionary<int, List<MapType>>()
-    {
-        {1, new List<MapType>(){MapType.firstStage_one, MapType.firstStage_two } },
-    };
+    BattleManager battleMap;
 
     public float MapMoveTime { get { return mapMoveTime; } }
 
@@ -56,12 +48,22 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        OnStartGame();
+        StartCoroutine(CoStartGame());
 
 #if UNITY_EDITOR
-        // GetReward();
-        GetEvent();
+        //GetReward();
+        //GetEvent();
 #endif
+    }
+
+    IEnumerator CoStartGame()
+    {
+        while (!DataManager.Instance.isFinishLoad)
+        {
+            yield return null;
+        }
+
+        OnStartGame();
     }
 
     // Update is called once per frame
@@ -109,7 +111,7 @@ public class GameSystem : MonoBehaviour
                 break;
 
             case RoomType.randomEvent:
-                GetEvent();
+                StartRandomEvent();
                 break;
 
         }
@@ -126,26 +128,41 @@ public class GameSystem : MonoBehaviour
 
     public void StartRandomEvent()
     {
+        EventType eventType = GetRandomEnumType<EventType>();
+        Event currentEvent = DataManager.eventData[eventType];
 
+        eventPanel.ShowEventPanel(currentEvent);
     }
+
+    void SetMinimapLayout()
+    {
+        Player.Instance.GetComponentInChildren<AudioListener>().enabled = true;
+        playerLayout.SetActive(false);
+    }
+
+    void SetBattleLayout()
+    {
+        Player.Instance.GetComponentInChildren<AudioListener>().enabled = false;
+        playerLayout.SetActive(true);
+    }
+
     public void StartBattle()
     {
-        playerLayout.SetActive(true);
-
-
+        SetBattleLayout();
         //랜덤맵 정해서 배틀맵 보여주기
+        MapType mapType = GetRandomEnumType<MapType>();
+        battleMap = Instantiate(DataManager.mapDatas[mapType]).GetComponent<BattleManager>();
     }
 
     public void StartBossBattle()
     {
-        playerLayout.SetActive(true);
-
+        SetBattleLayout();
         //보스맵으로 배틀맵 보여주기
     }
 
     public void FinishBattle()
     {
-        playerLayout.SetActive(false);
+        SetMinimapLayout();
 
         GetReward();
         //리워드 받고 화면 꺼지길 원하면 Coroutine으로
@@ -159,7 +176,7 @@ public class GameSystem : MonoBehaviour
 
         for(int i = 0; i < rewardAmount; i++)
         {
-            RewardType rewardType = GetRandomRewardType();
+            RewardType rewardType = GetRandomEnumType<RewardType>();
             Reward reward = new Reward(DataManager.rewardData[rewardType].thumbnail, DataManager.rewardData[rewardType].description
                         , rewardType);
 
@@ -173,7 +190,7 @@ public class GameSystem : MonoBehaviour
                 case RewardType.gold:
                     break;
                 case RewardType.unit_sword:
-                    UnitType unitType = GetRandomUnitType();
+                    UnitType unitType = GetRandomEnumType<UnitType>();
                     UnitInfo originUnitInfo = (UnitInfo)DataManager.entityData[(EntityType)unitType]; //얕은 복사
                     UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab); //깊은 복사
                     reward.unit = unit;
@@ -215,36 +232,14 @@ public class GameSystem : MonoBehaviour
         rewardPanel.ShowPopupPanel(rewards);
     }
 
-    RewardType GetRandomRewardType()
-    {
-        var enumValues = System.Enum.GetValues(enumType: typeof(RewardType));
-        return (RewardType)enumValues.GetValue(Random.Range(0, enumValues.Length));
-    }
-
-    UnitType GetRandomUnitType()
-    {
-        var enumValues = System.Enum.GetValues(enumType: typeof(UnitType));
-        return (UnitType)enumValues.GetValue(Random.Range(0, enumValues.Length));
-    }
-
-
-    public void GetEvent()
-    {
-        EventType eventType = GetRandomEventType();
-        Event currentEvent = DataManager.eventData[eventType];
-
-        eventPanel.ShowEventPanel(currentEvent);
-
-    }
-
-    EventType GetRandomEventType()
-    {
-        var enumValues = System.Enum.GetValues(enumType: typeof(EventType));
-        return (EventType)enumValues.GetValue(Random.Range(0, enumValues.Length));
-    }
-    
     public void FinishGetEvent()
     {
         eventPanel.HidePopUpPanel();
+    }
+
+    public T GetRandomEnumType<T>()
+    {
+        var enumValues = System.Enum.GetValues(enumType: typeof(T));
+        return (T)enumValues.GetValue(Random.Range(0, enumValues.Length));
     }
 }

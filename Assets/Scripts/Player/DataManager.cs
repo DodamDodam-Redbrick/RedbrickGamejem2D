@@ -13,7 +13,6 @@ public enum EntityType
     sword = 1,
     bow = 2,
     caster = 3,
-    healer = 4,
 
     //적 엔티티
     slime = 100,
@@ -31,8 +30,13 @@ public enum UnitType
     //밑에는 값 만들고 주석 풀기
     //tank = EntityType.tank,
     //bow = EntityType.bow,
-    //healer = EntityType.healer,
     //caster = EntityType.caster,
+}
+
+public enum EnemyType
+{
+    slime = EntityType.slime,
+    wolf = EntityType.wolf,
 }
 
 public enum RewardType
@@ -42,16 +46,15 @@ public enum RewardType
     //마찬가지
     //unit_tank = EntityType.tank,
     //unit_bow = EntityType.bow,
-    //unit_healer = EntityType.healer,
     //unit_caster = EntityType.caster,
 }
 
 public enum ImageIndex
 {
-    unit_sword_thumbnail = EntityType.sword,
+    unit_sword = EntityType.sword,
 
-    unit_enemySlime_thumbnail = EntityType.slime,
-    unit_enemyWolf_thumbnail = EntityType.wolf,
+    unit_enemySlime = EntityType.slime,
+    unit_enemyWolf = EntityType.wolf,
 
     reward_gold = EntityType.gold,
 
@@ -66,8 +69,6 @@ public enum ImageIndex
 public enum MapType
 {
     firstStage_one,
-    firstStage_two,
-    firstStage_three,
 }
 
 public enum EventType
@@ -132,52 +133,16 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager Instance;
 
-    [SerializeField]
-    Sprite bossSprite;
-
-    [SerializeField]
-    Sprite battleSprite;
-
-    [SerializeField]
-    Sprite shopSprite;
-
-    [SerializeField]
-    Sprite randomEventSprite;
-
-    [SerializeField]
-    Sprite startSprite;
-
-    [SerializeField]
-    Sprite unknownSprite;
-
-    [SerializeField]
-    Sprite goldSprite;
-
-    [SerializeField]
-    Sprite swordThumbnail;
-
-    [SerializeField]
-    GameObject swordPrefab;
-
-    [Header("Enemy Info")]
-    [SerializeField] 
-    GameObject slimePrefab;
-    [SerializeField]
-    Sprite slimeSprite;
-
-    [SerializeField] 
-    GameObject wolfPrefab;
-    [SerializeField]
-    Sprite wolfSprite;
+    [HideInInspector]
+    public bool isFinishLoad;
 
     public static Dictionary<ImageIndex, Sprite> imageData = new Dictionary<ImageIndex, Sprite>(); //이미지 데이터 관리용
     public static Dictionary<EntityType, GameObject> prefabData = new Dictionary<EntityType, GameObject>(); //프리팹 데이터 관리용
-    public static Dictionary<MapType, List<SpawnData>> enemySpawners = new Dictionary<MapType, List<SpawnData>>(); //맵 별 스폰데이터 관리용
+    public static Dictionary<MapType, GameObject> mapDatas = new Dictionary<MapType, GameObject>(); //맵 별 스폰데이터 관리용
 
     public static Dictionary<RewardType, Reward> rewardData = new Dictionary<RewardType, Reward>(); //보상 데이터 저장용
     public static Dictionary<EntityType, Entity> entityData = new Dictionary<EntityType, Entity>(); //엔티티 데이터 저장용
     public static Dictionary<EventType, Event> eventData = new Dictionary<EventType, Event>(); // 이벤트 데이터 저장용
-  
 
     private void Awake()
     {
@@ -187,28 +152,30 @@ public class DataManager : MonoBehaviour
 
         ApplyImageDatas(); //항상 이미지가 가장 먼저
         ApplyPrefabDatas();
-        ApplyEnemySpawners();
+        ApplyMapData();
         ApplyRewardDatas();
         ApplyEntityDatas();
         ApplyEventDatas();
+
+        isFinishLoad = true;
     }
 
     private void ApplyImageDatas()
     {
-        imageData[ImageIndex.map_boss] = bossSprite;
-        imageData[ImageIndex.map_battle] = battleSprite;
-        imageData[ImageIndex.map_randomEvent] = randomEventSprite;
-        imageData[ImageIndex.map_shop] = shopSprite;
-        imageData[ImageIndex.map_start] = startSprite;
-        imageData[ImageIndex.map_unknown] = unknownSprite;
+        imageData[ImageIndex.map_boss] = Resources.Load<Sprite>("MapGenerate/Sprites/Boss");
+        imageData[ImageIndex.map_battle] = Resources.Load<Sprite>("MapGenerate/Sprites/Battle");
+        imageData[ImageIndex.map_randomEvent] = Resources.Load<Sprite>("MapGenerate/Sprites/RandomEvent");
+        imageData[ImageIndex.map_shop] = Resources.Load<Sprite>("MapGenerate/Sprites/Shop");
+        imageData[ImageIndex.map_start] = Resources.Load<Sprite>("MapGenerate/Sprites/Start");
+        imageData[ImageIndex.map_unknown] = Resources.Load<Sprite>("MapGenerate/Sprites/Unknown");
 
-        imageData[ImageIndex.reward_gold] = goldSprite;
+        imageData[ImageIndex.reward_gold] = Resources.Load<Sprite>("Reward/Sprites/Gold");
 
-        imageData[ImageIndex.unit_sword_thumbnail] = swordThumbnail;
+        imageData[ImageIndex.unit_sword] = Resources.Load<Sprite>("Battle/Sprites/Sword");
 
         // Enemy Image
-        imageData[ImageIndex.unit_enemySlime_thumbnail] = slimeSprite;
-        imageData[ImageIndex.unit_enemyWolf_thumbnail] = wolfSprite;
+        imageData[ImageIndex.unit_enemySlime] = Resources.Load<Sprite>("Battle/Sprites/Slime");
+        imageData[ImageIndex.unit_enemyWolf] = Resources.Load<Sprite>("Battle/Sprites/Wolf");
     }
 
     private void ApplyRewardDatas()
@@ -219,54 +186,31 @@ public class DataManager : MonoBehaviour
         //유닛 보상 넣는 법 | 스탯 순서(hp, damagae, def, moveSpeed, fireRate, skillCoolTime, weight)
         EntityStats unitStat = new EntityStats(100, 5, 1, 1, 1, 10, 1);
         //원거리 유닛이면 총알 맨 뒤에 추가해줘야함
-        UnitInfo unit = new UnitInfo(unitStat, UnitType.sword, imageData[ImageIndex.unit_sword_thumbnail], prefabData[EntityType.sword]);
+        UnitInfo unit = new UnitInfo(unitStat, UnitType.sword, imageData[ImageIndex.unit_sword], prefabData[EntityType.sword]);
         rewardData[RewardType.unit_sword] = new Reward(unit.thumbnail, "근거리에서 싸우는 유닛입니다", RewardType.unit_sword);
     }
 
     private void ApplyPrefabDatas()
     {
-        prefabData[EntityType.sword] = swordPrefab;
-
-        prefabData[EntityType.slime] = slimePrefab;
-        prefabData[EntityType.wolf] = wolfPrefab;
+        prefabData[EntityType.sword] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
 
     }
 
-    private void ApplyEnemySpawners()
+    private void ApplyMapData()
     {
-        enemySpawners[MapType.firstStage_one] = new List<SpawnData>
-        {
-            new SpawnData { enemyType = EntityType.wolf, spawnTime = 1.0f, wayPoints = new List<Vector3> { new Vector3(0, 0, 0), new Vector3(1, 1, 0) } },
-            new SpawnData { enemyType = EntityType.wolf, spawnTime = 2.0f, wayPoints = new List<Vector3> { new Vector3(12, 10, 0), new Vector3(3, 3, 0) } },
-        };
-
-        enemySpawners[MapType.firstStage_two] = new List<SpawnData>
-        {
-            new SpawnData { enemyType = EntityType.slime, spawnTime = 1.0f, wayPoints = new List<Vector3> { new Vector3(0, 0, 0), new Vector3(1, 1, 0) } },
-            new SpawnData { enemyType = EntityType.wolf, spawnTime = 2.0f, wayPoints = new List<Vector3> { new Vector3(12, 10, 0), new Vector3(3, 3, 0) } },
-        };
-
-        enemySpawners[MapType.firstStage_three] = new List<SpawnData>
-        {
-            new SpawnData { enemyType = EntityType.slime, spawnTime = 1.0f, wayPoints = new List<Vector3> { new Vector3(0, 0, 0), new Vector3(1, 1, 0) } },
-            new SpawnData { enemyType = EntityType.wolf, spawnTime = 2.0f, wayPoints = new List<Vector3> { new Vector3(12, 10, 0), new Vector3(3, 3, 0) } },
-        };
-
-
+        mapDatas[MapType.firstStage_one] = Resources.Load<GameObject>("Battle/Prefabs/FirstMap");
     }
 
     private void ApplyEntityDatas()
     {
         EntityStats swordStat = new EntityStats(100, 5, 1, 1, 1, 10, 1);
-        entityData[EntityType.sword] = new UnitInfo(swordStat, UnitType.sword, imageData[ImageIndex.unit_sword_thumbnail], swordPrefab);
-
+        entityData[EntityType.sword] = new UnitInfo(swordStat, UnitType.sword, imageData[ImageIndex.unit_sword], Resources.Load<GameObject>("Battle/Prefabs/Sword"));
 
         EntityStats slimeStat = new EntityStats(50, 3, 0, 1, 1, 10, 1);
-        entityData[EntityType.slime] = new EnemyInfo(slimeStat, EntityType.slime, slimePrefab);
+        entityData[EntityType.slime] = new EnemyInfo(slimeStat, EnemyType.slime, Resources.Load<GameObject>("Battle/Prefabs/Slime"));
 
-        EntityStats wolfStat = new EntityStats(50, 3, 0, 1, 1, 10, 1);
-        entityData[EntityType.wolf] = new EnemyInfo(wolfStat, EntityType.wolf, wolfPrefab);
-
+        //EntityStats wolfStat = new EntityStats(50, 3, 0, 1, 1, 10, 1);
+        //entityData[EntityType.wolf] = new EnemyInfo(wolfStat, EnemyType.wolf, wolfPrefab);
     }
 
     private void ApplyEventDatas()
