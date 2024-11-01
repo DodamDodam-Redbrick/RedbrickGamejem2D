@@ -6,23 +6,8 @@ public class GameSystem : MonoBehaviour
 {
     public static GameSystem Instance;
 
-    [SerializeField]
-    public RewardPanel rewardPanel;
-
-    public EventPanel eventPanel;
     [SerializeField, Tooltip("√ ¥‹¿ß")]
     float mapMoveTime = 2;
-
-    [SerializeField]
-    GameObject playerLayout;
-
-    [SerializeField]
-    GameObject minimapPrefab;
-    RoomManager minimap;
-
-    [SerializeField]
-    GameObject battleMapPrefab;
-    BattleManager battleMap;
 
     [SerializeField]
     int rewardAmount = 3;
@@ -35,9 +20,25 @@ public class GameSystem : MonoBehaviour
 
     int stage = 1;
 
-    [Header("Room Panels")]
+    [Header("Panels")]
     [SerializeField]
-    GameObject randomEventPanel;
+    public EventPanel eventPanel;
+
+    [SerializeField]
+    public RewardPanel rewardPanel;
+
+    [Header("Prefabs")]
+    [SerializeField]
+    GameObject minimapPrefab;
+    RoomManager minimap;
+
+    [SerializeField]
+    GameObject battleMapPrefab;
+    BattleManager battleMap;
+
+    [Header("Layouts")]
+    [SerializeField]
+    GameObject playerLayout;
 
     Dictionary<int, List<MapType>> stageMaps = new Dictionary<int, List<MapType>>()
     {
