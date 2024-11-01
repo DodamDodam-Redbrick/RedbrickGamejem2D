@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameSystem : MonoBehaviour
@@ -11,7 +13,7 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField]
     int rewardAmount = 3;
-    int shopAmount = 3;
+    int shopAmount = 5;
 
     [SerializeField]
     int minRewardGold = 5;
@@ -47,6 +49,8 @@ public class GameSystem : MonoBehaviour
     [SerializeField]
     GameObject playerLayout;
 
+    List<RewardType> shopList;
+    List<RewardType> subList;
 
     Dictionary<int, List<MapType>> stageMaps = new Dictionary<int, List<MapType>>()
     {
@@ -233,18 +237,32 @@ public class GameSystem : MonoBehaviour
         eventPanel.HidePopUpPanel();
     }
 
-
     public void GetShop()
     {
         List<Reward> shops = new List<Reward>();
+        List<RewardType> shopType = GetRandomShopEnum();
         int index = 0;
         while(index <= shopAmount)
         {
-            RewardType rewardType = GetRandomEnumType<RewardType>();
-            if (rewardType == RewardType.gold)
-                continue;
+            RewardType rewardType = shopType[Random.Range(0, shopType.Count)];
+            bool isUnitType = System.Enum.GetValues(typeof(UnitType)).Cast<UnitType>().Any(unit => rewardType == (RewardType)unit);
 
-            Reward shop = new Reward(DataManager.rewardData[rewardType].thumbnail, DataManager.rewardData[rewardType].description, rewardType);
+            if (index > 2)
+            {
+                if (isUnitType)
+                    continue;
+
+            }
+
+            // rewardType이 UnitType인지 확인
+
+            else
+            {
+                if (!isUnitType)
+                    continue;
+            }
+
+            Reward shop = new Reward(DataManager.rewardData[rewardType].thumbnail, DataManager.rewardData[rewardType].description, rewardType, DataManager.rewardData[rewardType].shopPrice);
             switch (rewardType)
             {
                 case RewardType.unit_sword:
@@ -268,7 +286,29 @@ public class GameSystem : MonoBehaviour
         return (T)enumValues.GetValue(Random.Range(0, enumValues.Length));
     }
 
-    
+    List<RewardType> GetRandomShopEnum()
+    {
+        if(shopList != null)
+            return shopList;
+
+        shopList = new List<RewardType>();
+
+
+        foreach (RewardType rT in System.Enum.GetValues(enumType: typeof(RewardType)))
+        {
+            shopList.Add(rT);
+        }
+
+
+        subList = new List<RewardType>();
+        subList.Add(RewardType.gold);
+        
+        shopList = shopList.Except(subList).ToList();
+
+        Debug.Log($"{shopList.Count} shops");
+        return shopList;    
+
+    }
 
     // Loading Panel
     public void ShowLoadingPanel()

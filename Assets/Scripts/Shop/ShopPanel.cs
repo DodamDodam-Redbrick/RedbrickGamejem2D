@@ -13,12 +13,15 @@ public class ShopPanel : MonoBehaviour
     [SerializeField]
     GameObject RewardLayout;
 
+    [SerializeField]
+    TextMeshProUGUI goldText;
+
     List<ShopPopUp> shopPools = new List<ShopPopUp>();
 
     public void ShowShopPanel(List<Reward> rewards)
     {
         gameObject.SetActive(true);
-
+        UpdateGold();
         foreach (Reward reward in rewards)
         {
             ShopPopUp shopPopup = GetUnUseRewardPool();
@@ -32,7 +35,7 @@ public class ShopPanel : MonoBehaviour
                 shopPopup = Instantiate(ShopPopupPrefab, RewardLayout.transform).GetComponent<ShopPopUp>();
                 shopPools.Add(shopPopup);
             }
-
+            
             shopPopup.Set(reward);
         }
     }
@@ -58,5 +61,10 @@ public class ShopPanel : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void UpdateGold()
+    {
+        goldText.text = $"{Player.Instance.gold}";
     }
 }

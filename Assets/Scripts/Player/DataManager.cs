@@ -29,7 +29,7 @@ public enum UnitType
     sword = EntityType.sword,
     //밑에는 값 만들고 주석 풀기
     //tank = EntityType.tank,
-    //bow = EntityType.bow,
+    bow = EntityType.bow,
     //caster = EntityType.caster,
 }
 
@@ -43,15 +43,22 @@ public enum RewardType
 {
     gold = EntityType.gold,
     unit_sword = EntityType.sword,
+    unit_bow = EntityType.bow,
     //마찬가지
     //unit_tank = EntityType.tank,
     //unit_bow = EntityType.bow,
     //unit_caster = EntityType.caster,
+    shop_potion,
+    shop_potion2,
+
 }
+
+
 
 public enum ImageIndex
 {
     unit_sword = EntityType.sword,
+    unit_bow = EntityType.bow,
 
     unit_enemySlime = EntityType.slime,
     unit_enemyWolf = EntityType.wolf,
@@ -64,6 +71,10 @@ public enum ImageIndex
     map_randomEvent,
     map_start,
     map_unknown,
+
+    //Shop
+    shop_potion_one,
+    shop_potion_two,
 }
 
 public enum MapType
@@ -91,6 +102,8 @@ public enum ShopType
 
 public class Reward
 {
+
+
     public Reward(Sprite thumbnail, string description, RewardType rewardType)
     {
         SetInfo(thumbnail, description, rewardType);
@@ -100,6 +113,13 @@ public class Reward
     {
         SetInfo(thumbnail, description, rewardType);
         this.unit = unit;
+    }
+
+    public Reward(Sprite thumbnail, string description, RewardType shopType, int shopPrice, UnitInfo unit = null) // 상점용 생성자
+    {
+        SetInfo(thumbnail, description, shopType);
+        this.unit = unit;
+        this.shopPrice = shopPrice;
     }
 
     void SetInfo(Sprite thumbnail, string description, RewardType rewardType)
@@ -115,6 +135,8 @@ public class Reward
 
     public UnitInfo unit;
     public int gold;
+
+    public int shopPrice;
 }
 
 public class Event
@@ -139,6 +161,8 @@ public class Event
     public List<EventOptionType> optionType;
 
     public int gold;
+
+
 }
 
 
@@ -186,10 +210,15 @@ public class DataManager : MonoBehaviour
         imageData[ImageIndex.reward_gold] = Resources.Load<Sprite>("Reward/Sprites/Gold");
 
         imageData[ImageIndex.unit_sword] = Resources.Load<Sprite>("Battle/Sprites/Sword");
+        imageData[ImageIndex.unit_bow] = Resources.Load<Sprite>("Battle/Sprites/Bow");
 
         // Enemy Image
         imageData[ImageIndex.unit_enemySlime] = Resources.Load<Sprite>("Battle/Sprites/Slime");
         imageData[ImageIndex.unit_enemyWolf] = Resources.Load<Sprite>("Battle/Sprites/Wolf");
+
+        // Shop
+        imageData[ImageIndex.shop_potion_one] = Resources.Load<Sprite>("Shop/Sprites/Potion_One");
+        imageData[ImageIndex.shop_potion_two] = Resources.Load<Sprite>("Shop/Sprites/Potion_Two");
     }
 
     private void ApplyRewardDatas()
@@ -201,13 +230,20 @@ public class DataManager : MonoBehaviour
         EntityStats unitStat = new EntityStats(100, 5, 1, 1, 1, 10, 1);
         //원거리 유닛이면 총알 맨 뒤에 추가해줘야함
         UnitInfo unit = new UnitInfo(unitStat, UnitType.sword, imageData[ImageIndex.unit_sword], prefabData[EntityType.sword]);
-        rewardData[RewardType.unit_sword] = new Reward(unit.thumbnail, "근거리에서 싸우는 유닛입니다", RewardType.unit_sword);
+        rewardData[RewardType.unit_sword] = new Reward(unit.thumbnail, "근거리에서 싸우는 유닛입니다", RewardType.unit_sword, 500);
+
+        UnitInfo bowUnit = new UnitInfo(unitStat, UnitType.bow, imageData[ImageIndex.unit_bow], prefabData[EntityType.bow]);
+        rewardData[RewardType.unit_bow] = new Reward(bowUnit.thumbnail, "원거리에서 싸우는 유닛입니다", RewardType.unit_bow, 500);
+        // 상점용
+        rewardData[RewardType.shop_potion] = new Reward(imageData[ImageIndex.shop_potion_one], "상점용 포션1입니다.", RewardType.shop_potion, 300);
+        rewardData[RewardType.shop_potion2] = new Reward(imageData[ImageIndex.shop_potion_two], "상점용 포션2입니다.", RewardType.shop_potion2, 500);
     }
 
     private void ApplyPrefabDatas()
     {
         prefabData[EntityType.sword] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
 
+        prefabData[EntityType.bow] = Resources.Load<GameObject>("Battle/Prefabs/Bow");
     }
 
     private void ApplyMapData()
@@ -219,6 +255,9 @@ public class DataManager : MonoBehaviour
     {
         EntityStats swordStat = new EntityStats(100, 5, 1, 1, 1, 10, 1);
         entityData[EntityType.sword] = new UnitInfo(swordStat, UnitType.sword, imageData[ImageIndex.unit_sword], Resources.Load<GameObject>("Battle/Prefabs/Sword"));
+
+        EntityStats bowStat = new EntityStats(100, 5, 1, 1, 1, 10, 1);
+        entityData[EntityType.bow] = new UnitInfo(bowStat, UnitType.bow, imageData[ImageIndex.unit_bow], Resources.Load<GameObject>("Battle/Prefabs/Bow"));
 
         EntityStats slimeStat = new EntityStats(50, 3, 0, 1, 1, 10, 1);
         entityData[EntityType.slime] = new EnemyInfo(slimeStat, EnemyType.slime, Resources.Load<GameObject>("Battle/Prefabs/Slime"));

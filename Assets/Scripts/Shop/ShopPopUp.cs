@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,13 +18,18 @@ public class ShopPopUp : MonoBehaviour
     public void Set(Reward reward)
     {
         this.reward = reward;
-
         rewardImage.sprite = reward.thumbnail;
         rewardDescription.text = reward.description;
     }
 
-    public void OnClickCard()
+    public void OnClickBuy()
     {
+        Debug.Log($"{reward.shopPrice}");
+        if(reward.shopPrice > Player.Instance.gold)
+        {
+            Debug.Log("Dont Have Money");
+            return;
+        }
         //1. 데이터에 자기 리워드 추가시켜주고
         switch (reward.rewardType)
         {
