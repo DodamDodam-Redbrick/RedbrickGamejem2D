@@ -135,10 +135,6 @@ public class Event
     public int gold;
 }
 
-public class Shop
-{
-    public Shop(Sprite thumbnail, string description, )
-}
 
 
 
