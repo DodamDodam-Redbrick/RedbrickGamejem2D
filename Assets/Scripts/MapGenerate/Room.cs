@@ -174,6 +174,7 @@ public class Room : MonoBehaviour
         if (!isVisited)
         {
             roomTypeSpriteRenderer.sprite = DataManager.imageData[ImageIndex.map_unknown];
+         
         }
         else
         {
@@ -229,7 +230,8 @@ public class Room : MonoBehaviour
             {
                 isVisited = true; //무조건 ShowRoom보다 먼저
                 //자기 방 타입에 맞는 이벤트 진입
-
+                GameSystem.Instance.EnterNewRoom(roomType);
+                   
             }
 
             ShowRoom();

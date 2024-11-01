@@ -27,6 +27,9 @@ public class GameSystem : MonoBehaviour
     [SerializeField]
     public RewardPanel rewardPanel;
 
+    [SerializeField]
+    GameObject loadingPanel;
+
     [Header("Prefabs")]
     [SerializeField]
     GameObject minimapPrefab;
@@ -57,10 +60,8 @@ public class GameSystem : MonoBehaviour
     void Start()
     {
         OnStartGame();
-
 #if UNITY_EDITOR
         // GetReward();
-        GetEvent();
 #endif
     }
 
@@ -159,7 +160,7 @@ public class GameSystem : MonoBehaviour
 
         for(int i = 0; i < rewardAmount; i++)
         {
-            RewardType rewardType = GetRandomRewardType();
+            RewardType rewardType = GetRandomEnumType<RewardType>();
             Reward reward = new Reward(DataManager.rewardData[rewardType].thumbnail, DataManager.rewardData[rewardType].description
                         , rewardType);
 
@@ -173,7 +174,7 @@ public class GameSystem : MonoBehaviour
                 case RewardType.gold:
                     break;
                 case RewardType.unit_sword:
-                    UnitType unitType = GetRandomUnitType();
+                    UnitType unitType = GetRandomEnumType<UnitType>();
                     UnitInfo originUnitInfo = (UnitInfo)DataManager.entityData[(EntityType)unitType]; //얕은 복사
                     UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab); //깊은 복사
                     reward.unit = unit;
@@ -215,36 +216,36 @@ public class GameSystem : MonoBehaviour
         rewardPanel.ShowPopupPanel(rewards);
     }
 
-    RewardType GetRandomRewardType()
-    {
-        var enumValues = System.Enum.GetValues(enumType: typeof(RewardType));
-        return (RewardType)enumValues.GetValue(Random.Range(0, enumValues.Length));
-    }
 
-    UnitType GetRandomUnitType()
+    T GetRandomEnumType<T>()
     {
-        var enumValues = System.Enum.GetValues(enumType: typeof(UnitType));
-        return (UnitType)enumValues.GetValue(Random.Range(0, enumValues.Length));
+        var enumValues = System.Enum.GetValues(enumType: typeof(T));
+        return (T)enumValues.GetValue(Random.Range(0, enumValues.Length));
     }
-
 
     public void GetEvent()
     {
-        EventType eventType = GetRandomEventType();
+        EventType eventType = GetRandomEnumType<EventType>();
         Event currentEvent = DataManager.eventData[eventType];
 
         eventPanel.ShowEventPanel(currentEvent);
 
     }
 
-    EventType GetRandomEventType()
-    {
-        var enumValues = System.Enum.GetValues(enumType: typeof(EventType));
-        return (EventType)enumValues.GetValue(Random.Range(0, enumValues.Length));
-    }
+
     
     public void FinishGetEvent()
     {
         eventPanel.HidePopUpPanel();
+    }
+
+    public void ShowLoadingPanel()
+    {
+        loadingPanel.SetActive(true);
+    }
+
+    public void FinishLoadingPanel()
+    {
+        loadingPanel.SetActive(false);
     }
 }
