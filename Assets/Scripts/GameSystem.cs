@@ -9,7 +9,6 @@ public class GameSystem : MonoBehaviour
     [SerializeField]
     public RewardPanel rewardPanel;
 
-    public EventPanel eventPanel;
     [SerializeField, Tooltip("√ ¥‹¿ß")]
     float mapMoveTime = 2;
 
@@ -37,7 +36,8 @@ public class GameSystem : MonoBehaviour
 
     [Header("Room Panels")]
     [SerializeField]
-    GameObject randomEventPanel;
+    public EventPanel eventPanel;
+
 
     Dictionary<int, List<MapType>> stageMaps = new Dictionary<int, List<MapType>>()
     {
@@ -107,6 +107,7 @@ public class GameSystem : MonoBehaviour
                 break;
 
             case RoomType.randomEvent:
+                GetEvent();
                 break;
 
         }
