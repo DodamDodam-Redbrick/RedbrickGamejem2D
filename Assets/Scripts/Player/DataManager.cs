@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEditor.Timeline.Actions;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public enum EntityType
 {
@@ -48,6 +50,9 @@ public enum ImageIndex
 {
     unit_sword_thumbnail = EntityType.sword,
 
+    unit_enemySlime_thumbnail = EntityType.slime,
+    unit_enemyWolf_thumbnail = EntityType.wolf,
+
     reward_gold = EntityType.gold,
 
     map_boss,
@@ -62,12 +67,15 @@ public enum MapType
 {
     firstStage_one,
     firstStage_two,
+    firstStage_three,
 }
 
 public enum EventType
 {
     one,
     two,
+    three,
+
 }
 
 public class Reward
@@ -100,24 +108,25 @@ public class Reward
 
 public class Event
 {
-    public Event(string mainEvent, string optionOne, string optionTwo, EventType eventType)
+    public Event(string mainEvent, List<string> options, List<RewardType> rewardTypes, EventType eventType)
     {
-        SetEventInfo(mainEvent, optionOne, optionTwo, eventType);
+        SetEventInfo(mainEvent, options, eventType);
     }
 
-    void SetEventInfo(string mainEvent, string optionOne, string optionTwo, EventType eventType)
+    void SetEventInfo(string mainEvent, List<string> options, EventType eventType)
     {
         this.mainEvent = mainEvent;
-        this.optionOne = optionOne;
-        this.optionTwo = optionTwo;
+        this.options = options;
         this.eventType = eventType;
     }
 
     public string mainEvent;
-    public string optionOne;
-    public string optionTwo;
     public EventType eventType;
+
+    public List<string> options;
+    public List<RewardType> rewardTypes;
 }
+
 
 public class DataManager : MonoBehaviour
 {
@@ -149,6 +158,17 @@ public class DataManager : MonoBehaviour
 
     [SerializeField]
     GameObject swordPrefab;
+
+    [Header("Enemy Info")]
+    [SerializeField] 
+    GameObject slimePrefab;
+    [SerializeField]
+    Sprite slimeSprite;
+
+    [SerializeField] 
+    GameObject wolfPrefab;
+    [SerializeField]
+    Sprite wolfSprite;
 
     public static Dictionary<ImageIndex, Sprite> imageData = new Dictionary<ImageIndex, Sprite>(); //이미지 데이터 관리용
     public static Dictionary<EntityType, GameObject> prefabData = new Dictionary<EntityType, GameObject>(); //프리팹 데이터 관리용
@@ -185,6 +205,10 @@ public class DataManager : MonoBehaviour
         imageData[ImageIndex.reward_gold] = goldSprite;
 
         imageData[ImageIndex.unit_sword_thumbnail] = swordThumbnail;
+
+        // Enemy Image
+        imageData[ImageIndex.unit_enemySlime_thumbnail] = slimeSprite;
+        imageData[ImageIndex.unit_enemyWolf_thumbnail] = wolfSprite;
     }
 
     private void ApplyRewardDatas()
@@ -203,6 +227,9 @@ public class DataManager : MonoBehaviour
     {
         prefabData[EntityType.sword] = swordPrefab;
 
+        prefabData[EntityType.slime] = slimePrefab;
+        prefabData[EntityType.wolf] = wolfPrefab;
+
     }
 
     private void ApplyEnemySpawners()
@@ -210,26 +237,100 @@ public class DataManager : MonoBehaviour
         enemySpawners[MapType.firstStage_one] = new List<SpawnData>
         {
             new SpawnData { enemyType = EntityType.wolf, spawnTime = 1.0f, wayPoints = new List<Vector3> { new Vector3(0, 0, 0), new Vector3(1, 1, 0) } },
-            new SpawnData { enemyType = EntityType.wolf, spawnTime = 2.0f, wayPoints = new List<Vector3> { new Vector3(2, 2, 0), new Vector3(3, 3, 0) } },
+            new SpawnData { enemyType = EntityType.wolf, spawnTime = 2.0f, wayPoints = new List<Vector3> { new Vector3(12, 10, 0), new Vector3(3, 3, 0) } },
         };
 
         enemySpawners[MapType.firstStage_two] = new List<SpawnData>
         {
             new SpawnData { enemyType = EntityType.slime, spawnTime = 1.0f, wayPoints = new List<Vector3> { new Vector3(0, 0, 0), new Vector3(1, 1, 0) } },
-            new SpawnData { enemyType = EntityType.wolf, spawnTime = 2.0f, wayPoints = new List<Vector3> { new Vector3(2, 2, 0), new Vector3(3, 3, 0) } },
+            new SpawnData { enemyType = EntityType.wolf, spawnTime = 2.0f, wayPoints = new List<Vector3> { new Vector3(12, 10, 0), new Vector3(3, 3, 0) } },
         };
+
+        enemySpawners[MapType.firstStage_three] = new List<SpawnData>
+        {
+            new SpawnData { enemyType = EntityType.slime, spawnTime = 1.0f, wayPoints = new List<Vector3> { new Vector3(0, 0, 0), new Vector3(1, 1, 0) } },
+            new SpawnData { enemyType = EntityType.wolf, spawnTime = 2.0f, wayPoints = new List<Vector3> { new Vector3(12, 10, 0), new Vector3(3, 3, 0) } },
+        };
+
+
     }
 
     private void ApplyEntityDatas()
     {
         EntityStats swordStat = new EntityStats(100, 5, 1, 1, 1, 10, 1);
         entityData[EntityType.sword] = new UnitInfo(swordStat, UnitType.sword, imageData[ImageIndex.unit_sword_thumbnail], swordPrefab);
+
+
+        EntityStats slimeStat = new EntityStats(50, 3, 0, 1, 1, 10, 1);
+        entityData[EntityType.slime] = new EnemyInfo(slimeStat, EntityType.slime, slimePrefab);
+
+        EntityStats wolfStat = new EntityStats(50, 3, 0, 1, 1, 10, 1);
+        entityData[EntityType.wolf] = new EnemyInfo(wolfStat, EntityType.wolf, wolfPrefab);
+
     }
 
     private void ApplyEventDatas()
     {
         // 옵션 별 보상 추가해야함. 
-        eventData[EventType.one] = new Event("메인 이벤트_01", "옵션 1", "옵션 2", EventType.one);
-        eventData[EventType.two] = new Event("메인 이벤트_02", "옵션 1", "옵션 2", EventType.two);
+
+        //이벤트 별 텍스트 넣는 법 : 메인 이벤트 , 선택지들 , 이벤트타입
+        eventData[EventType.one] = new Event("메인 이벤트_01", 
+        new List<string>
+        {
+            "옵션 1",
+            "옵션 2",
+            "옵션 3",
+        },
+
+        new List<RewardType>
+        { 
+            RewardType.gold,
+            RewardType.unit_sword,
+            RewardType.gold,
+        },
+
+        EventType.one);
+
+
+        eventData[EventType.two] = new Event("메인 이벤트_02",
+        new List<string>
+        {
+            "옵션 1",
+            "옵션 2",
+            "옵션 3",
+            "옵션 4",
+        },
+
+
+        new List<RewardType>
+        {
+            RewardType.gold,
+            RewardType.unit_sword,
+            RewardType.gold,
+            RewardType.unit_sword,
+        },
+
+        EventType.two);
+
+
+        eventData[EventType.three] = new Event("메인 이벤트_02",
+        new List<string>
+        {
+            "옵션 1",
+            "옵션 2",
+            "옵션 3",
+            "옵션 4",
+        },
+
+
+        new List<RewardType>
+        {
+            RewardType.gold,
+            RewardType.unit_sword,
+            RewardType.gold,
+            RewardType.unit_sword,
+        },
+
+        EventType.two);
     }
 }

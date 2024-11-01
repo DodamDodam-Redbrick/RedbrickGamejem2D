@@ -12,8 +12,20 @@ public enum EnemyState
 
 public class EnemyInfo : Entity
 {
-    public float speed = 3f;
+    public EnemyInfo(EntityStats enemyStat, EntityType enemyType, GameObject enemyPrefab, GameObject bulletPrefab = null)
+    {
+        base.entityStats = entityStats;
+        this.unitType = enemyType;
+
+        base.entityPrefab = enemyPrefab;
+        base.bulletPrefab = bulletPrefab;
+    }
+
+    public EntityType unitType;
+
 }
+
+
 
 public class Enemy : MonoBehaviour
 {
@@ -145,7 +157,7 @@ public class Enemy : MonoBehaviour
 
                 targetNode = myWay[index];
             }
-            transform.position = Vector2.MoveTowards(transform.position, targetNode.myPos, Time.deltaTime * enemyInfo.speed);
+            transform.position = Vector2.MoveTowards(transform.position, targetNode.myPos, Time.deltaTime * enemyInfo.entityStats.moveSpeed);
 
             //보는 방향
             int characterX = mapGrid.GetNodeFromVector(transform.position).myX;

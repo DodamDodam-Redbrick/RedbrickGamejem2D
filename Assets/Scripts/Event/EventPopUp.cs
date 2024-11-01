@@ -2,35 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EventPopUp : MonoBehaviour
 {
-    [SerializeField] Button optionOneButton;
-    [SerializeField] Button optionTwoButton;
+    [SerializeField] Button optionButton;
+    [SerializeField] TextMeshProUGUI optionText;
 
-    [SerializeField] TextMeshProUGUI mainText;
-    [SerializeField] TextMeshProUGUI optionOneText;
-    [SerializeField] TextMeshProUGUI optionTwoText;
 
-    Event currentEvent;
-    public void Set(Event Event)
+    public void Set(string option)
     {
-        currentEvent = Event;
+        optionText.text = option;
 
-        mainText.text = currentEvent.mainEvent;
-        optionOneText.text = currentEvent.optionOne;
-        optionTwoText.text = currentEvent.optionTwo;
+        optionButton.onClick.AddListener(() => OnClickOption());
     }
 
-    public void OnClickOptionOne()
+    public void OnClickOption()
     {
-
+        GameSystem.Instance.FinishGetEvent();
     }
 
-    public void OnClickOptionTwo()
-    {
-
-    }
 }

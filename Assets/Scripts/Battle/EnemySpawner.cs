@@ -12,8 +12,8 @@ public class SpawnData
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject enemy1Prefab;
-    [SerializeField] private GameObject enemy2Prefab;
+    [SerializeField] private GameObject slimePrefab;
+    [SerializeField] private GameObject wolfPrefab;
 
     private List<SpawnData> spawnDataList;
     private float timer = 0f;
@@ -44,18 +44,16 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnEnemy(SpawnData spawnData)
     {
         GameObject enemyPrefab = DataManager.entityData[spawnData.enemyType].entityPrefab;
-
         if (enemyPrefab != null)
         {
-            GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            Enemy enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity).GetComponent<Enemy>();
             enemy.transform.SetParent(transform.parent, true);
-            Enemy enemyScript = enemy.GetComponent<Enemy>();
 
-            if (enemyScript != null)
+            if (enemy != null)
             {
-                enemyScript.SetMapGrid();
-                enemyScript.SetWayPoints(spawnData.wayPoints);
-                enemyScript.StartMove();
+                enemy.SetMapGrid();
+                enemy.SetWayPoints(spawnData.wayPoints);
+                enemy.StartMove();
             }
 
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public struct EntityStats
 {
-    public EntityStats(double hp, double damage, double def, double moveSpeed, double fireRate, double skillCoolTime, int weight)
+    public EntityStats(float hp, float damage, float def, float moveSpeed, float fireRate, float skillCoolTime, int weight)
     {
         this.hp = hp;
         this.damage = damage;
@@ -15,13 +15,13 @@ public struct EntityStats
         this.weight = weight;
     }
 
-    double hp;
-    double damage;
-    double def;
-    double moveSpeed;
-    double fireRate;
-    double skillCoolTime;
-    int weight;
+    public float hp;
+    public float damage;
+    public float def;
+    public float moveSpeed;
+    public float fireRate;
+    public float skillCoolTime;
+    public int weight;
 }
 
 public class Entity

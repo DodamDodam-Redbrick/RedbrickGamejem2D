@@ -35,6 +35,10 @@ public class GameSystem : MonoBehaviour
 
     int stage = 1;
 
+    [Header("Room Panels")]
+    [SerializeField]
+    GameObject randomEventPanel;
+
     Dictionary<int, List<MapType>> stageMaps = new Dictionary<int, List<MapType>>()
     {
         {1, new List<MapType>(){MapType.firstStage_one, MapType.firstStage_two } },
@@ -53,7 +57,7 @@ public class GameSystem : MonoBehaviour
         OnStartGame();
 
 #if UNITY_EDITOR
-        GetReward();
+        // GetReward();
         GetEvent();
 #endif
     }
@@ -101,6 +105,10 @@ public class GameSystem : MonoBehaviour
             case RoomType.boss:
                 StartBossBattle();
                 break;
+
+            case RoomType.randomEvent:
+                break;
+
         }
     }
 
@@ -113,6 +121,10 @@ public class GameSystem : MonoBehaviour
         }
     }
 
+    public void StartRandomEvent()
+    {
+
+    }
     public void StartBattle()
     {
         playerLayout.SetActive(true);
@@ -216,7 +228,7 @@ public class GameSystem : MonoBehaviour
     public void GetEvent()
     {
         EventType eventType = GetRandomEventType();
-        Event currentEvent = new Event(DataManager.eventData[eventType].mainEvent, DataManager.eventData[eventType].optionOne, DataManager.eventData[eventType].optionTwo, eventType);
+        Event currentEvent = DataManager.eventData[eventType];
 
         eventPanel.ShowEventPanel(currentEvent);
 
@@ -228,4 +240,8 @@ public class GameSystem : MonoBehaviour
         return (EventType)enumValues.GetValue(Random.Range(0, enumValues.Length));
     }
     
+    public void FinishGetEvent()
+    {
+        eventPanel.HidePopUpPanel();
+    }
 }
