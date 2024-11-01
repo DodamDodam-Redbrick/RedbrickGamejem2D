@@ -141,23 +141,6 @@ public class Event
     public int gold;
 }
 
-<<<<<<< HEAD
-=======
-public class Shop
-{
-    public Shop(Sprite thumbnail, string description, ShopType shopType)
-    {
-        this.thumbnail = thumbnail;
-        this.description= description;
-        this.shopType = shopType;
-    }
-
-    public Sprite thumbnail;
-    public string description;
-    public ShopType shopType;
-}
->>>>>>> main
-
 
 
 public class DataManager : MonoBehaviour
