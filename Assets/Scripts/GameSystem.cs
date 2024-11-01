@@ -25,6 +25,9 @@ public class GameSystem : MonoBehaviour
     [SerializeField]
     public RewardPanel rewardPanel;
 
+    [SerializeField]
+    GameObject loadingPanel;
+
     [Header("Prefabs")]
     [SerializeField]
     GameObject minimapPrefab;
@@ -53,6 +56,7 @@ public class GameSystem : MonoBehaviour
 #if UNITY_EDITOR
         //GetReward();
         //GetEvent();
+
 #endif
     }
 
@@ -238,8 +242,19 @@ public class GameSystem : MonoBehaviour
     }
 
     public T GetRandomEnumType<T>()
+
     {
         var enumValues = System.Enum.GetValues(enumType: typeof(T));
         return (T)enumValues.GetValue(Random.Range(0, enumValues.Length));
+    }
+
+    public void ShowLoadingPanel()
+    {
+        loadingPanel.SetActive(true);
+    }
+
+    public void FinishLoadingPanel()
+    {
+        loadingPanel.SetActive(false);
     }
 }

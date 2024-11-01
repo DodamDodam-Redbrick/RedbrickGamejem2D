@@ -51,23 +51,23 @@ public class Room : MonoBehaviour
     public SerializedDictionary<wallType, GameObject> wallDic;
 
     // Start is called before the first frame update
-    // ÀÌ¹Ì ½ºÆùÆ÷ÀÎÆ®¿¡ ¹æÀÌ ÀÖÀ¸¸é ÀÕÁö ¾Ê´Â´Ù
+    // ì´ë¯¸ ìŠ¤í°í¬ì¸íŠ¸ì— ë°©ì´ ìˆìœ¼ë©´ ì‡ì§€ ì•ŠëŠ”ë‹¤
     [SerializeField]
     GameObject roomPrefab;
 
     [SerializeField]
     SpriteRenderer roomTypeSpriteRenderer;
 
-    [SerializeField, Tooltip("left, right, top, bottom ¼øÀ¸·Î Á¤·ÄÇØ¾ßÇÔ")]
+    [SerializeField, Tooltip("left, right, top, bottom ìˆœìœ¼ë¡œ ì •ë ¬í•´ì•¼í•¨")]
     SpawnPoint[] spawnPoints;
 
-    [SerializeField, Tooltip("left, right, top, bottom ¼øÀ¸·Î Á¤·ÄÇØ¾ßÇÔ")]
+    [SerializeField, Tooltip("left, right, top, bottom ìˆœìœ¼ë¡œ ì •ë ¬í•´ì•¼í•¨")]
     GameObject[] arrowPrefabs;
 
     [SerializeField]
     GameObject arrowParent;
 
-    [SerializeField, Tooltip("¹æÀÌ »ı¼ºµÇ´Â È®·ü, ±âÁØÀº ÇÒ")]
+    [SerializeField, Tooltip("ë°©ì´ ìƒì„±ë˜ëŠ” í™•ë¥ , ê¸°ì¤€ì€ í• ")]
     int connectRate = 6;
 
     Sprite roomTypeSprite;
@@ -113,7 +113,7 @@ public class Room : MonoBehaviour
                 continue;
             }
 
-            if (spawnPoints[dir].isRoom) //ÀÌ°Ô ¿À·ùÀÏ ¼öµµ ÀÖÀ½
+            if (spawnPoints[dir].isRoom) //ì´ê²Œ ì˜¤ë¥˜ì¼ ìˆ˜ë„ ìˆìŒ
             {
                 continue;
             }
@@ -174,6 +174,7 @@ public class Room : MonoBehaviour
         if (!isVisited)
         {
             roomTypeSpriteRenderer.sprite = DataManager.imageData[ImageIndex.map_unknown];
+         
         }
         else
         {
@@ -227,8 +228,8 @@ public class Room : MonoBehaviour
         {
             if(isVisited == false)
             {
-                isVisited = true; //¹«Á¶°Ç ShowRoomº¸´Ù ¸ÕÀú
-                //ÀÚ±â ¹æ Å¸ÀÔ¿¡ ¸Â´Â ÀÌº¥Æ® ÁøÀÔ
+                isVisited = true; //ë¬´ì¡°ê±´ ShowRoomë³´ë‹¤ ë¨¼ì €
+                //ìê¸° ë°© íƒ€ì…ì— ë§ëŠ” ì´ë²¤íŠ¸ ì§„ì…
                 GameSystem.Instance.EnterNewRoom(roomType);
             }
 

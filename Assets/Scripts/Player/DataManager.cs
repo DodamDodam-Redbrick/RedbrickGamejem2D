@@ -76,7 +76,17 @@ public enum EventType
     one,
     two,
     three,
+}
 
+public enum EventOptionType // 이벤트 옵션별 보상?
+{
+    gold = EntityType.gold,
+    sword = EntityType.sword,
+}
+
+public enum ShopType
+{
+    gold = EntityType.gold,
 }
 
 public class Reward
@@ -109,15 +119,16 @@ public class Reward
 
 public class Event
 {
-    public Event(string mainEvent, List<string> options, List<RewardType> rewardTypes, EventType eventType)
+    public Event(string mainEvent, List<string> options, List<EventOptionType> optionType, EventType eventType)
     {
-        SetEventInfo(mainEvent, options, eventType);
+        SetEventInfo(mainEvent, options, optionType, eventType);
     }
 
-    void SetEventInfo(string mainEvent, List<string> options, EventType eventType)
+    void SetEventInfo(string mainEvent, List<string> options, List<EventOptionType> optionType, EventType eventType)
     {
         this.mainEvent = mainEvent;
         this.options = options;
+        this.optionType = optionType;
         this.eventType = eventType;
     }
 
@@ -125,8 +136,25 @@ public class Event
     public EventType eventType;
 
     public List<string> options;
-    public List<RewardType> rewardTypes;
+    public List<EventOptionType> optionType;
+
+    public int gold;
 }
+
+public class Shop
+{
+    public Shop(Sprite thumbnail, string description, ShopType shopType)
+    {
+        this.thumbnail = thumbnail;
+        this.description= description;
+        this.shopType = shopType;
+    }
+
+    public Sprite thumbnail;
+    public string description;
+    public ShopType shopType;
+}
+
 
 
 public class DataManager : MonoBehaviour
@@ -217,25 +245,25 @@ public class DataManager : MonoBehaviour
     {
         // 옵션 별 보상 추가해야함. 
 
-        //이벤트 별 텍스트 넣는 법 : 메인 이벤트 , 선택지들 , 이벤트타입
+        //이벤트 별 텍스트 넣는 법 : 메인 이벤트 , 선택지들 , 선택지별 보상, 이벤트타입
+
+        // Event_01
         eventData[EventType.one] = new Event("메인 이벤트_01", 
         new List<string>
         {
-            "옵션 1",
+            "돈 지급",
             "옵션 2",
             "옵션 3",
         },
-
-        new List<RewardType>
+        new List<EventOptionType>
         { 
-            RewardType.gold,
-            RewardType.unit_sword,
-            RewardType.gold,
+            EventOptionType.gold,
+            EventOptionType.sword,
+            EventOptionType.gold,
         },
-
         EventType.one);
 
-
+        // Event_02
         eventData[EventType.two] = new Event("메인 이벤트_02",
         new List<string>
         {
@@ -243,21 +271,18 @@ public class DataManager : MonoBehaviour
             "옵션 2",
             "옵션 3",
             "옵션 4",
-        },
-
-
-        new List<RewardType>
+        },    
+        new List<EventOptionType>
         {
-            RewardType.gold,
-            RewardType.unit_sword,
-            RewardType.gold,
-            RewardType.unit_sword,
+            EventOptionType.gold,
+            EventOptionType.sword,
+            EventOptionType.gold,
+            EventOptionType.sword,
         },
-
         EventType.two);
 
-
-        eventData[EventType.three] = new Event("메인 이벤트_02",
+        // Event_03
+        eventData[EventType.three] = new Event("메인 이벤트_03",
         new List<string>
         {
             "옵션 1",
@@ -265,16 +290,15 @@ public class DataManager : MonoBehaviour
             "옵션 3",
             "옵션 4",
         },
-
-
-        new List<RewardType>
+        new List<EventOptionType>
         {
-            RewardType.gold,
-            RewardType.unit_sword,
-            RewardType.gold,
-            RewardType.unit_sword,
+            EventOptionType.gold,
+            EventOptionType.sword,
+            EventOptionType.gold,
+            EventOptionType.sword,
         },
+        EventType.three);
 
-        EventType.two);
+        // Event_04
     }
 }

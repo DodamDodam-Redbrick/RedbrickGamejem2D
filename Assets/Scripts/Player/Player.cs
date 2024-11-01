@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
 
     public PlayerCharacter playerCharacter = PlayerCharacter.firstCharacter;
 
-    int gold;
+    public int gold;
 
     List<UnitInfo> unitList = new List<UnitInfo>();
 
