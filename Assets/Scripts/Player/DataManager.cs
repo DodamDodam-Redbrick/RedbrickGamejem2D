@@ -83,6 +83,11 @@ public enum EventOptionType // 이벤트 옵션별 보상?
     sword = EntityType.sword,
 }
 
+public enum ShopType
+{
+    gold = EntityType.gold,
+}
+
 public class Reward
 {
     public Reward(Sprite thumbnail, string description, RewardType rewardType)
@@ -137,7 +142,16 @@ public class Event
 
 public class Shop
 {
-    public Shop(Sprite thumbnail, string description, )
+    public Shop(Sprite thumbnail, string description, ShopType shopType)
+    {
+        this.thumbnail = thumbnail;
+        this.description= description;
+        this.shopType = shopType;
+    }
+
+    public Sprite thumbnail;
+    public string description;
+    public ShopType shopType;
 }
 
 
