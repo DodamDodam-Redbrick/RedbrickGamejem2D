@@ -16,8 +16,10 @@ public class EventPanel : MonoBehaviour
     {
         gameObject.SetActive(true);
         mainText.text = showEvent.mainEvent;
-        foreach (string option in showEvent.options)
+        for(int i = 0; i < showEvent.options.Count; i++) 
         {
+            string option = showEvent.options[i];
+            EventOptionType optionType = showEvent.optionType[i];
             EventPopUp eventPopUp = GetUnUseEventPool();
             if (eventPopUp != null)
             {
@@ -28,7 +30,7 @@ public class EventPanel : MonoBehaviour
                 eventPopUp = Instantiate(eventPopUpPrefab, eventLayOut).GetComponent<EventPopUp>();
                 eventPools.Add(eventPopUp);
             }
-            eventPopUp.Set(option);
+            eventPopUp.Set(option, optionType, showEvent);
         }
     }
 

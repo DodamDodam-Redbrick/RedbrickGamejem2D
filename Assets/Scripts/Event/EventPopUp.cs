@@ -11,17 +11,27 @@ public class EventPopUp : MonoBehaviour
     [SerializeField] Button optionButton;
     [SerializeField] TextMeshProUGUI optionText;
 
-
-    public void Set(string option)
+    EventOptionType optionType;
+    Event currentEvent;
+    public void Set(string option, EventOptionType optionType, Event currentEvent)
     {
         optionText.text = option;
-
-        optionButton.onClick.AddListener(() => OnClickOption());
+        this.optionType = optionType;
+        this.currentEvent = currentEvent;
+        optionButton.onClick.AddListener(() => OnClickOption(this.optionType));
     }
 
-    public void OnClickOption()
+    public void OnClickOption(EventOptionType optionType)
     {
+        switch (optionType)
+        {
+            case EventOptionType.gold:
+                Player.Instance.ChangeGold(currentEvent.gold);
+                break;
+        }
         GameSystem.Instance.FinishGetEvent();
+      
+
     }
 
 }
