@@ -43,16 +43,14 @@ public enum EnemyType
 
 public enum RewardType
 {
-    gold = EntityType.gold,
+    reward_gold = EntityType.gold,
     unit_sword = EntityType.sword,
     unit_bow = EntityType.bow,
-    //마찬가지
-    //unit_tank = EntityType.tank,
-    //unit_bow = EntityType.bow,
-    //unit_caster = EntityType.caster,
-    shop_potion,
-    shop_potion2,
-    shop_potion3,
+
+    //Shop
+    shop_potion_one,
+    shop_potion_two,
+    shop_potion_three,
 
 }
 
@@ -63,13 +61,19 @@ public enum EventOptionType
 }
 public enum ImageIndex
 {
+    reward_gold = EntityType.gold,
     unit_sword = EntityType.sword,
     unit_bow = EntityType.bow,
+
+    //Shop
+    shop_potion_one,
+    shop_potion_two,
+    shop_potion_three,
 
     unit_enemySlime = EntityType.slime,
     unit_enemyWolf = EntityType.wolf,
 
-    reward_gold = EntityType.gold,
+   
 
     map_boss,
     map_battle,
@@ -78,10 +82,7 @@ public enum ImageIndex
     map_start,
     map_unknown,
 
-    //Shop
-    shop_potion_one,
-    shop_potion_two,
-    shop_potion_three,
+ 
 }
 
 
@@ -224,8 +225,15 @@ public class DataManager : MonoBehaviour
     {
         foreach (Reward item in rewardData.Values)
         {
-            item.thumbnail = imageData[(ImageIndex)item.rewardType];
-            if(unitData.ContainsKey((UnitType)item.rewardType))
+            if (imageData.ContainsKey((ImageIndex)item.rewardType))
+            {
+                item.thumbnail = imageData[(ImageIndex)item.rewardType];
+            }
+            else
+            {
+                Debug.LogWarning($"Key '{item.rewardType}' not found in imageData.");
+            }
+            if (unitData.ContainsKey((UnitType)item.rewardType))
                 item.unit = unitData[(UnitType)item.rewardType];
         }
     }
@@ -233,7 +241,7 @@ public class DataManager : MonoBehaviour
     private void ApplyImageDatas()
     {
         imageData[ImageIndex.map_boss] = Resources.Load<Sprite>("MapGenerate/Sprites/Boss");
-        imageData[ImageIndex.map_battle] = Resources.Load<Sprite>("MapGenerate/Sprites/Battle");
+        imageData[ImageIndex .map_battle] = Resources.Load<Sprite>("MapGenerate/Sprites/Battle");
         imageData[ImageIndex.map_randomEvent] = Resources.Load<Sprite>("MapGenerate/Sprites/RandomEvent");
         imageData[ImageIndex.map_shop] = Resources.Load<Sprite>("MapGenerate/Sprites/Shop");
         imageData[ImageIndex.map_start] = Resources.Load<Sprite>("MapGenerate/Sprites/Start");
@@ -242,21 +250,22 @@ public class DataManager : MonoBehaviour
         imageData[ImageIndex.reward_gold] = Resources.Load<Sprite>("Reward/Sprites/Gold");
 
         imageData[ImageIndex.unit_sword] = Resources.Load<Sprite>("Battle/Sprites/Sword");
+        imageData[ImageIndex.unit_bow] = Resources.Load<Sprite>("Battle/Sprites/Bow");
 
         // Enemy Image
         imageData[ImageIndex.unit_enemySlime] = Resources.Load<Sprite>("Battle/Sprites/Slime");
         imageData[ImageIndex.unit_enemyWolf] = Resources.Load<Sprite>("Battle/Sprites/Wolf");
 
         // Shop
-        imageData[ImageIndex.shop_potion_one] = Resources.Load<Sprite>("Shop/Sprites/Potion_One");
+        imageData[ImageIndex.shop_potion_one] = Resources.Load<Sprite>("Shop/Sprites/Potion_one");
         imageData[ImageIndex.shop_potion_two] = Resources.Load<Sprite>("Shop/Sprites/Potion_Two");
-        imageData[ImageIndex.shop_potion_three] = Resources.Load<Sprite>("Shop/Sprites/Potion_Three");
+        imageData[ImageIndex.shop_potion_three] = Resources.Load<Sprite>("Shop/Sprites/Potion_three");
     }
 
     private void ApplyPrefabDatas()
     {
         prefabData[EntityType.sword] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
-
+            
         prefabData[EntityType.bow] = Resources.Load<GameObject>("Battle/Prefabs/Bow");
     }
 

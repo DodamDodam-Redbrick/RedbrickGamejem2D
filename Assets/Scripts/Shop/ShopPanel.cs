@@ -31,7 +31,7 @@ public class ShopPanel : MonoBehaviour
     {
 
         gameObject.SetActive(true);
-
+        UpdateRerollCount();
         UpdateGold();
         foreach (Reward reward in rewards)
         {

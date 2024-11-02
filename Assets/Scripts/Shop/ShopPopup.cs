@@ -36,17 +36,19 @@ public class ShopPopUp : MonoBehaviour
             Debug.Log("Dont Have Money");
             return;
         }
-        //1. µ¥ÀÌÅÍ¿¡ ÀÚ±â ¸®¿öµå Ãß°¡½ÃÄÑÁÖ°í
+        //1. ë°ì´í„°ì— ìê¸° ë¦¬ì›Œë“œ ì¶”ê°€ì‹œì¼œì£¼ê³ 
         switch (reward.rewardType)
         {
-            case RewardType.gold:
+            case RewardType.reward_gold:
                 break;
             case RewardType.unit_sword:
+
                 UnitInfo unit = reward.unit;
+
                 Player.Instance.AddUnit(unit);
                 break;
 
-            case RewardType.shop_potion:
+            case RewardType.shop_potion_one:
                 Player.Instance.AddItem();
                 break;
 
@@ -54,7 +56,7 @@ public class ShopPopUp : MonoBehaviour
         }
         Player.Instance.ChangeGold(-reward.shopPrice);
         GameSystem.Instance.shopPanel.UpdateGold();
-        //3. ´ÙÀ½ ½ºÅÜ ÁøÇà
+        //3. ë‹¤ìŒ ìŠ¤í… ì§„í–‰
         //go to minimap
     }
 
@@ -66,7 +68,7 @@ public class ShopPopUp : MonoBehaviour
         if (rewardTypes.Count == 0)
         {
             Debug.LogWarning("No reward types available for reroll.");
-            return; // º¸»ó Å¸ÀÔÀÌ ¾øÀ¸¸é ÇÔ¼ö¸¦ Á¾·áÇÕ´Ï´Ù.
+            return; // ë³´ìƒ íƒ€ì…ì´ ì—†ìœ¼ë©´ í•¨ìˆ˜ë¥¼ ì¢…ë£Œí•©ë‹ˆë‹¤.
         }
 
         RewardType newRewardType;
@@ -74,17 +76,17 @@ public class ShopPopUp : MonoBehaviour
 
         do
         {
-            // rewards¿¡¼­ ·£´ıÀ¸·Î º¸»ó Å¸ÀÔ ¼±ÅÃ
+            // rewardsì—ì„œ ëœë¤ìœ¼ë¡œ ë³´ìƒ íƒ€ì… ì„ íƒ
             newRewardType = rewardTypes[Random.Range(0, rewardTypes.Count)];
 
-            // »õ·Î¿î º¸»óÀÌ À¯´Ö Å¸ÀÔÀÎÁö È®ÀÎ
+            // ìƒˆë¡œìš´ ë³´ìƒì´ ìœ ë‹› íƒ€ì…ì¸ì§€ í™•ì¸
             isNewUnitType = System.Enum.GetValues(typeof(UnitType)).Cast<UnitType>().Any(unit => newRewardType == (RewardType)unit);
 
-            // Á¶°Ç¿¡ µû¶ó Áßº¹ È®ÀÎ
+            // ì¡°ê±´ì— ë”°ë¼ ì¤‘ë³µ í™•ì¸
         }
         while (newRewardType == reward.rewardType ||
-            (isUnitType && !isNewUnitType) || // ±âÁ¸ º¸»óÀÌ À¯´Ö Å¸ÀÔÀÌ°í »õ º¸»óµµ À¯´Ö Å¸ÀÔÀÎ °æ¿ì
-            (!isUnitType && isNewUnitType)); // ±âÁ¸ º¸»óÀÌ À¯´Ö Å¸ÀÔÀÌ ¾Æ´Ï°í »õ º¸»óµµ À¯´Ö Å¸ÀÔÀÌ ¾Æ´Ñ °æ¿ì
+            (isUnitType && !isNewUnitType) || // ê¸°ì¡´ ë³´ìƒì´ ìœ ë‹› íƒ€ì…ì´ê³  ìƒˆ ë³´ìƒë„ ìœ ë‹› íƒ€ì…ì¸ ê²½ìš°
+            (!isUnitType && isNewUnitType)); // ê¸°ì¡´ ë³´ìƒì´ ìœ ë‹› íƒ€ì…ì´ ì•„ë‹ˆê³  ìƒˆ ë³´ìƒë„ ìœ ë‹› íƒ€ì…ì´ ì•„ë‹Œ ê²½ìš°
 
         Reward rerollReward = new Reward(
             DataManager.Instance.rewardData[newRewardType].thumbnail, DataManager.Instance.rewardData[newRewardType].description, newRewardType, DataManager.Instance.rewardData[newRewardType].shopPrice);
