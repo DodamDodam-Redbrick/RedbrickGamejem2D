@@ -2933,10 +2933,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 102feaa4e58d80e47b24d3b7b7f473a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placeDistance: 1
   unitGroup: {fileID: 2136295584}
   unitCardPrefab: {fileID: 7266769978987176150, guid: 90530a3d739562e4e9589c1782a692f3, type: 3}
   playerPortrait: {fileID: 1505970743}
   nowCost: {fileID: 409171172}
+  canvasRaycaster: {fileID: 0}
   offset: {x: 0, y: 10, z: 0}
 --- !u!1 &879427080
 GameObject:
@@ -4977,11 +4979,11 @@ MonoBehaviour:
           placeNodeType: 0
           thumbnail: {fileID: 0}
         gold: 0
-    - Key: 4
+    - Key: 302
       Value:
         thumbnail: {fileID: 21300000, guid: eca1954e3092f6c468c69c10d19a6413, type: 3}
         description: "\uD3EC\uC158 2"
-        rewardType: 4
+        rewardType: 302
         shopPrice: 150
         unit:
           entityPrefab: {fileID: 0}
@@ -4999,11 +5001,11 @@ MonoBehaviour:
           placeNodeType: 0
           thumbnail: {fileID: 0}
         gold: 0
-    - Key: 5
+    - Key: 303
       Value:
         thumbnail: {fileID: 21300000, guid: 5aabaadcd5e8dce4296119d032114c28, type: 3}
         description: "\uD3EC\uC1583"
-        rewardType: 5
+        rewardType: 303
         shopPrice: 200
         unit:
           entityPrefab: {fileID: 0}
@@ -5065,11 +5067,11 @@ MonoBehaviour:
           placeNodeType: 0
           thumbnail: {fileID: 0}
         gold: 0
-    - Key: 3
+    - Key: 301
       Value:
         thumbnail: {fileID: 21300000, guid: 720936d3887635548b5eca76a7978798, type: 3}
         description: "\uD3EC\uC1581"
-        rewardType: 3
+        rewardType: 301
         shopPrice: 100
         unit:
           entityPrefab: {fileID: 0}
