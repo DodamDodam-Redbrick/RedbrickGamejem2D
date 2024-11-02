@@ -46,7 +46,6 @@ public enum UnitType
 {
     mainCharacter = EntityType.mainCharacter,
 
-
     sword_1 = EntityType.sword_1,
     sword_2 = EntityType.sword_2,
     sword_3 = EntityType.sword_3,
@@ -326,7 +325,6 @@ public class DataManager : MonoBehaviour
 
         imageData[ImageIndex.reward_gold] = Resources.Load<Sprite>("Reward/Sprites/Gold");
 
-
         imageData[ImageIndex.unit_mainCharacter] = Resources.Load<Sprite>("Battle/Sprites/MainCh_Idle");
 
         imageData[ImageIndex.unit_sword_1] = Resources.Load<Sprite>("Battle/Sprites/Sword_Idle");
@@ -359,7 +357,7 @@ public class DataManager : MonoBehaviour
     private void ApplyPrefabDatas()
     {
 
-        prefabData[EntityType.mainCha] = Resources.Load<GameObject>("Battle/Prefabs/MainCha");
+        prefabData[EntityType.mainCharacter] = Resources.Load<GameObject>("Battle/Prefabs/MainCha");
 
         prefabData[EntityType.sword_1] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
         prefabData[EntityType.sword_2] = Resources.Load<GameObject>("Battle/Prefabs/Sword");

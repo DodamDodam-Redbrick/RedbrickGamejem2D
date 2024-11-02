@@ -83,7 +83,8 @@ public class GameSystem : MonoBehaviour
         //GetShop();
         //GetReward();
         //GetEvent();
-        GetUnitReward(UnitType.sword, StartBattle);
+        GetUnitReward(UnitType.sword_1, StartBattle);
+
 #endif
     }
 
