@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,15 +12,12 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField]
     int rewardAmount = 3;
-    int shopAmount = 5;
 
     [SerializeField]
     int minRewardGold = 5;
 
     [SerializeField]
     int maxRewardGold = 10;
-
-    int stage = 1;
 
     [Header("Panels")]
     [SerializeField]
@@ -31,20 +26,10 @@ public class GameSystem : MonoBehaviour
     [SerializeField]
     public RewardPanel rewardPanel;
 
-    [SerializeField]
-    public ShopPanel shopPanel;
-
-    [SerializeField]
-    GameObject loadingPanel;
-
     [Header("Prefabs")]
     [SerializeField]
     GameObject minimapPrefab;
     RoomManager minimap;
-
-    [SerializeField]
-    GameObject battleMapPrefab;
-    BattleManager battleMap;
 
     [Header("Layouts")]
     [SerializeField]
@@ -129,11 +114,7 @@ public class GameSystem : MonoBehaviour
                 break;
 
             case RoomType.randomEvent:
-                GetEvent();
-                break;
-
-            case RoomType.shop:
-                GetShop();
+                StartRandomEvent();
                 break;
 
         }
@@ -170,9 +151,7 @@ public class GameSystem : MonoBehaviour
 
     public void StartBattle()
     {
-        playerLayout.SetActive(true);
-
-
+        SetBattleLayout();
         //랜덤맵 정해서 배틀맵 보여주기
         MapType mapType = GetRandomEnumType<MapType>();
         battleMap = Instantiate(DataManager.Instance.mapDatas[mapType]).GetComponent<BattleManager>();
@@ -180,8 +159,7 @@ public class GameSystem : MonoBehaviour
 
     public void StartBossBattle()
     {
-        playerLayout.SetActive(true);
-
+        SetBattleLayout();
         //보스맵으로 배틀맵 보여주기
     }
 
@@ -274,100 +252,15 @@ public class GameSystem : MonoBehaviour
     {
         rewardPanel.ShowPopupPanel(rewards, endAction);
     }
-    public void GetEvent()
-    {
-        EventType eventType = GetRandomEnumType<EventType>();
-        Event currentEvent = DataManager.eventData[eventType];
 
-        eventPanel.ShowEventPanel(currentEvent);
-
-    }
     public void FinishGetEvent()
     {
         eventPanel.HidePopUpPanel();
     }
 
-    public void GetShop()
-    {
-        if(shops != null)
-            shops.Clear();
-        shops = new List<Reward>();
-        List<RewardType> shopType = GetRandomShopEnum();
-        int index = 0;
-        while(index <= shopAmount)
-        {
-            RewardType rewardType = shopType[Random.Range(0, shopType.Count)];
-            bool isUnitType = System.Enum.GetValues(typeof(UnitType)).Cast<UnitType>().Any(unit => rewardType == (RewardType)unit);
-
-            if (index > 2)
-            {
-                if (isUnitType)
-                    continue;
-
-            }
-
-            else
-            {
-                if (!isUnitType)
-                    continue;
-            }
-
-            Reward shop = new Reward(DataManager.rewardData[rewardType].thumbnail, DataManager.rewardData[rewardType].description, rewardType, DataManager.rewardData[rewardType].shopPrice);
-            switch (rewardType)
-            {
-                case RewardType.unit_sword:
-                    UnitType unitType = GetRandomEnumType<UnitType>();
-                    UnitInfo originUnitInfo = (UnitInfo)DataManager.entityData[(EntityType)unitType]; //얕은 복사
-                    UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab); //깊은 복사
-                    shop.unit = unit;
-                    break;
-            }
-
-            shops.Add(shop);
-            index++;
-        }
-        shopPanel.ShowShopPanel(shops);
-
-    }
-
-    T GetRandomEnumType<T>()
+    public T GetRandomEnumType<T>()
     {
         var enumValues = System.Enum.GetValues(enumType: typeof(T));
         return (T)enumValues.GetValue(Random.Range(0, enumValues.Length));
-    }
-
-    List<RewardType> GetRandomShopEnum()
-    {
-        if(shopList != null)
-            return shopList;
-
-        shopList = new List<RewardType>();
-
-
-        foreach (RewardType rT in System.Enum.GetValues(enumType: typeof(RewardType)))
-        {
-            shopList.Add(rT);
-        }
-
-
-        subList = new List<RewardType>();
-        subList.Add(RewardType.gold);
-        
-        shopList = shopList.Except(subList).ToList();
-
-        Debug.Log($"{shopList.Count} shops");
-        return shopList;    
-
-    }
-
-    // Loading Panel
-    public void ShowLoadingPanel()
-    {
-        loadingPanel.SetActive(true);
-    }
-
-    public void FinishLoadingPanel()
-    {
-        loadingPanel.SetActive(false);
     }
 }
