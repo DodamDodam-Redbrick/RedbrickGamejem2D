@@ -374,7 +374,7 @@ public class DataManager : MonoBehaviour
 
     private void ApplyMapData()
     {
-        mapDatas[MapType.firstStage_one] = Resources.Load<GameObject>("Battle/Prefabs/EasyMap02");
+        mapDatas[MapType.firstStage_one] = Resources.Load<GameObject>("Battle/Prefabs/EasyMap01");
     }
 
 
