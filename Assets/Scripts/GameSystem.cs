@@ -123,6 +123,9 @@ public class GameSystem : MonoBehaviour
             case RoomType.randomEvent:
                 StartRandomEvent();
                 break;
+            case RoomType.shop:
+                GetShop();
+                break;
 
         }
     }
