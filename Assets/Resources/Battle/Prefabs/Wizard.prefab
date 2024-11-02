@@ -61,7 +61,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.4}
@@ -227,6 +227,7 @@ MonoBehaviour:
       skillCoolTime: 0
       weight: 0
     cost: 8
+    originDamage: 0
     unitType: 1
     placeNodeType: 0
     thumbnail: {fileID: 0}

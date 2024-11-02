@@ -30,8 +30,13 @@ public enum EntityType
     soldier_3 = 42,
 
     //적 엔티티
-    slime = 100,
-    wolf = 101,
+    wolf_1 = 100,
+    wolf_2 = 101,
+    wolf_3 = 102,
+
+    bat_1 = 110,
+    bat_2 = 111,
+    bat_3 = 112,
 
     //엔티티 투사체
     bowBullet = 200,
@@ -69,8 +74,13 @@ public enum UnitType
 
 public enum EnemyType
 {
-    slime = EntityType.slime,
-    wolf = EntityType.wolf,
+    wolf_1 = EntityType.wolf_1,
+    wolf_2 = EntityType.wolf_2,
+    wolf_3 = EntityType.wolf_3,
+
+    bat_1 = EntityType.bat_1,
+    bat_2 = EntityType.bat_2,
+    bat_3 = EntityType.bat_3,
 }
 
 public enum RewardType
@@ -148,9 +158,13 @@ public enum ImageIndex
     shop_potion_two = EntityType.shop_potion_two,
     shop_potion_three = EntityType.shop_potion_three,
 
-    unit_enemySlime = EntityType.slime,
-    unit_enemyWolf = EntityType.wolf,
+    unit_enemyWolf_1 = EntityType.wolf_1,
+    unit_enemyWolf_2 = EntityType.wolf_2,
+    unit_enemyWolf_3 = EntityType.wolf_3,
 
+    unit_enemyBat_1 = EntityType.bat_1,
+    unit_enemyBat_2 = EntityType.bat_2,
+    unit_enemyBat_3 = EntityType.bat_3,
 
     map_boss,
     map_battle,
@@ -347,8 +361,13 @@ public class DataManager : MonoBehaviour
 
 
         // Enemy Image
-        imageData[ImageIndex.unit_enemySlime] = Resources.Load<Sprite>("Battle/Sprites/Slime");
-        imageData[ImageIndex.unit_enemyWolf] = Resources.Load<Sprite>("Battle/Sprites/Wolf");
+        imageData[ImageIndex.unit_enemyWolf_1] = Resources.Load<Sprite>("Battle/Sprites/Wolf");
+        imageData[ImageIndex.unit_enemyWolf_2] = Resources.Load<Sprite>("Battle/Sprites/Wolf");
+        imageData[ImageIndex.unit_enemyWolf_3] = Resources.Load<Sprite>("Battle/Sprites/Wolf");
+
+        imageData[ImageIndex.unit_enemyBat_1] = Resources.Load<Sprite>("Battle/Sprites/Bat");
+        imageData[ImageIndex.unit_enemyBat_2] = Resources.Load<Sprite>("Battle/Sprites/Bat");
+        imageData[ImageIndex.unit_enemyBat_3] = Resources.Load<Sprite>("Battle/Sprites/Bat");
 
         // Shop
         imageData[ImageIndex.shop_potion_one] = Resources.Load<Sprite>("Shop/Sprites/Potion_one");
@@ -359,7 +378,7 @@ public class DataManager : MonoBehaviour
     private void ApplyPrefabDatas()
     {
 
-        prefabData[EntityType.mainCha] = Resources.Load<GameObject>("Battle/Prefabs/MainCha");
+        prefabData[EntityType.mainCharacter] = Resources.Load<GameObject>("Battle/Prefabs/MainCha");
 
         prefabData[EntityType.sword_1] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
         prefabData[EntityType.sword_2] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
