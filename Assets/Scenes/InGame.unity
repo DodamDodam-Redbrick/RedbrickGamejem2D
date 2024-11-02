@@ -2933,10 +2933,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 102feaa4e58d80e47b24d3b7b7f473a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placeDistance: 1
   unitGroup: {fileID: 2136295584}
   unitCardPrefab: {fileID: 7266769978987176150, guid: 90530a3d739562e4e9589c1782a692f3, type: 3}
   playerPortrait: {fileID: 1505970743}
   nowCost: {fileID: 409171172}
+  canvasRaycaster: {fileID: 1020408179}
   offset: {x: 0, y: 10, z: 0}
 --- !u!1 &879427080
 GameObject:
