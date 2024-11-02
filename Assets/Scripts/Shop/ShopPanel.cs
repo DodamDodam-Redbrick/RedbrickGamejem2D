@@ -15,6 +15,13 @@ public class ShopPanel : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI goldText;
+    [SerializeField]
+    TextMeshProUGUI rerollText;
+
+    [SerializeField]
+    private int maxRerollCount = 3; // 최대 리롤 횟수
+
+    private int currentRerollCount = 0; // 현재 리롤 횟수
 
     List<ShopPopUp> shopPools = new List<ShopPopUp>();
 
@@ -35,9 +42,10 @@ public class ShopPanel : MonoBehaviour
                 shopPopup = Instantiate(ShopPopupPrefab, RewardLayout.transform).GetComponent<ShopPopUp>();
                 shopPools.Add(shopPopup);
             }
-            
+              
             shopPopup.Set(reward);
         }
+        Debug.Log($"{shopPools.Count}");
     }
 
     public void HidePopupPanel()
@@ -66,5 +74,26 @@ public class ShopPanel : MonoBehaviour
     public void UpdateGold()
     {
         goldText.text = $"{Player.Instance.gold}";
+    }
+
+    public void OnClickRerollButton()
+    {
+        if (currentRerollCount < maxRerollCount)
+        {
+            currentRerollCount++;
+            UpdateRerollCount();
+            HidePopupPanel();
+            GameSystem.Instance.GetShop();
+        }
+        else
+        {
+            Debug.Log("No more rerolls available.");
+        
+        }
+    }
+
+    private void UpdateRerollCount()
+    {
+        rerollText.text = $"Rerolls: {maxRerollCount - currentRerollCount}";
     }
 }

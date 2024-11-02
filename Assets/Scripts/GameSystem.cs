@@ -51,6 +51,7 @@ public class GameSystem : MonoBehaviour
 
     List<RewardType> shopList;
     List<RewardType> subList;
+    List<Reward> shops;
 
     Dictionary<int, List<MapType>> stageMaps = new Dictionary<int, List<MapType>>()
     {
@@ -120,6 +121,10 @@ public class GameSystem : MonoBehaviour
 
             case RoomType.randomEvent:
                 GetEvent();
+                break;
+
+            case RoomType.shop:
+                GetShop();
                 break;
 
         }
@@ -239,7 +244,9 @@ public class GameSystem : MonoBehaviour
 
     public void GetShop()
     {
-        List<Reward> shops = new List<Reward>();
+        if(shops != null)
+            shops.Clear();
+        shops = new List<Reward>();
         List<RewardType> shopType = GetRandomShopEnum();
         int index = 0;
         while(index <= shopAmount)
@@ -253,8 +260,6 @@ public class GameSystem : MonoBehaviour
                     continue;
 
             }
-
-            // rewardType이 UnitType인지 확인
 
             else
             {
