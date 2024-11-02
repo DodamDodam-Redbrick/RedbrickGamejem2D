@@ -2705,7 +2705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1356933289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2970,23 +2970,6 @@ MonoBehaviour:
         unitType: 10
         placeNodeType: 0
         thumbnail: {fileID: 0}
-    - Key: 10
-      Value:
-        entityPrefab: {fileID: 6551475974295820344, guid: 49fc499bc9197434c8178224764e3d8d, type: 3}
-        bulletPrefab: {fileID: 0}
-        entityStats:
-          hp: 100
-          damage: 5
-          def: 1
-          moveSpeed: 1
-          fireRate: 1
-          skillCoolTime: 10
-          weight: 1
-        cost: 8
-        originDamage: 0
-        unitType: 10
-        placeNodeType: 0
-        thumbnail: {fileID: 0}
     - Key: 11
       Value:
         entityPrefab: {fileID: 6551475974295820344, guid: 49fc499bc9197434c8178224764e3d8d, type: 3}
@@ -3055,9 +3038,9 @@ MonoBehaviour:
         unitType: 21
         placeNodeType: 0
         thumbnail: {fileID: 0}
-    - Key: 0
+    - Key: 22
       Value:
-        entityPrefab: {fileID: 6551475974295820344, guid: a01081a47dd534597979180ab5eea15c, type: 3}
+        entityPrefab: {fileID: 6551475974295820344, guid: 461e724812e1afc4fb9d62cad1a99b18, type: 3}
         bulletPrefab: {fileID: 0}
         entityStats:
           hp: 100
@@ -3069,7 +3052,7 @@ MonoBehaviour:
           weight: 1
         cost: 12
         originDamage: 0
-        unitType: 0
+        unitType: 22
         placeNodeType: 0
         thumbnail: {fileID: 0}
   enemyData:
@@ -3280,63 +3263,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1447156768}
   m_CullTransparentMesh: 1
---- !u!1001 &1468413483
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4426230608901011536, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 838.13104
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426230608901011536, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 631.1018
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426230608901011536, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -9.030237
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426230608901011536, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426230608901011536, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426230608901011536, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426230608901011536, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426230608901011536, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426230608901011536, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426230608901011536, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6610768549715597660, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
-      propertyPath: m_Name
-      value: DataManager
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
 --- !u!1 &1505970741
 GameObject:
   m_ObjectHideFlags: 0
@@ -4120,7 +4046,6 @@ MonoBehaviour:
   coldIncreaseAmount: 1
   deBuffColdPersent: 0
   mapMoveTime: 1
-  bulletSpeed: 3
   rewardAmount: 3
   minRewardGold: 5
   maxRewardGold: 10
@@ -4129,27 +4054,10 @@ MonoBehaviour:
   shopPanel: {fileID: 1108866932}
   shopList: 
   shopAmount: 6
-  mainCharacter:
-    entityPrefab: {fileID: 0}
-    bulletPrefab: {fileID: 0}
-    entityStats:
-      hp: 0
-      damage: 0
-      def: 0
-      moveSpeed: 0
-      fireRate: 0
-      skillCoolTime: 0
-      weight: 0
-    cost: 0
-    originDamage: 0
-    unitType: 0
-    placeNodeType: 0
-    thumbnail: {fileID: 0}
   loadingPanel: {fileID: 303093675}
   minimapPrefab: {fileID: 6274140249890337117, guid: 5b3ec0cce63a1ee4a89ef2123a0a3853, type: 3}
   playerLayout: {fileID: 863807036}
   battleMap: {fileID: 0}
-  isFirstReward: 1
 --- !u!4 &2147320674
 Transform:
   m_ObjectHideFlags: 0
@@ -4174,4 +4082,3 @@ SceneRoots:
   - {fileID: 2147320674}
   - {fileID: 1356933290}
   - {fileID: 930722523}
-  - {fileID: 1468413483}

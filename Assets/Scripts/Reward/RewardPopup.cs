@@ -24,10 +24,13 @@ public class RewardPopup : MonoBehaviour
 
         rewardImage.sprite = reward.thumbnail;
         rewardDescription.text = reward.description;
+
     }
 
     public void OnClickCard()
     {
+        Debug.Log($"{reward.rewardType}");
+
         //1. �����Ϳ� �ڱ� ������ �߰������ְ�
         switch (reward.rewardType)
         {   
@@ -35,9 +38,43 @@ public class RewardPopup : MonoBehaviour
                 Player.Instance.ChangeGold(reward.gold);
                 break;
             case RewardType.unit_sword_1:
-                UnitInfo unit = reward.unit;
-                Player.Instance.AddUnit(unit);
+                Player.Instance.AddUnit(reward.unit);
                 break;
+            case RewardType.unit_sword_2:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+            case RewardType.unit_sword_3:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+            case RewardType.unit_wizard_1:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+            case RewardType.unit_wizard_2:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+            case RewardType.unit_wizard_3:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+            case RewardType.unit_archer_1:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+            case RewardType.unit_archer_2:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+            case RewardType.unit_archer_3:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+
+            case RewardType.unit_soldier_1:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+            case RewardType.unit_soldier_2:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+            case RewardType.unit_soldier_3:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+
         }
 
         //2. �θ� �Ǵ� ������ ���̾ƿ� ����

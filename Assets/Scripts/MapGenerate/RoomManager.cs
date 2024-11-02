@@ -67,7 +67,10 @@ public class RoomManager : MonoBehaviour
         }
 
         else
-            GameSystem.Instance.FinishLoading();
+        {
+            StartCoroutine(GameSystem.Instance.FinishLoading(0f));
+            GameSystem.Instance.GetReward();
+        }
     }
 
     public void SpawnComplete()

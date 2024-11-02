@@ -67,6 +67,8 @@ public class GameSystem : MonoBehaviour
 
     public float MapMoveTime { get { return mapMoveTime; } }
 
+    public bool isFirstReward = true;
+
     private void Awake()
     {
         Instance = this;
@@ -76,7 +78,8 @@ public class GameSystem : MonoBehaviour
     void Start()
     {
         StartCoroutine(CoStartGame());
-
+        shopList = null;
+        GetShop();
 #if UNITY_EDITOR
         mainCharacter = DataManager.Instance.unitData[UnitType.mainCharacter].DeepCopy();
         //shopList = null;
@@ -237,32 +240,30 @@ public class GameSystem : MonoBehaviour
         //랜덤으로 리워드 정하기
         List<Reward> rewards = new List<Reward>();
 
-        for (int i = 0; i < rewardAmount; i++)
+
+        while(rewards.Count < rewardAmount)
         {
             RewardType rewardType = GetRandomEnumType<RewardType>();
             Reward reward = new Reward(DataManager.Instance.rewardData[rewardType].thumbnail, DataManager.Instance.rewardData[rewardType].description
                         , rewardType);
+
+            bool isUnitType = System.Enum.GetValues(typeof(UnitType)).Cast<UnitType>().Any(unit => rewardType == (RewardType)unit);
+
+            if (isFirstReward && !isUnitType)
+                continue;
 
             if (rewardType == RewardType.reward_gold)
             {
                 reward.gold = Random.Range(minRewardGold, maxRewardGold);
             }
 
-            switch (rewardType)
-            {
-                case RewardType.reward_gold:
-                    break;
-                case RewardType.unit_sword_1:
-                    UnitType unitType = GetRandomEnumType<UnitType>();
-                    UnitInfo originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
-                    UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
-                    reward.unit = unit;
-                    break;
-            }
+            CopyUnitType(reward);
 
             rewards.Add(reward);
         }
 
+        if(isFirstReward)
+            isFirstReward = false;
         rewardPanel.ShowPopupPanel(rewards, endAction);
     }
 
@@ -325,16 +326,7 @@ public class GameSystem : MonoBehaviour
 
             Reward shop = new Reward(DataManager.Instance.rewardData[rewardType].thumbnail, DataManager.Instance.rewardData[rewardType].description, rewardType, DataManager.Instance.rewardData[rewardType].shopPrice);
 
-            switch (rewardType)
-            {
-                case RewardType.unit_sword_1:
-                    UnitType unitType = GetRandomEnumType<UnitType>();
-                    UnitInfo originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
-                    UnitInfo unit = originUnitInfo.DeepCopy(); //깊은 복사
-                    shop.unit = unit;
-                    break;
-
-            }
+            CopyUnitType(shop);
             shops.Add(shop);
         }
         shopPanel.ShowShopPanel(shops);
@@ -408,5 +400,119 @@ public class GameSystem : MonoBehaviour
         loadingPanel.SetActive(false);
     }
 
+    public Reward CopyUnitType(Reward reward)
+    {
+        UnitType unitType = (UnitType)reward.rewardType;
+        RewardType rewardType = reward.rewardType;
+        UnitInfo unit;
+        UnitInfo originUnitInfo;
+
+        switch (rewardType)
+        {
+            case RewardType.reward_gold:
+                break;
+
+            case RewardType.unit_sword_1:
+                unitType = (UnitType)rewardType;
+                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
+                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+                reward.unit = unit;
+                break;
+
+            case RewardType.unit_sword_2:
+                unitType = (UnitType)reward.rewardType;
+                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
+                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+                reward.unit = unit;
+                Debug.Log($"{reward.unit.unitType}");
+                break;
+
+
+            case RewardType.unit_sword_3:
+                unitType = (UnitType)reward.rewardType;
+                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
+                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+                reward.unit = unit;
+                Debug.Log($"{reward.unit.unitType}");
+                break;
+
+            case RewardType.unit_archer_1:
+                unitType = (UnitType)rewardType;
+                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
+                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+                reward.unit = unit;
+                break;
+
+            case RewardType.unit_archer_2:
+                unitType = (UnitType)reward.rewardType;
+                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
+                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+                reward.unit = unit;
+                Debug.Log($"{reward.unit.unitType}");
+                break;
+
+
+            case RewardType.unit_archer_3:
+                unitType = (UnitType)reward.rewardType;
+                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
+                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+                reward.unit = unit;
+                Debug.Log($"{reward.unit.unitType}");
+                break;
+
+
+            case RewardType.unit_wizard_1:
+                unitType = (UnitType)rewardType;
+                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
+                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+                reward.unit = unit;
+                break;
+
+            case RewardType.unit_wizard_2:
+                unitType = (UnitType)reward.rewardType;
+                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
+                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+                reward.unit = unit;
+                Debug.Log($"{reward.unit.unitType}");
+                break;
+
+
+            case RewardType.unit_wizard_3:
+                unitType = (UnitType)reward.rewardType;
+                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
+                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+                reward.unit = unit;
+                Debug.Log($"{reward.unit.unitType}");
+                break;
+
+            case RewardType.unit_soldier_1:
+                unitType = (UnitType)rewardType;
+                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
+                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+                reward.unit = unit;
+                break;
+
+            case RewardType.unit_soldier_2:
+                unitType = (UnitType)reward.rewardType;
+                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
+                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+                reward.unit = unit;
+                Debug.Log($"{reward.unit.unitType}");
+                break;
+
+
+            case RewardType.unit_soldier_3:
+                unitType = (UnitType)reward.rewardType;
+                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
+                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+                reward.unit = unit;
+                Debug.Log($"{reward.unit.unitType}");
+                break;
+
+
+        }
+
+        return reward;
+    }
 
 }
