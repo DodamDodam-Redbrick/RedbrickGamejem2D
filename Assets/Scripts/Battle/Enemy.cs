@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -13,6 +14,13 @@ public enum EnemyState
 [System.Serializable]
 public class EnemyInfo : Entity
 {
+    public EnemyInfo DeepCopy()
+    {
+        EnemyInfo other = (EnemyInfo)this.MemberwiseClone();
+        other.entityStats = entityStats.DeepCopy();
+        return other;
+    }
+
     public EnemyInfo(EntityStats enemyStat, EnemyType enemyType, GameObject enemyPrefab, GameObject bulletPrefab = null)
     {
         base.entityStats = entityStats;
@@ -43,7 +51,10 @@ public class Enemy : MonoBehaviour
 
     MapGrid mapGrid;
 
+    [SerializeField] //디버깅용
     EnemyInfo enemyInfo;
+
+    Coroutine coDie;
 
     EnemyState state;
     public EnemyState State
@@ -69,6 +80,16 @@ public class Enemy : MonoBehaviour
 
     }
 
+    Unit vsUnit;
+
+    List<Unit> inBoundUnits = new List<Unit>();
+
+    int cardIndex;
+
+    float attackTime;
+
+    List<Bullet> bulletPool = new List<Bullet>();
+
     private void Start()
     {
 #if UNITY_EDITOR
@@ -89,7 +110,109 @@ public class Enemy : MonoBehaviour
         }
 #endif
 
+        attackTime += Time.deltaTime;
+
+        if (attackTime >= enemyInfo.entityStats.fireRate && (vsUnit != null || inBoundUnits.Count > 0))
+        {
+            if (vsUnit != null)
+            {
+                Attack(vsUnit);
+            }
+            else
+            {
+                Attack(inBoundUnits[0]);
+            }
+        }
     }
+
+    public void Init(EnemyInfo enemyInfo)
+    {
+        this.enemyInfo = enemyInfo;
+
+        attackTime = enemyInfo.entityStats.fireRate;
+    }
+
+    public void Attack(Unit unit)
+    {
+        int damage = (int)enemyInfo.entityStats.damage; //여기서 장비나 디버프 전부 추가
+
+        attackTime = 0;
+
+        //어택 애니메이션
+        if (enemyInfo.bulletPrefab != null)
+        {
+            //RangeAttack
+            Bullet bullet = GetUnUseBulletPool();
+            if (bullet == null)
+            {
+                bullet = Instantiate(enemyInfo.bulletPrefab, this.transform).GetComponent<Bullet>();
+                bulletPool.Add(bullet);
+            }
+            else
+            {
+                bullet.gameObject.SetActive(true);
+            }
+            //불렛 구현해서 날리자 그냥 자기 데미지 불렛한테 넘겨주고 그 데미지 만큼 
+
+            bullet.transform.position = Vector3.zero;
+
+            if (vsUnit != null)
+            {
+                bullet.transform.LookAt(vsUnit.transform);
+            }
+            else
+            {
+                bullet.transform.LookAt(inBoundUnits[0].transform);
+            }
+        }
+        else
+        {
+            unit.GetDamaged(damage);
+        }
+    }
+
+    public void Die()
+    {
+        if(vsUnit != null)
+            vsUnit.UnSetvsEnemy();
+
+        if(coDie == null)
+            coDie = StartCoroutine(CoDie());
+    }
+
+    IEnumerator CoDie()
+    {
+        //죽는 애니메이션하고 죽을때까지 기다리고 없애기
+
+        //재활용 안됨
+        Destroy(gameObject);
+
+        coDie = null;
+
+        yield return null;
+    }
+
+    public void GetDamaged(int damage)
+    {
+        enemyInfo.entityStats.hp -= (damage - enemyInfo.entityStats.def); //여기서 방어력이나 방어구가틍ㄴ걸로 값 변경
+        //피격 애니메이션
+
+        if(enemyInfo.entityStats.hp <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void SetvsUnit(Unit unit)
+    {
+        vsUnit = unit;
+    }
+
+    public void UnSetvsUnit()
+    {
+        vsUnit = null;
+    }
+
     public void SetMapGrid()
     {
         mapGrid = transform.parent.GetComponent<BattleManager>().mapGrid;
@@ -117,14 +240,19 @@ public class Enemy : MonoBehaviour
 
         foreach (Vector3 wayPoint in wayPoints)
         {
-            if (!mapGrid.GetNodeFromVector(wayPoint).canWalk)
+            Node node = mapGrid.GetNodeFromVector(wayPoint);
+            if (node != null)
             {
-                Debug.Log($"{wayPoint.x}, {wayPoint.y}는 걸어갈 수 없는 위치입니다");
-                continue;
+                if (!node.canWalk)
+                {
+                    Debug.Log($"{wayPoint.x}, {wayPoint.y}는 걸어갈 수 없는 위치입니다");
+                    continue;
+                }
+                SetPathByPosition(wayPoint);
+                while(myWay != null)
+                    yield return null;
+
             }
-            SetPathByPosition(wayPoint);
-            while(myWay != null)
-                yield return null;
         }
     }
 
@@ -167,8 +295,11 @@ public class Enemy : MonoBehaviour
 
                 targetNode = myWay[index];
             }
-            //transform.position = Vector2.MoveTowards(transform.position, targetNode.myPos, Time.deltaTime * enemyInfo.entityStats.moveSpeed);
-            transform.position = Vector2.MoveTowards(transform.position, targetNode.myPos, Time.deltaTime * 5);
+
+            if (vsUnit == null) //애니메이션 중에도 멈춰야함
+            {
+                transform.position = Vector2.MoveTowards(transform.position, targetNode.myPos, Time.deltaTime * enemyInfo.entityStats.moveSpeed);
+            }
 
             //보는 방향
             int characterX = mapGrid.GetNodeFromVector(transform.position).myX;
@@ -185,6 +316,60 @@ public class Enemy : MonoBehaviour
             yield return null;
         }
     }
-   
+
+    void AddInBoundUnit(Unit unit)
+    {
+        if (!inBoundUnits.Contains(unit))
+        {
+            inBoundUnits.Add(unit);
+        }
+    }
+
+    void RemoveInBoundUnit(Unit unit)
+    {
+        if (inBoundUnits.Contains(unit))
+        {
+            inBoundUnits.Remove(unit);
+        }
+    }
+
+    Bullet GetUnUseBulletPool()
+    {
+        foreach (Bullet bullet in bulletPool)
+        {
+            if (bullet.gameObject.activeInHierarchy == false)
+            {
+                return bullet;
+            }
+        }
+
+        return null;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Unit unit = collision.GetComponentInParent<Unit>();
+
+        if (unit != null)
+        {
+            if (!unit.isSpawning)
+            {
+                AddInBoundUnit(unit);
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        Unit unit = collision.GetComponentInParent<Unit>();
+
+        if (unit != null)
+        {
+            if (!unit.isSpawning)
+            {
+                RemoveInBoundUnit(unit);
+            }
+        }
+    }
+
 }
 
