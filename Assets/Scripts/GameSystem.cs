@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameSystem : MonoBehaviour
 {
@@ -35,11 +36,11 @@ public class GameSystem : MonoBehaviour
 
     [Header("Layouts")]
     [SerializeField]
-    GameObject playerLayout;
+    PlayerLayout playerLayout;
 
-    int stage = 1;
+    //int stage = 1;
 
-    BattleManager battleMap;
+    public BattleManager battleMap;
 
     public float MapMoveTime { get { return mapMoveTime; } }
 
@@ -51,12 +52,13 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(CoStartGame());
+        //StartCoroutine(CoStartGame());
 
 #if UNITY_EDITOR
         //GetReward();
         //GetEvent();
 
+        GetUnitReward(UnitType.sword, StartBattle);
 #endif
     }
 
@@ -133,7 +135,7 @@ public class GameSystem : MonoBehaviour
     public void StartRandomEvent()
     {
         EventType eventType = GetRandomEnumType<EventType>();
-        Event currentEvent = DataManager.eventData[eventType];
+        Event currentEvent = DataManager.Instance.eventData[eventType];
 
         eventPanel.ShowEventPanel(currentEvent);
     }
@@ -141,13 +143,13 @@ public class GameSystem : MonoBehaviour
     void SetMinimapLayout()
     {
         Player.Instance.GetComponentInChildren<AudioListener>().enabled = true;
-        playerLayout.SetActive(false);
+        playerLayout.Hide();
     }
 
     void SetBattleLayout()
     {
         Player.Instance.GetComponentInChildren<AudioListener>().enabled = false;
-        playerLayout.SetActive(true);
+        playerLayout.Show();
     }
 
     public void StartBattle()
@@ -155,7 +157,7 @@ public class GameSystem : MonoBehaviour
         SetBattleLayout();
         //랜덤맵 정해서 배틀맵 보여주기
         MapType mapType = GetRandomEnumType<MapType>();
-        battleMap = Instantiate(DataManager.mapDatas[mapType]).GetComponent<BattleManager>();
+        battleMap = Instantiate(DataManager.Instance.mapDatas[mapType]).GetComponent<BattleManager>();
     }
 
     public void StartBossBattle()
@@ -168,12 +170,26 @@ public class GameSystem : MonoBehaviour
     {
         SetMinimapLayout();
 
-        GetReward();
-        //리워드 받고 화면 꺼지길 원하면 Coroutine으로
-        CloseBattleMap();
+        GetReward(CloseBattleMap);
     }
 
-    public void GetReward()
+    void GetUnitReward(UnitType unitType, UnityAction endAction = null)
+    {
+        List<Reward> rewards = new List<Reward>();
+        RewardType rewardType = (RewardType)unitType;
+
+        Reward reward = new Reward(DataManager.Instance.rewardData[rewardType].thumbnail, DataManager.Instance.rewardData[rewardType].description
+            , rewardType);
+
+        UnitInfo originUnitInfo = (UnitInfo)DataManager.Instance.unitData[unitType]; //얕은 복사
+        UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+        reward.unit = unit;
+
+        rewards.Add(reward);
+
+        rewardPanel.ShowPopupPanel(rewards, endAction);
+    }
+    public void GetReward(UnityAction endAction = null)
     {
         //랜덤으로 리워드 정하기
         List<Reward> rewards = new List<Reward>();
@@ -181,7 +197,7 @@ public class GameSystem : MonoBehaviour
         for(int i = 0; i < rewardAmount; i++)
         {
             RewardType rewardType = GetRandomEnumType<RewardType>();
-            Reward reward = new Reward(DataManager.rewardData[rewardType].thumbnail, DataManager.rewardData[rewardType].description
+            Reward reward = new Reward(DataManager.Instance.rewardData[rewardType].thumbnail, DataManager.Instance.rewardData[rewardType].description
                         , rewardType);
 
             if(rewardType == RewardType.gold)
@@ -195,8 +211,8 @@ public class GameSystem : MonoBehaviour
                     break;
                 case RewardType.unit_sword:
                     UnitType unitType = GetRandomEnumType<UnitType>();
-                    UnitInfo originUnitInfo = (UnitInfo)DataManager.entityData[(EntityType)unitType]; //얕은 복사
-                    UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab); //깊은 복사
+                    UnitInfo originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
+                    UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
                     reward.unit = unit;
                     break;
             }
@@ -204,13 +220,17 @@ public class GameSystem : MonoBehaviour
             rewards.Add(reward);
         }
 
-        rewardPanel.ShowPopupPanel(rewards);
+        rewardPanel.ShowPopupPanel(rewards, endAction);
     }
 
-    public void FinishGetReward()
+    public void FinishGetReward(UnityAction endAction = null)
     {
         rewardPanel.HidePopupPanel();
-        //미니맵 열기
+
+        if(endAction != null)
+        {
+            endAction();
+        }
     }
 
     public void DefeatedBattle()
@@ -231,9 +251,9 @@ public class GameSystem : MonoBehaviour
         ShowRewardPopup(rewards);
     }
 
-    public void ShowRewardPopup(List<Reward> rewards)
+    public void ShowRewardPopup(List<Reward> rewards, UnityAction endAction = null)
     {
-        rewardPanel.ShowPopupPanel(rewards);
+        rewardPanel.ShowPopupPanel(rewards, endAction);
     }
 
     public void FinishGetEvent()

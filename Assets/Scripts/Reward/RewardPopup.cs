@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class RewardPopup : MonoBehaviour
@@ -14,9 +15,12 @@ public class RewardPopup : MonoBehaviour
 
     Reward reward;
 
-    public void Set(Reward reward)
+    UnityAction endAction;
+
+    public void Set(Reward reward, UnityAction endAction = null)
     {
         this.reward = reward;
+        this.endAction = endAction;
 
         rewardImage.sprite = reward.thumbnail;
         rewardDescription.text = reward.description;
@@ -31,12 +35,13 @@ public class RewardPopup : MonoBehaviour
                 Player.Instance.ChangeGold(reward.gold);
                 break;
             case RewardType.unit_sword:
-                Player.Instance.AddUnit(reward.unit);
+                Unit unit = new Unit(reward.unit);
+                Player.Instance.AddUnit(unit);
                 break;
         }
 
         //2. 부모가 되는 리워드 레이아웃 숨김
-        GameSystem.Instance.FinishGetReward();
+        GameSystem.Instance.FinishGetReward(endAction);
 
         //3. 다음 스텝 진행
         //go to minimap

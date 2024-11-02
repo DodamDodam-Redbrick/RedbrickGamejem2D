@@ -15,11 +15,11 @@ public class EventPanel : MonoBehaviour
     public void ShowEventPanel(Event showEvent)
     {
         gameObject.SetActive(true);
-        mainText.text = showEvent.mainEvent;
+        mainText.text = showEvent.content;
         for(int i = 0; i < showEvent.options.Count; i++) 
         {
-            string option = showEvent.options[i];
-            EventOptionType optionType = showEvent.optionType[i];
+            string option = showEvent.options[i].option;
+            EventOptionType optionType = showEvent.options[i].optionType;
             EventPopUp eventPopUp = GetUnUseEventPool();
             if (eventPopUp != null)
             {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public struct EntityStats
 {
     public EntityStats(float hp, float damage, float def, float moveSpeed, float fireRate, float skillCoolTime, int weight)
@@ -24,10 +25,9 @@ public struct EntityStats
     public int weight;
 }
 
+[System.Serializable]
 public class Entity
 {
-    public MapGrid mapGrid;
-
     public GameObject entityPrefab;
 
     public GameObject bulletPrefab;

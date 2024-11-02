@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum PlayerCharacter
@@ -19,7 +20,9 @@ public class Player : MonoBehaviour
 
     public int gold;
 
-    List<UnitInfo> unitList = new List<UnitInfo>();
+    public List<Unit> UnitList { get { return unitList; } }
+
+    List<Unit> unitList = new List<Unit>();
 
     Coroutine coMoveRoom;
     private void Awake()
@@ -42,15 +45,15 @@ public class Player : MonoBehaviour
         //gold관련 ui 동기화
     }
 
-    public void AddUnit(UnitInfo unit)
+    public void AddUnit(Unit unit)
     {
 #if UNITY_EDITOR
-        Debug.Log($"{unit.unitType.ToString()} is added to unitList");
+        Debug.Log($"{unit.unitInfo.unitType.ToString()} is added to unitList");
 #endif
         unitList.Add(unit);
     }
 
-    public void RemoveUnit(UnitInfo unit)
+    public void RemoveUnit(Unit unit)
     {
         unitList.Remove(unit);
     }

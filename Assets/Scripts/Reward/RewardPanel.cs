@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RewardPanel : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class RewardPanel : MonoBehaviour
 
     List<RewardPopup> rewardPools = new List<RewardPopup>();
 
-    public void ShowPopupPanel(List<Reward> rewards)
+    public void ShowPopupPanel(List<Reward> rewards, UnityAction endAction = null)
     {
         gameObject.SetActive(true);
 
@@ -31,7 +32,7 @@ public class RewardPanel : MonoBehaviour
                 rewardPools.Add(rewardPopup);
             }
 
-            rewardPopup.Set(reward);
+            rewardPopup.Set(reward, endAction);
         }
     }
     
