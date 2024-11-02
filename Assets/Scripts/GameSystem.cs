@@ -19,6 +19,12 @@ public class GameSystem : MonoBehaviour
 
     public static GameSystem Instance;
 
+    [SerializeField]
+    public int difficultRoomCount = 5;
+
+    [SerializeField]
+    public float outlineSize = 1f;
+
     [SerializeField, Tooltip("초단위")]
     float mapMoveTime = 2;
 
@@ -83,7 +89,7 @@ public class GameSystem : MonoBehaviour
         //GetShop();
         //GetReward();
         //GetEvent();
-        GetUnitReward(UnitType.sword_1, StartBattle);
+        GetUnitReward(UnitType.sword_2, StartBattle);
 #endif
     }
 
