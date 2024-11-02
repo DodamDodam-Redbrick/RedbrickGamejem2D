@@ -13,7 +13,6 @@ public class SpawnData
 
 public class BattleManager : MonoBehaviour 
 {
-    public MapGrid mapGrid;
 
     [SerializeField]
     List<SpawnData> spawnDatas;
@@ -24,9 +23,21 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     GameObject mainCharacter;
 
-    private void OnEnable()
+    [HideInInspector]
+    public MapGrid mapGrid;
+
+    [HideInInspector]
+    public Camera cam;
+
+    public void StartBattle()
     {
         SpawnEnemies();
+    }
+
+    public void Init()
+    {
+        cam = GetComponentInChildren<Camera>();
+        mapGrid = GetComponentInChildren<MapGrid>();
     }
 
     public void SpawnEnemies()

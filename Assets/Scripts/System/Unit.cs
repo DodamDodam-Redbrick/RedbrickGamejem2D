@@ -21,7 +21,6 @@ public class UnitInfo : Entity
 
     public UnitType unitType;
 
-    [HideInInspector]
     public NodeType placeNodeType;
 
     [HideInInspector]
@@ -31,25 +30,14 @@ public class UnitInfo : Entity
 
 public class Unit : MonoBehaviour
 {
-    public Unit(UnitInfo unitInfo)
-    {
-        this.unitInfo = unitInfo;
-    }
-
     public UnitInfo unitInfo;
 
     public Node placedNode;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Init(UnitInfo unitInfo)
     {
-        
+        this.unitInfo = unitInfo;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
 

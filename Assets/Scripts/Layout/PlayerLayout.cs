@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PlayerLayout : MonoBehaviour
@@ -18,6 +19,13 @@ public class PlayerLayout : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI nowCost;
 
+    [SerializeField]
+    GraphicRaycaster canvasRaycaster;
+
+    PointerEventData pointerEventData;
+
+    EventSystem eventSystem;
+
     [SerializeField, Tooltip("마우스 기준 유닛이 어떻게 표시 될 지 오프셋")]
     Vector3 offset = new Vector3(0f, 10f, 0f);
 
@@ -26,6 +34,8 @@ public class PlayerLayout : MonoBehaviour
     List<UnitCard> unitCards = new List<UnitCard>();
 
     Unit selectedUnit;
+
+    UnitCard selectedUnitCard;
 
     Camera mainCam;
 
@@ -38,44 +48,69 @@ public class PlayerLayout : MonoBehaviour
     {
         if (gameObject.activeInHierarchy)
         {
-
-            if(selectedUnit != null)
+            if (selectedUnit != null)
             {
                 Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
-                selectedUnit.transform.position = mousePosition + offset;
+                MapGrid mapGrid = GameSystem.Instance.battleMap.mapGrid;
+                mousePosition = new Vector3(mousePosition.x, mousePosition.y, 0);
+
+                if (mapGrid.GetNodeFromVector(mousePosition).type == selectedUnit.unitInfo.placeNodeType)
+                {
+                    selectedUnit.transform.position = mapGrid.GetNodeFromVector(mousePosition).myPos;
+                }
+                else
+                {
+                    selectedUnit.transform.position = mousePosition;
+                }
+
             }
 
             if (Input.GetMouseButtonDown(0))
             {
-                Vector2 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
+                Vector3 mousePosition = Input.mousePosition;
 
-                RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+                pointerEventData = new PointerEventData(eventSystem);
+                pointerEventData.position = mousePosition;
 
-                if(hit.collider != null)
+                List<RaycastResult> results = new List<RaycastResult>();
+
+                canvasRaycaster.Raycast(pointerEventData, results);
+
+                foreach (RaycastResult hit in results)
                 {
-                    UnitCard unitCard = hit.collider.GetComponent<UnitCard>();
+                    UnitCard unitCard = hit.gameObject.GetComponent<UnitCard>();
 
                     if (unitCard != null)
                     {
-                        selectedUnit = unitCard.unit;
-                        unitCard.DeactiveUnitCard();
+                        selectedUnitCard = unitCard;
+                        selectedUnit = Instantiate(selectedUnitCard.unit.entityPrefab, GameSystem.Instance.battleMap.transform).GetComponent<Unit>();
+                        selectedUnit.Init(selectedUnitCard.unit);
                     }
-
                 }
             }
+
             if (Input.GetMouseButtonUp(0))
             {
                 Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
-                BattleManager battleMap = GameSystem.Instance.battleMap;
+                MapGrid mapGrid = GameSystem.Instance.battleMap.mapGrid;
 
-                MapGrid mapGrid = battleMap.mapGrid;
+                if (selectedUnit != null)
+                {
+                    if (mapGrid.GetNodeFromVector(mousePosition).type == selectedUnit.unitInfo.placeNodeType)
+                    {
+                        selectedUnit.transform.position = mapGrid.GetNodeFromVector(mousePosition).myPos;
+                        selectedUnitCard.DeactiveUnitCard();
+                    }
+                    else
+                    {
+                        Destroy(selectedUnit.gameObject);
+                    }
 
-                //if(mapGrid.GetNodeFromVector(mousePosition).type) {
-
-                selectedUnit = null;
+                    selectedUnit = null;
+                    selectedUnitCard = null;
+                }
             }
-            //클릭 감지해서 설치 진행
         }
     }
     
@@ -86,8 +121,10 @@ public class PlayerLayout : MonoBehaviour
 
         if (mainCam == null)
         {
-            mainCam = Camera.main;
+            mainCam = GameSystem.Instance.battleMap.cam;
         }
+
+        eventSystem = GetComponent<EventSystem>();
 
         SetUnitCards();
     }

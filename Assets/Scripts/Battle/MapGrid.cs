@@ -11,7 +11,6 @@ public class MapGrid : MonoBehaviour
     [SerializeField]Node[,] myNode; //전체 노드를 관리할 배열
     int nodeCountX; //노드의 X방향 갯수
     int nodeCountY; //노드의 Y방향 갯수
-    [SerializeField] LayerMask obstacle; //장애물인지 구분할 LayerMask
     public List<Node> path; // 예상 경로
  
     int[,] dir = new int[4, 2]
@@ -36,8 +35,17 @@ public class MapGrid : MonoBehaviour
             for (int j = 0; j < nodeCountY; j++)
             {
                 Vector3 pos = new Vector3(transform.position.x + i * nodeSize, transform.position.y + j * nodeSize); //노드의 좌표
-                Collider2D hit = Physics2D.OverlapBox(pos, new Vector2(nodeSize / 2, nodeSize / 2), 0, obstacle);
-                myNode[i, j] = new Node(hit == null, pos, i, j);
+                Collider2D hit = Physics2D.OverlapBox(pos, new Vector2(nodeSize / 2, nodeSize / 2), 0);
+
+                NodeType nodeType = NodeType.wall;
+                bool canWalk = false;
+
+                if(hit != null)
+                {
+                    nodeType = (NodeType)Enum.Parse(typeof(NodeType), hit.tag);
+                    canWalk = nodeType == NodeType.lowRoad ? true : nodeType == NodeType.onlyWalk ? true : false;
+                }
+                myNode[i, j] = new Node(canWalk, pos, i, j, nodeType);
             }
         }
     }
