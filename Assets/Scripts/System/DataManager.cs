@@ -10,7 +10,6 @@ using UnityEngine.UIElements;
 public enum EntityType
 {
     //아군 엔티티
-
     mainCharacter = 0,
 
     sword_1 = 10,
@@ -29,23 +28,17 @@ public enum EntityType
     soldier_2 = 41,
     soldier_3 = 42,
 
-    //적 엔티티
-    wolf_1 = 100,
-    wolf_2 = 101,
-    wolf_3 = 102,
+    caster = 3,
 
-    bat_1 = 110,
-    bat_2 = 111,
-    bat_3 = 112,
+    //적 엔티티
+    slime = 100,
+    wolf = 101,
 
     //엔티티 투사체
     bowBullet = 200,
 
     //그 외
     gold = 300,
-    shop_potion_one = 301,
-    shop_potion_two = 302,
-    shop_potion_three = 303,
 }
 public enum UnitType
 {
@@ -54,7 +47,6 @@ public enum UnitType
     sword_1 = EntityType.sword_1,
     sword_2 = EntityType.sword_2,
     sword_3 = EntityType.sword_3,
-
     //밑에는 값 만들고 주석 풀기
     //tank = EntityType.tank,
     archer_1 = EntityType.archer_1,
@@ -73,13 +65,8 @@ public enum UnitType
 
 public enum EnemyType
 {
-    wolf_1 = EntityType.wolf_1,
-    wolf_2 = EntityType.wolf_2,
-    wolf_3 = EntityType.wolf_3,
-
-    bat_1 = EntityType.bat_1,
-    bat_2 = EntityType.bat_2,
-    bat_3 = EntityType.bat_3,
+    slime = EntityType.slime,
+    wolf = EntityType.wolf,
 }
 
 //보상 목록
@@ -104,9 +91,9 @@ public enum RewardType
     unit_soldier_3 = EntityType.soldier_3,
 
     //Shop
-    shop_potion_one = EntityType.shop_potion_one,
-    shop_potion_two = EntityType.shop_potion_two,
-    shop_potion_three = EntityType.shop_potion_three,
+    shop_potion_one,
+    shop_potion_two,
+    shop_potion_three,
 
 }
 
@@ -131,10 +118,8 @@ public enum EventOptionType
 }
 public enum ImageIndex
 {
+    unit_mainCha = EntityType.mainCharacter,
     reward_gold = EntityType.gold,
-
-    unit_mainCharacter = EntityType.mainCharacter,
-
 
     //Unit
     unit_sword_1 = EntityType.sword_1,
@@ -154,17 +139,14 @@ public enum ImageIndex
     unit_soldier_3 = EntityType.soldier_3,
 
     //Shop
-    shop_potion_one = EntityType.shop_potion_one,
-    shop_potion_two = EntityType.shop_potion_two,
-    shop_potion_three = EntityType.shop_potion_three,
+    shop_potion_one,
+    shop_potion_two,
+    shop_potion_three,
 
-    unit_enemyWolf_1 = EntityType.wolf_1,
-    unit_enemyWolf_2 = EntityType.wolf_2,
-    unit_enemyWolf_3 = EntityType.wolf_3,
+    unit_enemySlime = EntityType.slime,
+    unit_enemyWolf = EntityType.wolf,
 
-    unit_enemyBat_1 = EntityType.bat_1,
-    unit_enemyBat_2 = EntityType.bat_2,
-    unit_enemyBat_3 = EntityType.bat_3,
+   
 
     map_boss,
     map_battle,
@@ -180,10 +162,6 @@ public enum ImageIndex
 public enum MapType
 {
     firstStage_one,
-    //firstStage_two,
-    //firstStage_three,
-
-    //firstStage_boss,
 }
 
 public enum EventType
@@ -344,7 +322,7 @@ public class DataManager : MonoBehaviour
 
         imageData[ImageIndex.reward_gold] = Resources.Load<Sprite>("Reward/Sprites/Gold");
 
-        imageData[ImageIndex.unit_mainCharacter] = Resources.Load<Sprite>("Battle/Sprites/MainCh_Idle");
+        imageData[ImageIndex.unit_mainCha] = Resources.Load<Sprite>("Battle/Sprites/MainCh_Idle");
 
         imageData[ImageIndex.unit_sword_1] = Resources.Load<Sprite>("Battle/Sprites/Sword_Idle");
         imageData[ImageIndex.unit_sword_2] = Resources.Load<Sprite>("Battle/Sprites/Sword_Idle");
@@ -358,19 +336,13 @@ public class DataManager : MonoBehaviour
         imageData[ImageIndex.unit_wizard_2] = Resources.Load<Sprite>("Battle/Sprites/Wizard");
         imageData[ImageIndex.unit_wizard_3] = Resources.Load<Sprite>("Battle/Sprites/Wizard");
 
-        imageData[ImageIndex.unit_soldier_1] = Resources.Load<Sprite>("Battle/Sprites/Soldier");
-        imageData[ImageIndex.unit_soldier_2] = Resources.Load<Sprite>("Battle/Sprites/Soldier");
-        imageData[ImageIndex.unit_soldier_3] = Resources.Load<Sprite>("Battle/Sprites/Soldier");
-
+        imageData[ImageIndex.unit_soldier_1] = Resources.Load<Sprite>("Battle/Sprites/Soldier_");
+        imageData[ImageIndex.unit_soldier_2] = Resources.Load<Sprite>("Battle/Sprites/Soldier_");
+        imageData[ImageIndex.unit_soldier_3] = Resources.Load<Sprite>("Battle/Sprites/Soldier_");
 
         // Enemy Image
-        imageData[ImageIndex.unit_enemyWolf_1] = Resources.Load<Sprite>("Battle/Sprites/Wolf");
-        imageData[ImageIndex.unit_enemyWolf_2] = Resources.Load<Sprite>("Battle/Sprites/Wolf");
-        imageData[ImageIndex.unit_enemyWolf_3] = Resources.Load<Sprite>("Battle/Sprites/Wolf");
-
-        imageData[ImageIndex.unit_enemyBat_1] = Resources.Load<Sprite>("Battle/Sprites/Bat");
-        imageData[ImageIndex.unit_enemyBat_2] = Resources.Load<Sprite>("Battle/Sprites/Bat");
-        imageData[ImageIndex.unit_enemyBat_3] = Resources.Load<Sprite>("Battle/Sprites/Bat");
+        imageData[ImageIndex.unit_enemySlime] = Resources.Load<Sprite>("Battle/Sprites/Slime");
+        imageData[ImageIndex.unit_enemyWolf] = Resources.Load<Sprite>("Battle/Sprites/Wolf");
 
         // Shop
         imageData[ImageIndex.shop_potion_one] = Resources.Load<Sprite>("Shop/Sprites/Potion_one");
