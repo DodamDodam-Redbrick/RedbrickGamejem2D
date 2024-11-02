@@ -27,23 +27,17 @@ public class UnitCard : MonoBehaviour
 
     void ChangeEdgeColor()
     {
-        MaterialPropertyBlock mpb = new MaterialPropertyBlock();
-
-        SpriteRenderer unitSpriteRender = new SpriteRenderer();
-
-        unitSpriteRender.GetPropertyBlock(mpb);
+        Material mat = unitImage.material;
 
         Color[] color = { Color.black, Color.gray, Color.yellow };
 
         int colorIndex = ((int)unit.unitType) % 10;
 
-        mpb.SetFloat("_Outline", 1f);
+        mat.SetFloat("_Outline", 1f);
 
-        mpb.SetColor("_OutlineColor", color[colorIndex]);
+        mat.SetColor("_OutlineColor", color[colorIndex]);
 
-        mpb.SetFloat("_OutlineSize", GameSystem.Instance.outlineSize);
-
-        transform.parent.GetComponent<SpriteRenderer>().SetPropertyBlock(mpb);
+        mat.SetFloat("_OutlineSize", GameSystem.Instance.outlineSize);
     }
 
     public void Set(UnitInfo unit, int cardIndex)
