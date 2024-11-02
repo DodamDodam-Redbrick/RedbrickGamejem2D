@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
 
     public List<UnitInfo> UnitList { get { return unitList; } }
 
-    List<UnitInfo> unitList = new List<UnitInfo>();
+    public List<UnitInfo> unitList = new List<UnitInfo>();
 
     Coroutine coMoveRoom;
     private void Awake()
@@ -51,9 +51,7 @@ public class Player : MonoBehaviour
     }
     public void AddUnit(UnitInfo unit)
     {
-#if UNITY_EDITOR
         Debug.Log($"{unit.unitType.ToString()} is added to unitList");
-#endif
         unitList.Add(unit);
 
         UpgradeUnit();
@@ -96,28 +94,37 @@ public class Player : MonoBehaviour
 
     public void UpgradeUnit()
     {
-        for (int i = 0; i < unitList.Count - 1; i++)
+        
+
+        // 인덱스를 감소시키면서 역순으로 진행
+        for (int i = unitList.Count - 1; i > 0; i--)
         {
             UnitInfo unitA = unitList[i];
-            UnitInfo unitB = unitList[i + 1];
-
-            if (unitA.unitType == unitB.unitType) // 타입이 같고 업그레이드할수있는경우 진행
+            UnitInfo unitB = unitList[i - 1]; // unitB는 unitA의 이전 유닛
+            if (unitA.unitType == unitB.unitType) // 타입이 같고 업그레이드할 수 있는 경우 진행
             {
-                UnitType upgradeUnit = (UnitType)(int)unitA.unitType + 1;
+                UnitType upgradeUnitType = (UnitType)((int)unitA.unitType + 1);
 
-                if (DataManager.Instance.unitData.ContainsKey(upgradeUnit))
+                if (DataManager.Instance.unitData.ContainsKey(upgradeUnitType))
                 {
-                    AddUnit(DataManager.Instance.unitData[upgradeUnit]);    
-
+                    // 새로운 유닛 추가
+           
+                    // 기존 유닛 제거
                     RemoveUnit(unitA);
                     RemoveUnit(unitB);
 
-                    i--;
+                    Debug.Log("Upgrade Complete");
+                    AddUnit(DataManager.Instance.unitData[upgradeUnitType]);
+                    break;
+                    
+
                 }
             }
-
         }
+
+        
+
+
     }
 
-    
 }

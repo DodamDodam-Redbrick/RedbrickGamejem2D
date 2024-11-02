@@ -295,12 +295,7 @@ public class GameSystem : MonoBehaviour
 
             switch (rewardType)
             {
-                case RewardType.unit_sword:
-                    UnitType unitType = GetRandomEnumType<UnitType>();
-                    UnitInfo originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
-                    UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
-                    shop.unit = unit;
-                    break;
+              
             }
             shops.Add(shop);
         }

@@ -56,8 +56,11 @@ public enum RewardType
 {
     reward_gold = EntityType.gold,
     unit_sword = EntityType.sword,
+    unit_sword_1 = EntityType.sword_1,
+    unit_sword_2 = EntityType.sword_2,
     unit_bow = EntityType.bow,
-
+    unit_bow_1 = EntityType.bow_1,
+    unit_bow_2 = EntityType.bow_2,
     //Shop
     shop_potion_one,
     shop_potion_two,
@@ -74,7 +77,11 @@ public enum ImageIndex
 {
     reward_gold = EntityType.gold,
     unit_sword = EntityType.sword,
+    unit_sword_1 = EntityType.sword_1,
+    unit_sword_2 = EntityType.sword_2,
     unit_bow = EntityType.bow,
+    unit_bow_1 = EntityType.bow_1,
+    unit_bow_2 = EntityType.bow_2,
 
     //Shop
     shop_potion_one,
@@ -261,7 +268,12 @@ public class DataManager : MonoBehaviour
         imageData[ImageIndex.reward_gold] = Resources.Load<Sprite>("Reward/Sprites/Gold");
 
         imageData[ImageIndex.unit_sword] = Resources.Load<Sprite>("Battle/Sprites/Sword");
+        imageData[ImageIndex.unit_sword_1] = Resources.Load<Sprite>("Battle/Sprites/Sword 1");
+        imageData[ImageIndex.unit_sword_2] = Resources.Load<Sprite>("Battle/Sprites/Sword 2");
+
         imageData[ImageIndex.unit_bow] = Resources.Load<Sprite>("Battle/Sprites/Bow");
+        imageData[ImageIndex.unit_bow_1] = Resources.Load<Sprite>("Battle/Sprites/Bow 1");
+        imageData[ImageIndex.unit_bow_2] = Resources.Load<Sprite>("Battle/Sprites/Bow 2");
 
         // Enemy Image
         imageData[ImageIndex.unit_enemySlime] = Resources.Load<Sprite>("Battle/Sprites/Slime");
