@@ -57,6 +57,8 @@ public class EditDeckPanel : MonoBehaviour
             Button unitButton = unitObj.AddComponent<Button>();
             unitButton.onClick.AddListener(OnClickSelectDeckButton);
             unitObj.transform.SetParent(editDectPopUp[deckInfo.Count - 1].transform, false);
+            unitObj.transform.localScale = new Vector3(4, 4, 4);
+            unitObj.transform.localPosition += new Vector3(0, 130, 0);
         }
     }
 
