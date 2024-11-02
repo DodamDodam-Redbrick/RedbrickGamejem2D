@@ -1499,7 +1499,7 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 7055626959102082776}
   - {fileID: 8302816651917977001}
-  mainCharacter: {fileID: 6990184291590077958}
+  mainCharacterPos: {fileID: 434623426772738958}
   mapGrid: {fileID: 6448853251780059530}
   cam: {fileID: 934359586753369053}
 --- !u!1 &8243199949917748083

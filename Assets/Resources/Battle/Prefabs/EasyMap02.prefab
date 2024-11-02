@@ -3243,7 +3243,7 @@ MonoBehaviour:
     spawnerIndex: 0
   spawnPoints:
   - {fileID: 2750507960098040903}
-  mainCharacter: {fileID: 3809298108375645593}
+  mainCharacterPos: {fileID: 8302996394278387812}
   mapGrid: {fileID: 3615650204541842160}
   cam: {fileID: 5087253161760828766}
 --- !u!1 &9006228201296116163
