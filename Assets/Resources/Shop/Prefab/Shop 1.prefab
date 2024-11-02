@@ -354,10 +354,10 @@ GameObject:
   - component: {fileID: 9070152029669380523}
   - component: {fileID: 5445920129140673446}
   - component: {fileID: 8426987092068080928}
-  - component: {fileID: 1211648132644551110}
   - component: {fileID: 469170223950089056}
+  - component: {fileID: 706541644847421211}
   m_Layer: 5
-  m_Name: Shop
+  m_Name: Shop 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -423,21 +423,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1211648132644551110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8950211212863801845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8b8e2f47eec4ee43b7e7118c218c237, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rewardImage: {fileID: 3257039475414004711}
-  rewardDescription: {fileID: 6877498747736173678}
-  priceText: {fileID: 6083440641492445912}
 --- !u!114 &469170223950089056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -482,7 +467,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1211648132644551110}
+      - m_Target: {fileID: 706541644847421211}
         m_TargetAssemblyTypeName: ShopPopUp, Assembly-CSharp
         m_MethodName: OnClickBuy
         m_Mode: 1
@@ -494,3 +479,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &706541644847421211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8950211212863801845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b8e2f47eec4ee43b7e7118c218c237, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rewardImage: {fileID: 3257039475414004711}
+  rewardDescription: {fileID: 6877498747736173678}
+  priceText: {fileID: 6083440641492445912}

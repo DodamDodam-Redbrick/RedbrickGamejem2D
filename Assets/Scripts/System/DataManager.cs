@@ -24,6 +24,10 @@ public enum EntityType
 
     //그 외
     gold = 300,
+
+    potion_one = 301,
+    potion_two = 302,
+    potion_three = 303,
 }
 public enum UnitType
 {
@@ -48,9 +52,9 @@ public enum RewardType
     unit_bow = EntityType.bow,
 
     //Shop
-    shop_potion_one,
-    shop_potion_two,
-    shop_potion_three,
+    shop_potion_one = EntityType.potion_one,
+    shop_potion_two = EntityType.potion_two,
+    shop_potion_three = EntityType.potion_three,
 
 }
 
@@ -65,15 +69,11 @@ public enum ImageIndex
     unit_sword = EntityType.sword,
     unit_bow = EntityType.bow,
 
-    //Shop
-    shop_potion_one,
-    shop_potion_two,
-    shop_potion_three,
 
     unit_enemySlime = EntityType.slime,
     unit_enemyWolf = EntityType.wolf,
 
-   
+  
 
     map_boss,
     map_battle,
@@ -82,7 +82,13 @@ public enum ImageIndex
     map_start,
     map_unknown,
 
- 
+
+    //Shop
+    shop_potion_one = EntityType.potion_one,
+    shop_potion_two = EntityType.potion_two,
+    shop_potion_three = EntityType.potion_three,
+
+
 }
 
 
