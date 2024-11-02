@@ -13,14 +13,14 @@ public class UnitCard : MonoBehaviour
     TextMeshProUGUI costText;
 
     [HideInInspector]
-    public Unit unit;
+    public UnitInfo unit;
 
-    public void Set(Unit unit)
+    public void Set(UnitInfo unit)
     {
         this.unit = unit;
 
-        unitImage.sprite = unit.unitInfo.thumbnail;
-        costText.text = $"{unit.unitInfo.cost}";
+        unitImage.sprite = unit.thumbnail;
+        costText.text = $"{unit.cost}";
     }
 
     public void DeactiveUnitCard()
