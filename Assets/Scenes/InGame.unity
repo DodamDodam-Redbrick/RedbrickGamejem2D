@@ -2938,7 +2938,7 @@ MonoBehaviour:
   unitCardPrefab: {fileID: 7266769978987176150, guid: 90530a3d739562e4e9589c1782a692f3, type: 3}
   playerPortrait: {fileID: 1505970743}
   nowCost: {fileID: 409171172}
-  canvasRaycaster: {fileID: 0}
+  canvasRaycaster: {fileID: 1020408179}
   offset: {x: 0, y: 10, z: 0}
 --- !u!1 &879427080
 GameObject:
@@ -3999,7 +3999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7473f6e6783fc444baec9229b8d08310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShopPopupPrefab: {fileID: 8950211212863801845, guid: 5f064ff044bc6ee429ec36184df75ffe, type: 3}
+  ShopPopupPrefab: {fileID: 8950211212863801845, guid: 36ce11f9383a5574f9d2f30ab5a07e39, type: 3}
   RewardLayout: {fileID: 1116745524}
   goldText: {fileID: 879427082}
   rerollText: {fileID: 737951897}
