@@ -24,49 +24,13 @@ public class ShopPopUp : MonoBehaviour
     public void Set(Reward reward)
     {
         this.reward = reward;
-        ApplyUnitType(reward);
+
 
         rewardImage.sprite = reward.thumbnail;
         rewardDescription.text = reward.description;
         priceText.text = $"{reward.shopPrice}";
     }
 
-    void ApplyUnitType(Reward reward)
-    {
-        UnitType unitType = (UnitType)reward.rewardType;
-        UnitInfo unit;
-        UnitInfo originUnitInfo;
-        switch (reward.rewardType)
-        {
-            case RewardType.unit_sword_1:
-                unitType = (UnitType)reward.rewardType;
-                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
-                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
-                reward.unit = unit;
-                Debug.Log($"{reward.unit.unitType}");
-                break;
-
-            case RewardType.unit_sword_2:
-                unitType = (UnitType)reward.rewardType;
-                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
-                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
-                reward.unit = unit;
-                Debug.Log($"{reward.unit.unitType}");
-                break;
-
-
-            case RewardType.unit_sword_3:
-                unitType = (UnitType)reward.rewardType;
-                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
-                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
-                reward.unit = unit;
-                Debug.Log($"{reward.unit.unitType}");
-                break;
-
-        }
-
-        
-    }
     public void OnClickBuy()
     {
         if (reward.shopPrice > Player.Instance.gold)

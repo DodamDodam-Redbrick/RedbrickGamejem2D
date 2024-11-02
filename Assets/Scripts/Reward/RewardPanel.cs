@@ -16,6 +16,7 @@ public class RewardPanel : MonoBehaviour
 
     public void ShowPopupPanel(List<Reward> rewards, UnityAction endAction = null)
     {
+        Debug.Log("µé¾î¿È2");
         gameObject.SetActive(true);
 
         foreach (Reward reward in rewards)

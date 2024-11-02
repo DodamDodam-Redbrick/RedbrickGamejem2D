@@ -69,6 +69,7 @@ public enum EnemyType
     wolf = EntityType.wolf,
 }
 
+//보상 목록
 public enum RewardType
 {
     reward_gold = EntityType.gold,
@@ -331,13 +332,13 @@ public class DataManager : MonoBehaviour
         imageData[ImageIndex.unit_archer_2] = Resources.Load<Sprite>("Battle/Sprites/Archer_Idle");
         imageData[ImageIndex.unit_archer_3] = Resources.Load<Sprite>("Battle/Sprites/Archer_Idle");
 
-        imageData[ImageIndex.unit_wizard_1] = Resources.Load<Sprite>("Battle/Sprites/Wizard_Idle");
-        imageData[ImageIndex.unit_wizard_2] = Resources.Load<Sprite>("Battle/Sprites/Wizard_Idle");
-        imageData[ImageIndex.unit_wizard_3] = Resources.Load<Sprite>("Battle/Sprites/Wizard_Idle");
+        imageData[ImageIndex.unit_wizard_1] = Resources.Load<Sprite>("Battle/Sprites/Wizard");
+        imageData[ImageIndex.unit_wizard_2] = Resources.Load<Sprite>("Battle/Sprites/Wizard");
+        imageData[ImageIndex.unit_wizard_3] = Resources.Load<Sprite>("Battle/Sprites/Wizard");
 
-        imageData[ImageIndex.unit_soldier_1] = Resources.Load<Sprite>("Battle/Sprites/Soldier_Idle");
-        imageData[ImageIndex.unit_soldier_2] = Resources.Load<Sprite>("Battle/Sprites/Soldier_Idle");
-        imageData[ImageIndex.unit_soldier_3] = Resources.Load<Sprite>("Battle/Sprites/Soldier_Idle");
+        imageData[ImageIndex.unit_soldier_1] = Resources.Load<Sprite>("Battle/Sprites/Soldier");
+        imageData[ImageIndex.unit_soldier_2] = Resources.Load<Sprite>("Battle/Sprites/Soldier");
+        imageData[ImageIndex.unit_soldier_3] = Resources.Load<Sprite>("Battle/Sprites/Soldier");
 
         // Enemy Image
         imageData[ImageIndex.unit_enemySlime] = Resources.Load<Sprite>("Battle/Sprites/Slime");

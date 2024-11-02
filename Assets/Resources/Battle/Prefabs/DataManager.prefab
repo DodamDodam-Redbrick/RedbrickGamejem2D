@@ -47,7 +47,387 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFinishLoad: 0
   rewardData:
-    _serializedList: []
+    _serializedList:
+    - Key: 300
+      Value:
+        thumbnail: {fileID: 21300000, guid: 945837f1d95a8d043ba0f5b6e415d305, type: 2}
+        description: "\uACE8\uB4DC"
+        rewardType: 300
+        shopPrice: 500
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
+    - Key: 10
+      Value:
+        thumbnail: {fileID: 21300000, guid: 945837f1d95a8d043ba0f5b6e415d305, type: 2}
+        description: "\uC804\uC0AC\u2605                               \uADFC\uAC70\uB9AC
+          \uACF5\uACA9 \uC720\uB2DB"
+        rewardType: 10
+        shopPrice: 500
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
+    - Key: 11
+      Value:
+        thumbnail: {fileID: 21300000, guid: 945837f1d95a8d043ba0f5b6e415d305, type: 2}
+        description: "\uC804\uC0AC\u2605\u2605                          \uADFC\uAC70\uB9AC
+          \uACF5\uACA9 \uC720\uB2DB"
+        rewardType: 11
+        shopPrice: 750
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
+    - Key: 12
+      Value:
+        thumbnail: {fileID: 21300000, guid: 945837f1d95a8d043ba0f5b6e415d305, type: 2}
+        description: "\uC804\uC0AC\u2605\u2605\u2605                             
+          \uADFC\uAC70\uB9AC \uACF5\uACA9 \uC720\uB2DB"
+        rewardType: 12
+        shopPrice: 1000
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
+    - Key: 20
+      Value:
+        thumbnail: {fileID: 21300000, guid: c6ecd594b0e335f46af6af08612a27e2, type: 2}
+        description: "\uC544\uCC98\u2605                                \uC6D0\uAC70\uB9AC
+          \uACF5\uACA9 \uC720\uB2DB"
+        rewardType: 20
+        shopPrice: 600
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
+    - Key: 21
+      Value:
+        thumbnail: {fileID: 21300000, guid: 952bd72223dedd9439bb1dc0b16db40b, type: 2}
+        description: "\uC544\uCC98\u2605\u2605                               \uC6D0\uAC70\uB9AC
+          \uACF5\uACA9 \uC720\uB2DB"
+        rewardType: 21
+        shopPrice: 850
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
+    - Key: 22
+      Value:
+        thumbnail: {fileID: 21300000, guid: 945837f1d95a8d043ba0f5b6e415d305, type: 2}
+        description: "\uC544\uCC98\u2605\u2605\u2605                              
+          \uC6D0\uAC70\uB9AC \uACF5\uACA9 \uC720\uB2DB"
+        rewardType: 21
+        shopPrice: 1100
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
+    - Key: 30
+      Value:
+        thumbnail: {fileID: 21300000, guid: 1287619033fa340c9b4761dcc7ebc821, type: 3}
+        description: "\uB9C8\uBC95\uC0AC\u2605                                 \uB9C8\uBC95\uD53C\uD574
+          \uC720\uB2DB"
+        rewardType: 30
+        shopPrice: 800
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
+    - Key: 31
+      Value:
+        thumbnail: {fileID: 21300000, guid: 1287619033fa340c9b4761dcc7ebc821, type: 3}
+        description: "\uB9C8\uBC95\uC0AC\u2605\u2605                                
+          \uB9C8\uBC95\uD53C\uD574 \uC720\uB2DB"
+        rewardType: 31
+        shopPrice: 1100
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
+    - Key: 32
+      Value:
+        thumbnail: {fileID: 21300000, guid: 1287619033fa340c9b4761dcc7ebc821, type: 3}
+        description: "\uB9C8\uBC95\uC0AC\u2605\u2605\u2605                                
+          \uB9C8\uBC95\uD53C\uD574 \uC720\uB2DB"
+        rewardType: 32
+        shopPrice: 1500
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
+    - Key: 40
+      Value:
+        thumbnail: {fileID: 21300000, guid: ee1e00db72d9443db8718c9bc881fbfc, type: 3}
+        description: "\uBB34\uC0AC\u2605                                  \uBE60\uB978
+          \uACF5\uACA9 \uADFC\uAC70\uB9AC"
+        rewardType: 40
+        shopPrice: 600
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
+    - Key: 41
+      Value:
+        thumbnail: {fileID: 21300000, guid: ee1e00db72d9443db8718c9bc881fbfc, type: 3}
+        description: "\uBB34\uC0AC\u2605\u2605                                  
+          \uBE60\uB978 \uACF5\uACA9 \uADFC\uAC70\uB9AC"
+        rewardType: 41
+        shopPrice: 800
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
+    - Key: 42
+      Value:
+        thumbnail: {fileID: 21300000, guid: ee1e00db72d9443db8718c9bc881fbfc, type: 3}
+        description: "\uBB34\uC0AC\u2605\u2605\u2605                                  
+          \uBE60\uB978 \uACF5\uACA9 \uADFC\uAC70\uB9AC"
+        rewardType: 42
+        shopPrice: 1000
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
+    - Key: 43
+      Value:
+        thumbnail: {fileID: 21300000, guid: 720936d3887635548b5eca76a7978798, type: 3}
+        description: "\uD3EC\uC1581"
+        rewardType: 43
+        shopPrice: 500
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
+    - Key: 44
+      Value:
+        thumbnail: {fileID: 21300000, guid: eca1954e3092f6c468c69c10d19a6413, type: 3}
+        description: "\uD3EC\uC1582"
+        rewardType: 44
+        shopPrice: 500
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
+    - Key: 45
+      Value:
+        thumbnail: {fileID: 21300000, guid: 5aabaadcd5e8dce4296119d032114c28, type: 3}
+        description: "\uD3EC\uC1583"
+        rewardType: 45
+        shopPrice: 500
+        unit:
+          entityPrefab: {fileID: 0}
+          bulletPrefab: {fileID: 0}
+          entityStats:
+            hp: 0
+            damage: 0
+            def: 0
+            moveSpeed: 0
+            fireRate: 0
+            skillCoolTime: 0
+            weight: 0
+          cost: 0
+          originDamage: 0
+          unitType: 0
+          placeNodeType: 0
+          thumbnail: {fileID: 0}
+        gold: 0
   unitData:
     _serializedList:
     - Key: 0
@@ -63,6 +443,7 @@ MonoBehaviour:
           skillCoolTime: 0
           weight: 999
         cost: 0
+        originDamage: 0
         unitType: 0
         placeNodeType: 0
         thumbnail: {fileID: 0}
@@ -79,6 +460,7 @@ MonoBehaviour:
           skillCoolTime: 3
           weight: 1
         cost: 1
+        originDamage: 0
         unitType: 10
         placeNodeType: 0
         thumbnail: {fileID: 0}
@@ -95,6 +477,7 @@ MonoBehaviour:
           skillCoolTime: 3
           weight: 1
         cost: 2
+        originDamage: 0
         unitType: 11
         placeNodeType: 0
         thumbnail: {fileID: 0}
@@ -111,6 +494,7 @@ MonoBehaviour:
           skillCoolTime: 3
           weight: 1
         cost: 3
+        originDamage: 0
         unitType: 12
         placeNodeType: 0
         thumbnail: {fileID: 0}
@@ -127,6 +511,7 @@ MonoBehaviour:
           skillCoolTime: 3
           weight: 1
         cost: 3
+        originDamage: 0
         unitType: 20
         placeNodeType: 0
         thumbnail: {fileID: 0}
@@ -143,6 +528,7 @@ MonoBehaviour:
           skillCoolTime: 3
           weight: 1
         cost: 4
+        originDamage: 0
         unitType: 21
         placeNodeType: 0
         thumbnail: {fileID: 0}
@@ -159,6 +545,7 @@ MonoBehaviour:
           skillCoolTime: 3
           weight: 1
         cost: 5
+        originDamage: 0
         unitType: 22
         placeNodeType: 0
         thumbnail: {fileID: 0}
@@ -175,6 +562,7 @@ MonoBehaviour:
           skillCoolTime: 3
           weight: 1
         cost: 4
+        originDamage: 0
         unitType: 30
         placeNodeType: 0
         thumbnail: {fileID: 0}
@@ -191,6 +579,7 @@ MonoBehaviour:
           skillCoolTime: 3
           weight: 1
         cost: 5
+        originDamage: 0
         unitType: 31
         placeNodeType: 0
         thumbnail: {fileID: 0}
@@ -207,6 +596,7 @@ MonoBehaviour:
           skillCoolTime: 3
           weight: 1
         cost: 6
+        originDamage: 0
         unitType: 32
         placeNodeType: 0
         thumbnail: {fileID: 0}
