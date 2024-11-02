@@ -10,10 +10,16 @@ public class UnitCard : MonoBehaviour
     Image unitImage;
 
     [SerializeField]
+    Image ban;
+
+    [SerializeField]
     TextMeshProUGUI costText;
 
     [HideInInspector]
     public UnitInfo unit;
+
+    [HideInInspector]
+    public bool isBan;
 
     public void Set(UnitInfo unit)
     {
@@ -23,9 +29,16 @@ public class UnitCard : MonoBehaviour
         costText.text = $"{unit.cost}";
     }
 
+    public void ActiveUnitCard()
+    {
+        ban.gameObject.SetActive(false);
+        isBan = false;
+    }
+
     public void DeactiveUnitCard()
     {
-
+        ban.gameObject.SetActive(true);
+        isBan = true;
     }
     //카드 비활성화
 }

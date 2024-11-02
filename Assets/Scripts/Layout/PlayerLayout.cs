@@ -106,6 +106,11 @@ public class PlayerLayout : MonoBehaviour
 
                         if (unitCard != null)
                         {
+                            if (unitCard.isBan)
+                            {
+                                return;
+                            }
+
                             selectedUnitCard = unitCard;
                             selectedUnit = Instantiate(selectedUnitCard.unit.entityPrefab, GameSystem.Instance.battleMap.transform).GetComponentInChildren<Unit>();
                             selectedUnit.Init(selectedUnitCard.unit);
@@ -183,7 +188,6 @@ public class PlayerLayout : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log($"{distance}");
                         Destroy(selectedUnit.gameObject);
                     }
 
@@ -237,6 +241,7 @@ public class PlayerLayout : MonoBehaviour
             else
             {
                 unitCard = Instantiate(unitCardPrefab, unitGroup.transform).GetComponent<UnitCard>();
+                unitCard.ActiveUnitCard();
                 unitCards.Add(unitCard);
             }
 
