@@ -50,6 +50,7 @@ public enum RewardType
     //unit_caster = EntityType.caster,
     shop_potion,
     shop_potion2,
+    shop_potion3,
 
 }
 
@@ -75,6 +76,7 @@ public enum ImageIndex
     //Shop
     shop_potion_one,
     shop_potion_two,
+    shop_potion_three,
 }
 
 public enum MapType
@@ -95,10 +97,7 @@ public enum EventOptionType // 이벤트 옵션별 보상?
     sword = EntityType.sword,
 }
 
-public enum ShopType
-{
-    gold = EntityType.gold,
-}
+
 
 public class Reward
 {
@@ -219,6 +218,7 @@ public class DataManager : MonoBehaviour
         // Shop
         imageData[ImageIndex.shop_potion_one] = Resources.Load<Sprite>("Shop/Sprites/Potion_One");
         imageData[ImageIndex.shop_potion_two] = Resources.Load<Sprite>("Shop/Sprites/Potion_Two");
+        imageData[ImageIndex.shop_potion_three] = Resources.Load<Sprite>("Shop/Sprites/Potion_Three");
     }
 
     private void ApplyRewardDatas()
@@ -235,8 +235,9 @@ public class DataManager : MonoBehaviour
         UnitInfo bowUnit = new UnitInfo(unitStat, UnitType.bow, imageData[ImageIndex.unit_bow], prefabData[EntityType.bow]);
         rewardData[RewardType.unit_bow] = new Reward(bowUnit.thumbnail, "원거리에서 싸우는 유닛입니다", RewardType.unit_bow, 1000);
         // 상점용
-        rewardData[RewardType.shop_potion] = new Reward(imageData[ImageIndex.shop_potion_one], "상점용 포션1입니다.", RewardType.shop_potion, 300);
-        rewardData[RewardType.shop_potion2] = new Reward(imageData[ImageIndex.shop_potion_two], "상점용 포션2입니다.", RewardType.shop_potion2, 600);
+        rewardData[RewardType.shop_potion] = new Reward(imageData[ImageIndex.shop_potion_one], "사용 시 체력을 30% 회복합니다.", RewardType.shop_potion, 300);
+        rewardData[RewardType.shop_potion2] = new Reward(imageData[ImageIndex.shop_potion_two], "사용 시 특정 유닛 체력을 50% 회복합니다.", RewardType.shop_potion2, 600);
+        rewardData[RewardType.shop_potion3] = new Reward(imageData[ImageIndex.shop_potion_three], "상점용 포션3입니다.", RewardType.shop_potion3, 800);
     }
 
     private void ApplyPrefabDatas()

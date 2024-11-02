@@ -26,12 +26,11 @@ public class ShopPopUp : MonoBehaviour
         this.reward = reward;
         rewardImage.sprite = reward.thumbnail;
         rewardDescription.text = reward.description;
-        priceText.text = $"{reward.shopPrice} G";
+        priceText.text = $"{reward.shopPrice}";
     }
 
     public void OnClickBuy()
     {
-        Debug.Log($"{reward.shopPrice}");
         if(reward.shopPrice > Player.Instance.gold)
         {
             Debug.Log("Dont Have Money");
@@ -41,16 +40,19 @@ public class ShopPopUp : MonoBehaviour
         switch (reward.rewardType)
         {
             case RewardType.gold:
-                Player.Instance.ChangeGold(reward.gold);
                 break;
             case RewardType.unit_sword:
                 Player.Instance.AddUnit(reward.unit);
                 break;
+
+            case RewardType.shop_potion:
+                Player.Instance.AddItem();
+                break;
+
+
         }
-
-        //2. 부모가 되는 리워드 레이아웃 숨김
-        GameSystem.Instance.FinishGetReward();
-
+        Player.Instance.ChangeGold(-reward.shopPrice);
+        GameSystem.Instance.shopPanel.UpdateGold();
         //3. 다음 스텝 진행
         //go to minimap
     }

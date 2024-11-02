@@ -42,6 +42,10 @@ public class Player : MonoBehaviour
         //gold관련 ui 동기화
     }
 
+    public void AddItem()
+    {
+        // 아이템 관련 (포션 등)
+    }
     public void AddUnit(UnitInfo unit)
     {
 #if UNITY_EDITOR
