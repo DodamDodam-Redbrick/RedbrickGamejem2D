@@ -93,14 +93,45 @@ public class Room : MonoBehaviour
     {
         RoomManager.Instance.rooms.Add(this);
 
-        StartCoroutine(SpawnRoom());
+        //SpawnRoom(0);
+        StartCoroutine(CoSpawnRoom());
     }
 
-    IEnumerator SpawnRoom()
+    void SpawnRoom(int n)
+    {
+        if (n >= 4)
+            return;
+
+        if (RoomManager.Instance.IsSpawnComplete)
+        {
+            RoomManager.Instance.SpawnComplete();
+        }
+
+        if (connectedRoom[n] || spawnPoints[n].isRoom)
+        {
+            SpawnRoom(n + 1);
+            return;
+        }
+
+        int rand = UnityEngine.Random.Range(0, 10);
+
+        if (rand < connectRate)
+        {
+            Room roomInst = Instantiate(roomPrefab, transform.parent).GetComponent<Room>();
+            roomInst.transform.position = spawnPoints[n].transform.position;
+            roomInst.transform.rotation = Quaternion.identity;
+            roomInst.ConnectRoom(reverseDirection[n], this);
+            connectedRoom[n] = roomInst;
+        }
+
+        SpawnRoom(n + 1);
+    }
+
+    IEnumerator CoSpawnRoom()
     {
         for (int dir = 0; dir < 4; dir++)
         {
-            yield return null;
+            yield return new WaitForEndOfFrame();
 
             if (RoomManager.Instance.IsSpawnComplete)
             {
@@ -128,8 +159,6 @@ public class Room : MonoBehaviour
                 roomInst.ConnectRoom(reverseDirection[dir], this);
                 connectedRoom[dir] = roomInst;
             }
-
-            yield return null;
         }
     }
 

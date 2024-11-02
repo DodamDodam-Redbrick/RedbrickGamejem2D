@@ -179,6 +179,10 @@ public enum ImageIndex
 public enum MapType
 {
     firstStage_one,
+    //firstStage_two,
+    //firstStage_three,
+
+    //firstStage_boss,
 }
 
 public enum EventType

@@ -126,7 +126,7 @@ public class GameSystem : MonoBehaviour
             minimap = null;
         }
 
-        minimap = Instantiate(minimapPrefab).GetComponent<RoomManager>();
+        minimap = Instantiate(minimapPrefab, new Vector2(-100, -100), Quaternion.identity).GetComponent<RoomManager>();
         minimap.Init();
         minimap.GenerateRandomMap();
         minimap.transform.SetParent(canvasTrans, false);
@@ -403,12 +403,9 @@ public class GameSystem : MonoBehaviour
         loadingPanel.SetActive(true);
     }
 
-    public IEnumerator FinishLoading(float time)
+    public void FinishLoading()
     {
-        yield return new WaitForSeconds(time);
         loadingPanel.SetActive(false);
-
-
     }
 
 
