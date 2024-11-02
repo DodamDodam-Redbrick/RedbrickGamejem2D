@@ -1,6 +1,10 @@
 fileFormatVersion: 2
-guid: bd911d640f4275d439c35e7b8535a347
+<<<<<<<< Updated upstream:Assets/Resources/Layout/Sprites.meta
+guid: 4ef4d2df6450a4f7095764017610cb30
 folderAsset: yes
+========
+guid: 7477ed097d5fa4b10a1926e29fe6ef68
+>>>>>>>> Stashed changes:Assets/Scenes/Map.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

@@ -5,9 +5,18 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Events;
+using static Unity.VisualScripting.Dependencies.Sqlite.SQLite3;
 
 public class GameSystem : MonoBehaviour
 {
+    public Transform canvasTrans;
+
+    public float maxCold = 10f;
+    public float cold = 0f;
+    public float coldIncreaseAmount = 1f;
+
+    public float deBuffColdPersent;
+
     public static GameSystem Instance;
 
     [SerializeField, Tooltip("초단위")]
@@ -40,6 +49,9 @@ public class GameSystem : MonoBehaviour
     [HideInInspector]
     public UnitInfo mainCharacter;
 
+    [SerializeField]
+    GameObject loadingPanel;
+
     [Header("Prefabs")]
     [SerializeField]
     GameObject minimapPrefab;
@@ -63,7 +75,8 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //StartCoroutine(CoStartGame());
+        StartCoroutine(CoStartGame());
+
 #if UNITY_EDITOR
         mainCharacter = DataManager.Instance.unitData[UnitType.mainCharacter].DeepCopy();
         //shopList = null;
@@ -104,6 +117,7 @@ public class GameSystem : MonoBehaviour
 
     void OnStartGame()
     {
+        ShowLoading();
         //게임 시작하면
         //1. 맵 랜덤생성
         if (minimap != null)
@@ -115,6 +129,7 @@ public class GameSystem : MonoBehaviour
         minimap = Instantiate(minimapPrefab).GetComponent<RoomManager>();
         minimap.Init();
         minimap.GenerateRandomMap();
+        minimap.transform.SetParent(canvasTrans, false);
 
         //메인캐릭터 딥카피
         mainCharacter = DataManager.Instance.unitData[UnitType.mainCharacter].DeepCopy();
@@ -125,7 +140,9 @@ public class GameSystem : MonoBehaviour
         switch (roomType)
         {
             case RoomType.battle:
-                 StartBattle();
+
+                StartBattle();
+
                 break;
             case RoomType.boss:
                 StartBossBattle();
@@ -139,6 +156,8 @@ public class GameSystem : MonoBehaviour
                 break;
 
         }
+
+        IncreaseCold();
     }
 
     public void CloseBattleMap()
@@ -233,7 +252,7 @@ public class GameSystem : MonoBehaviour
             {
                 case RewardType.reward_gold:
                     break;
-                case RewardType.unit_sword:
+                case RewardType.unit_sword_1:
                     UnitType unitType = GetRandomEnumType<UnitType>();
                     UnitInfo originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
                     UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
@@ -314,6 +333,7 @@ public class GameSystem : MonoBehaviour
                     UnitInfo unit = originUnitInfo.DeepCopy(); //깊은 복사
                     shop.unit = unit;
                     break;
+
             }
             shops.Add(shop);
         }
@@ -340,4 +360,56 @@ public class GameSystem : MonoBehaviour
         return shopList;
 
     }
+
+
+    // 추위 증가
+    void IncreaseCold() 
+    {
+        cold += coldIncreaseAmount;
+        SetCold();
+        
+    }
+
+    void SetCold()
+    {
+        if (cold >= 2f)
+        {
+            deBuffColdPersent = 0.85f;
+        }
+        else if (cold >= 4f)
+        {
+            deBuffColdPersent = 0.7f;
+
+        }
+        else if (cold >= 6f)
+        {
+            deBuffColdPersent = 0.55f;
+
+        }
+        else if (cold >= 8f)
+        {
+            deBuffColdPersent = 0.40f;
+
+        }
+        else if (cold >= maxCold)
+        {
+            deBuffColdPersent = 0.25f;
+            cold = maxCold;
+        }
+    }
+
+    public void ShowLoading()
+    {
+        loadingPanel.SetActive(true);
+    }
+
+    public IEnumerator FinishLoading(float time)
+    {
+        yield return new WaitForSeconds(time);
+        loadingPanel.SetActive(false);
+
+
+    }
+
+
 }

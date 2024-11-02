@@ -16,6 +16,8 @@ public class UnitInfo : Entity
     public UnitInfo(EntityStats entityStats, UnitType unitType, Sprite thumbnail, GameObject unitPrefab, int cost, NodeType nodeType, GameObject bulletPrefab = null)
     {
         base.entityStats = entityStats;
+        originDamage = entityStats.damage;
+
         this.unitType = unitType;
         this.thumbnail = thumbnail;
         this.cost = cost;
@@ -26,6 +28,7 @@ public class UnitInfo : Entity
     }
 
     public int cost;
+    public float originDamage;
 
     public UnitType unitType;
 

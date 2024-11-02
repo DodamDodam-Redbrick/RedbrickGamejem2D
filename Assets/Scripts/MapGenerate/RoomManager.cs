@@ -61,10 +61,13 @@ public class RoomManager : MonoBehaviour
     {
         yield return new WaitForSeconds(mapGenerateTime);
 
-        if(IsSpawnComplete == false)
+        if (IsSpawnComplete == false)
         {
             GenerateRandomMap();
         }
+
+        else
+            StartCoroutine(GameSystem.Instance.FinishLoading(0.8f));
     }
 
     public void SpawnComplete()

@@ -10,16 +10,24 @@ using UnityEngine.UIElements;
 public enum EntityType
 {
     //아군 엔티티
+
     mainCharacter = 0,
 
-    sword = 10,
-    sword_1 = 11,
-    sword_2 = 12,
+    sword_1 = 10,
+    sword_2 = 11,
+    sword_3 = 12,
 
-    bow = 20,
-    bow_1 = 21,
-    bow_2 = 22,
-    caster = 30,
+    archer_1 = 20,
+    archer_2 = 21,
+    archer_3 = 22,
+
+    wizard_1 = 30,
+    wizard_2 = 31,
+    wizard_3 = 32,
+
+    soldier_1 = 40,
+    soldier_2 = 41,
+    soldier_3 = 42,
 
     //적 엔티티
     slime = 100,
@@ -38,11 +46,24 @@ public enum UnitType
 {
     mainCharacter = EntityType.mainCharacter,
 
-    sword = EntityType.sword,
+
+    sword_1 = EntityType.sword_1,
+    sword_2 = EntityType.sword_2,
+    sword_3 = EntityType.sword_3,
+
     //밑에는 값 만들고 주석 풀기
     //tank = EntityType.tank,
-    bow = EntityType.bow,
+    archer_1 = EntityType.archer_1,
+    archer_2 = EntityType.archer_2,
+    archer_3 = EntityType.archer_3,
     //caster = EntityType.caster,
+    wizard_1 = EntityType.wizard_1,
+    wizard_2 = EntityType.wizard_2,
+    wizard_3 = EntityType.wizard_3,
+
+    soldier_1 = EntityType.soldier_1,
+    soldier_2 = EntityType.soldier_2,
+    soldier_3 = EntityType.soldier_3,
 }
 
 
@@ -55,8 +76,22 @@ public enum EnemyType
 public enum RewardType
 {
     reward_gold = EntityType.gold,
-    unit_sword = EntityType.sword,
-    unit_bow = EntityType.bow,
+    //Unit
+    unit_sword_1 = EntityType.sword_1,
+    unit_sword_2 = EntityType.sword_2,
+    unit_sword_3 = EntityType.sword_3,
+
+    unit_archer_1 = EntityType.archer_1,
+    unit_archer_2 = EntityType.archer_2,
+    unit_archer_3 = EntityType.archer_3,
+
+    unit_wizard_1 = EntityType.wizard_1,
+    unit_wizard_2 = EntityType.wizard_2,
+    unit_wizard_3 = EntityType.wizard_3,
+
+    unit_soldier_1 = EntityType.soldier_1,
+    unit_soldier_2 = EntityType.soldier_2,
+    unit_soldier_3 = EntityType.soldier_3,
 
     //Shop
     shop_potion_one = EntityType.shop_potion_one,
@@ -68,14 +103,45 @@ public enum RewardType
 public enum EventOptionType
 {
     gold = EntityType.gold,
-    unit_sword = EntityType.sword,
+    unit_sword_1 = EntityType.sword_1,
+    unit_sword_2 = EntityType.sword_2,
+    unit_sword_3 = EntityType.sword_3,
+
+    unit_archer_1 = EntityType.archer_1,
+    unit_archer_2 = EntityType.archer_2,
+    unit_archer_3 = EntityType.archer_3,
+
+    unit_wizard_1 = EntityType.wizard_1,
+    unit_wizard_2 = EntityType.wizard_2,
+    unit_wizard_3 = EntityType.wizard_3,
+
+    unit_soldier_1 = EntityType.soldier_1,
+    unit_soldier_2 = EntityType.soldier_2,
+    unit_soldier_3 = EntityType.soldier_3,
 }
 public enum ImageIndex
 {
     reward_gold = EntityType.gold,
-    unit_sword = EntityType.sword,
-    unit_bow = EntityType.bow,
+
     unit_mainCharacter = EntityType.mainCharacter,
+
+
+    //Unit
+    unit_sword_1 = EntityType.sword_1,
+    unit_sword_2 = EntityType.sword_2,
+    unit_sword_3 = EntityType.sword_3,
+
+    unit_archer_1 = EntityType.archer_1,
+    unit_archer_2 = EntityType.archer_2,
+    unit_archer_3 = EntityType.archer_3,
+
+    unit_wizard_1 = EntityType.wizard_1,
+    unit_wizard_2 = EntityType.wizard_2,
+    unit_wizard_3 = EntityType.wizard_3,
+
+    unit_soldier_1 = EntityType.soldier_1,
+    unit_soldier_2 = EntityType.soldier_2,
+    unit_soldier_3 = EntityType.soldier_3,
 
     //Shop
     shop_potion_one = EntityType.shop_potion_one,
@@ -252,7 +318,7 @@ public class DataManager : MonoBehaviour
     private void ApplyImageDatas()
     {
         imageData[ImageIndex.map_boss] = Resources.Load<Sprite>("MapGenerate/Sprites/Boss");
-        imageData[ImageIndex .map_battle] = Resources.Load<Sprite>("MapGenerate/Sprites/Battle");
+        imageData[ImageIndex.map_battle] = Resources.Load<Sprite>("MapGenerate/Sprites/Battle");
         imageData[ImageIndex.map_randomEvent] = Resources.Load<Sprite>("MapGenerate/Sprites/RandomEvent");
         imageData[ImageIndex.map_shop] = Resources.Load<Sprite>("MapGenerate/Sprites/Shop");
         imageData[ImageIndex.map_start] = Resources.Load<Sprite>("MapGenerate/Sprites/Start");
@@ -260,9 +326,25 @@ public class DataManager : MonoBehaviour
 
         imageData[ImageIndex.reward_gold] = Resources.Load<Sprite>("Reward/Sprites/Gold");
 
-        imageData[ImageIndex.unit_sword] = Resources.Load<Sprite>("Battle/Sprites/Sword");
-        imageData[ImageIndex.unit_bow] = Resources.Load<Sprite>("Battle/Sprites/Bow");
-        imageData[ImageIndex.unit_mainCharacter] = Resources.Load<Sprite>("Battle/Sprites/Sword");
+
+        imageData[ImageIndex.unit_mainCharacter] = Resources.Load<Sprite>("Battle/Sprites/MainCh_Idle");
+
+        imageData[ImageIndex.unit_sword_1] = Resources.Load<Sprite>("Battle/Sprites/Sword_Idle");
+        imageData[ImageIndex.unit_sword_2] = Resources.Load<Sprite>("Battle/Sprites/Sword_Idle");
+        imageData[ImageIndex.unit_sword_3] = Resources.Load<Sprite>("Battle/Sprites/Sword_Idle");
+
+        imageData[ImageIndex.unit_archer_1] = Resources.Load<Sprite>("Battle/Sprites/Archer_Idle");
+        imageData[ImageIndex.unit_archer_2] = Resources.Load<Sprite>("Battle/Sprites/Archer_Idle");
+        imageData[ImageIndex.unit_archer_3] = Resources.Load<Sprite>("Battle/Sprites/Archer_Idle");
+
+        imageData[ImageIndex.unit_wizard_1] = Resources.Load<Sprite>("Battle/Sprites/Wizard_Idle");
+        imageData[ImageIndex.unit_wizard_2] = Resources.Load<Sprite>("Battle/Sprites/Wizard_Idle");
+        imageData[ImageIndex.unit_wizard_3] = Resources.Load<Sprite>("Battle/Sprites/Wizard_Idle");
+
+        imageData[ImageIndex.unit_soldier_1] = Resources.Load<Sprite>("Battle/Sprites/Soldier_Idle");
+        imageData[ImageIndex.unit_soldier_2] = Resources.Load<Sprite>("Battle/Sprites/Soldier_Idle");
+        imageData[ImageIndex.unit_soldier_3] = Resources.Load<Sprite>("Battle/Sprites/Soldier_Idle");
+
 
         // Enemy Image
         imageData[ImageIndex.unit_enemySlime] = Resources.Load<Sprite>("Battle/Sprites/Slime");
@@ -276,14 +358,29 @@ public class DataManager : MonoBehaviour
 
     private void ApplyPrefabDatas()
     {
-        prefabData[EntityType.sword] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
-            
-        prefabData[EntityType.bow] = Resources.Load<GameObject>("Battle/Prefabs/Bow");
+
+        prefabData[EntityType.mainCha] = Resources.Load<GameObject>("Battle/Prefabs/MainCha");
+
+        prefabData[EntityType.sword_1] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
+        prefabData[EntityType.sword_2] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
+        prefabData[EntityType.sword_3] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
+
+        prefabData[EntityType.archer_1] = Resources.Load<GameObject>("Battle/Prefabs/Archer");
+        prefabData[EntityType.archer_2] = Resources.Load<GameObject>("Battle/Prefabs/Archer");
+        prefabData[EntityType.archer_3] = Resources.Load<GameObject>("Battle/Prefabs/Archer");
+
+        prefabData[EntityType.wizard_1] = Resources.Load<GameObject>("Battle/Prefabs/Wizard");
+        prefabData[EntityType.wizard_2] = Resources.Load<GameObject>("Battle/Prefabs/Wizard");
+        prefabData[EntityType.wizard_3] = Resources.Load<GameObject>("Battle/Prefabs/Wizard");
+
+        prefabData[EntityType.soldier_1] = Resources.Load<GameObject>("Battle/Prefabs/Soldier");
+        prefabData[EntityType.soldier_2] = Resources.Load<GameObject>("Battle/Prefabs/Soldier");
+        prefabData[EntityType.soldier_3] = Resources.Load<GameObject>("Battle/Prefabs/Soldier");
     }
 
     private void ApplyMapData()
     {
-        mapDatas[MapType.firstStage_one] = Resources.Load<GameObject>("Battle/Prefabs/FirstMap");
+        mapDatas[MapType.firstStage_one] = Resources.Load<GameObject>("Battle/Prefabs/EasyMap02");
     }
 
 
