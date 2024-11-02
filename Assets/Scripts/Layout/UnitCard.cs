@@ -21,9 +21,13 @@ public class UnitCard : MonoBehaviour
     [HideInInspector]
     public bool isBan;
 
-    public void Set(UnitInfo unit)
+    [HideInInspector]
+    public int cardIndex;
+
+    public void Set(UnitInfo unit, int cardIndex)
     {
         this.unit = unit;
+        this.cardIndex = cardIndex;
 
         unitImage.sprite = unit.thumbnail;
         costText.text = $"{unit.cost}";

@@ -93,6 +93,7 @@ public class MapGrid : MonoBehaviour
     {
         int posX = Mathf.RoundToInt(vector.x / nodeSize);
         int posY = Mathf.RoundToInt(vector.y / nodeSize);
+
         return myNode[posX, posY];
     }
 }

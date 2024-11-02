@@ -10,7 +10,8 @@ using UnityEngine.UIElements;
 public enum EntityType
 {
     //아군 엔티티
-    mainCha = 0,
+
+    mainCharacter = 0,
 
     sword_1 = 10,
     sword_2 = 11,
@@ -28,8 +29,6 @@ public enum EntityType
     soldier_2 = 41,
     soldier_3 = 42,
 
-    caster = 3,
-
     //적 엔티티
     slime = 100,
     wolf = 101,
@@ -39,14 +38,19 @@ public enum EntityType
 
     //그 외
     gold = 300,
+    shop_potion_one = 301,
+    shop_potion_two = 302,
+    shop_potion_three = 303,
 }
 public enum UnitType
 {
-    mainCha = EntityType.mainCha,
+    mainCharacter = EntityType.mainCharacter,
+
 
     sword_1 = EntityType.sword_1,
     sword_2 = EntityType.sword_2,
     sword_3 = EntityType.sword_3,
+
     //밑에는 값 만들고 주석 풀기
     //tank = EntityType.tank,
     archer_1 = EntityType.archer_1,
@@ -90,9 +94,9 @@ public enum RewardType
     unit_soldier_3 = EntityType.soldier_3,
 
     //Shop
-    shop_potion_one,
-    shop_potion_two,
-    shop_potion_three,
+    shop_potion_one = EntityType.shop_potion_one,
+    shop_potion_two = EntityType.shop_potion_two,
+    shop_potion_three = EntityType.shop_potion_three,
 
 }
 
@@ -117,8 +121,10 @@ public enum EventOptionType
 }
 public enum ImageIndex
 {
-    unit_mainCha = EntityType.mainCha,
     reward_gold = EntityType.gold,
+
+    unit_mainCharacter = EntityType.mainCharacter,
+
 
     //Unit
     unit_sword_1 = EntityType.sword_1,
@@ -138,14 +144,13 @@ public enum ImageIndex
     unit_soldier_3 = EntityType.soldier_3,
 
     //Shop
-    shop_potion_one,
-    shop_potion_two,
-    shop_potion_three,
+    shop_potion_one = EntityType.shop_potion_one,
+    shop_potion_two = EntityType.shop_potion_two,
+    shop_potion_three = EntityType.shop_potion_three,
 
     unit_enemySlime = EntityType.slime,
     unit_enemyWolf = EntityType.wolf,
 
-   
 
     map_boss,
     map_battle,
@@ -321,7 +326,8 @@ public class DataManager : MonoBehaviour
 
         imageData[ImageIndex.reward_gold] = Resources.Load<Sprite>("Reward/Sprites/Gold");
 
-        imageData[ImageIndex.unit_mainCha] = Resources.Load<Sprite>("Battle/Sprites/MainCh_Idle");
+
+        imageData[ImageIndex.unit_mainCharacter] = Resources.Load<Sprite>("Battle/Sprites/MainCh_Idle");
 
         imageData[ImageIndex.unit_sword_1] = Resources.Load<Sprite>("Battle/Sprites/Sword_Idle");
         imageData[ImageIndex.unit_sword_2] = Resources.Load<Sprite>("Battle/Sprites/Sword_Idle");
@@ -338,6 +344,7 @@ public class DataManager : MonoBehaviour
         imageData[ImageIndex.unit_soldier_1] = Resources.Load<Sprite>("Battle/Sprites/Soldier_Idle");
         imageData[ImageIndex.unit_soldier_2] = Resources.Load<Sprite>("Battle/Sprites/Soldier_Idle");
         imageData[ImageIndex.unit_soldier_3] = Resources.Load<Sprite>("Battle/Sprites/Soldier_Idle");
+
 
         // Enemy Image
         imageData[ImageIndex.unit_enemySlime] = Resources.Load<Sprite>("Battle/Sprites/Slime");

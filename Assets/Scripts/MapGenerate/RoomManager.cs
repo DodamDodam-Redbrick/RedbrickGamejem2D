@@ -53,7 +53,6 @@ public class RoomManager : MonoBehaviour
         rooms.Clear();
         mapGenerator = Instantiate(mapGeneratorPrefab, minimapPanel);
         mapGenerator.transform.localPosition = Vector3.zero;
-        //mapGenerator.transform.localScale = new Vector3(15, 15, 0);
 
         StartCoroutine(CoCheckMapeGenerateComplete());
     }

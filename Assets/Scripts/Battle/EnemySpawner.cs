@@ -8,11 +8,15 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnemy(SpawnData spawnData)
     {
-        GameObject enemyPrefab = DataManager.Instance.enemyData[spawnData.enemyType].entityPrefab;
+        EnemyInfo enemyInfo = DataManager.Instance.enemyData[spawnData.enemyType];
+        GameObject enemyPrefab = enemyInfo.entityPrefab;
         if (enemyPrefab != null)
         {
             Enemy enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity).GetComponent<Enemy>();
             enemy.transform.SetParent(transform.parent, true);
+
+            EnemyInfo instEnemyInfo = enemyInfo.DeepCopy();
+            enemy.Init(instEnemyInfo);
 
             if (enemy != null)
             {
