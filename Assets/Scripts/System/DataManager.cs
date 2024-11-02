@@ -51,7 +51,6 @@ public enum UnitType
 {
     mainCharacter = EntityType.mainCharacter,
 
-
     sword_1 = EntityType.sword_1,
     sword_2 = EntityType.sword_2,
     sword_3 = EntityType.sword_3,
@@ -339,7 +338,6 @@ public class DataManager : MonoBehaviour
         imageData[ImageIndex.map_unknown] = Resources.Load<Sprite>("MapGenerate/Sprites/Unknown");
 
         imageData[ImageIndex.reward_gold] = Resources.Load<Sprite>("Reward/Sprites/Gold");
-
 
         imageData[ImageIndex.unit_mainCharacter] = Resources.Load<Sprite>("Battle/Sprites/MainCh_Idle");
 
