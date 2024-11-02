@@ -16,6 +16,10 @@ public class Arrow : MonoBehaviour
 
     public void OnClickArrow()
     {
+        if (GameSystem.Instance.OnPanels())
+            return;
+
+        
         Player.Instance.MoveRoom(moveRoom);
     }
 

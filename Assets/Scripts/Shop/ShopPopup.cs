@@ -39,14 +39,15 @@ public class ShopPopUp : MonoBehaviour
             return;
         }
         //1. 데이터에 자기 리워드 추가시켜주고
+
+
         switch (reward.rewardType)
         {
             case RewardType.reward_gold:
                 break;
 
             case RewardType.unit_sword_1:
-                UnitInfo unit = reward.unit;
-                Player.Instance.AddUnit(unit);
+                Player.Instance.AddUnit(reward.unit);
                 break;
 
             case RewardType.unit_sword_2:
@@ -70,9 +71,36 @@ public class ShopPopUp : MonoBehaviour
                 Player.Instance.AddUnit(reward.unit);
                 break;
 
+            case RewardType.unit_wizard_1:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+
+            case RewardType.unit_wizard_2:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+
+            case RewardType.unit_wizard_3:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+
+
+            case RewardType.unit_soldier_1:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+
+            case RewardType.unit_soldier_2:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+
+            case RewardType.unit_soldier_3:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+
+
             case RewardType.shop_potion_one:
                 Player.Instance.AddItem();
                 break;
+
 
 
         }
