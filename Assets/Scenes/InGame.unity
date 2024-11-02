@@ -2953,124 +2953,226 @@ MonoBehaviour:
         gold: 0
   unitData:
     _serializedList:
-    - Key: 10
-      Value:
-        entityPrefab: {fileID: 6551475974295820344, guid: 49fc499bc9197434c8178224764e3d8d, type: 3}
-        bulletPrefab: {fileID: 0}
-        entityStats:
-          hp: 100
-          damage: 5
-          def: 1
-          moveSpeed: 1
-          fireRate: 1
-          skillCoolTime: 10
-          weight: 1
-        cost: 8
-        originDamage: 0
-        unitType: 10
-        placeNodeType: 0
-        thumbnail: {fileID: 0}
-    - Key: 10
-      Value:
-        entityPrefab: {fileID: 6551475974295820344, guid: 49fc499bc9197434c8178224764e3d8d, type: 3}
-        bulletPrefab: {fileID: 0}
-        entityStats:
-          hp: 100
-          damage: 5
-          def: 1
-          moveSpeed: 1
-          fireRate: 1
-          skillCoolTime: 10
-          weight: 1
-        cost: 8
-        originDamage: 0
-        unitType: 10
-        placeNodeType: 0
-        thumbnail: {fileID: 0}
-    - Key: 11
-      Value:
-        entityPrefab: {fileID: 6551475974295820344, guid: 49fc499bc9197434c8178224764e3d8d, type: 3}
-        bulletPrefab: {fileID: 0}
-        entityStats:
-          hp: 100
-          damage: 5
-          def: 1
-          moveSpeed: 1
-          fireRate: 1
-          skillCoolTime: 10
-          weight: 1
-        cost: 10
-        originDamage: 0
-        unitType: 11
-        placeNodeType: 0
-        thumbnail: {fileID: 0}
-    - Key: 12
-      Value:
-        entityPrefab: {fileID: 6551475974295820344, guid: 49fc499bc9197434c8178224764e3d8d, type: 3}
-        bulletPrefab: {fileID: 0}
-        entityStats:
-          hp: 100
-          damage: 5
-          def: 1
-          moveSpeed: 1
-          fireRate: 1
-          skillCoolTime: 10
-          weight: 1
-        cost: 12
-        originDamage: 0
-        unitType: 12
-        placeNodeType: 0
-        thumbnail: {fileID: 0}
-    - Key: 20
-      Value:
-        entityPrefab: {fileID: 6551475974295820344, guid: 461e724812e1afc4fb9d62cad1a99b18, type: 3}
-        bulletPrefab: {fileID: 0}
-        entityStats:
-          hp: 100
-          damage: 5
-          def: 1
-          moveSpeed: 1
-          fireRate: 1
-          skillCoolTime: 10
-          weight: 1
-        cost: 8
-        originDamage: 0
-        unitType: 20
-        placeNodeType: 0
-        thumbnail: {fileID: 0}
-    - Key: 21
-      Value:
-        entityPrefab: {fileID: 6551475974295820344, guid: 461e724812e1afc4fb9d62cad1a99b18, type: 3}
-        bulletPrefab: {fileID: 0}
-        entityStats:
-          hp: 100
-          damage: 5
-          def: 1
-          moveSpeed: 1
-          fireRate: 1
-          skillCoolTime: 10
-          weight: 1
-        cost: 10
-        originDamage: 0
-        unitType: 21
-        placeNodeType: 0
-        thumbnail: {fileID: 0}
     - Key: 0
       Value:
         entityPrefab: {fileID: 6551475974295820344, guid: a01081a47dd534597979180ab5eea15c, type: 3}
         bulletPrefab: {fileID: 0}
         entityStats:
           hp: 100
-          damage: 5
-          def: 1
-          moveSpeed: 1
+          damage: 2
+          def: 0
+          moveSpeed: 0
           fireRate: 1
-          skillCoolTime: 10
-          weight: 1
-        cost: 12
+          skillCoolTime: 0
+          weight: 999
+        cost: 0
         originDamage: 0
         unitType: 0
-        placeNodeType: 0
+        placeNodeType: 1
+        thumbnail: {fileID: 0}
+    - Key: 10
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: b2190c1a09c9042a18eeab6951d1e735, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 50
+          damage: 5
+          def: 0
+          moveSpeed: 0
+          fireRate: 0.5
+          skillCoolTime: 3
+          weight: 1
+        cost: 1
+        originDamage: 0
+        unitType: 10
+        placeNodeType: 1
+        thumbnail: {fileID: 0}
+    - Key: 11
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: b2190c1a09c9042a18eeab6951d1e735, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 100
+          damage: 10
+          def: 0
+          moveSpeed: 0
+          fireRate: 0.5
+          skillCoolTime: 3
+          weight: 1
+        cost: 2
+        originDamage: 0
+        unitType: 11
+        placeNodeType: 1
+        thumbnail: {fileID: 0}
+    - Key: 12
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: b2190c1a09c9042a18eeab6951d1e735, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 150
+          damage: 20
+          def: 0
+          moveSpeed: 0
+          fireRate: 0.5
+          skillCoolTime: 3
+          weight: 1
+        cost: 3
+        originDamage: 0
+        unitType: 12
+        placeNodeType: 1
+        thumbnail: {fileID: 0}
+    - Key: 20
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: 17559394de39145e8976c41e02aa363b, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 40
+          damage: 3
+          def: 0
+          moveSpeed: 0
+          fireRate: 0.4
+          skillCoolTime: 3
+          weight: 1
+        cost: 3
+        originDamage: 0
+        unitType: 20
+        placeNodeType: 1
+        thumbnail: {fileID: 0}
+    - Key: 21
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: 17559394de39145e8976c41e02aa363b, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 80
+          damage: 6
+          def: 0
+          moveSpeed: 0
+          fireRate: 0.4
+          skillCoolTime: 3
+          weight: 1
+        cost: 4
+        originDamage: 0
+        unitType: 21
+        placeNodeType: 1
+        thumbnail: {fileID: 0}
+    - Key: 22
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: 17559394de39145e8976c41e02aa363b, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 120
+          damage: 12
+          def: 0
+          moveSpeed: 0
+          fireRate: 0.4
+          skillCoolTime: 3
+          weight: 1
+        cost: 5
+        originDamage: 0
+        unitType: 22
+        placeNodeType: 1
+        thumbnail: {fileID: 0}
+    - Key: 30
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: cf591f635bda6491a8d75348c7436588, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 30
+          damage: 7
+          def: 0
+          moveSpeed: 0
+          fireRate: 1
+          skillCoolTime: 3
+          weight: 1
+        cost: 4
+        originDamage: 0
+        unitType: 30
+        placeNodeType: 1
+        thumbnail: {fileID: 0}
+    - Key: 31
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: cf591f635bda6491a8d75348c7436588, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 60
+          damage: 14
+          def: 0
+          moveSpeed: 0
+          fireRate: 1
+          skillCoolTime: 3
+          weight: 1
+        cost: 5
+        originDamage: 0
+        unitType: 31
+        placeNodeType: 1
+        thumbnail: {fileID: 0}
+    - Key: 32
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: cf591f635bda6491a8d75348c7436588, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 100
+          damage: 28
+          def: 0
+          moveSpeed: 0
+          fireRate: 1
+          skillCoolTime: 3
+          weight: 1
+        cost: 6
+        originDamage: 0
+        unitType: 32
+        placeNodeType: 1
+        thumbnail: {fileID: 0}
+    - Key: 40
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: a3611ff7bd7024b92be0384c7ecc6373, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 100
+          damage: 2
+          def: 0
+          moveSpeed: 0
+          fireRate: 0.8
+          skillCoolTime: 3
+          weight: 2
+        cost: 2
+        originDamage: 0
+        unitType: 40
+        placeNodeType: 1
+        thumbnail: {fileID: 0}
+    - Key: 41
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: a3611ff7bd7024b92be0384c7ecc6373, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 150
+          damage: 4
+          def: 0
+          moveSpeed: 0
+          fireRate: 0.8
+          skillCoolTime: 3
+          weight: 2
+        cost: 3
+        originDamage: 0
+        unitType: 41
+        placeNodeType: 1
+        thumbnail: {fileID: 0}
+    - Key: 42
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: a3611ff7bd7024b92be0384c7ecc6373, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 200
+          damage: 8
+          def: 0
+          moveSpeed: 0
+          fireRate: 0.8
+          skillCoolTime: 3
+          weight: 2
+        cost: 4
+        originDamage: 0
+        unitType: 42
+        placeNodeType: 1
         thumbnail: {fileID: 0}
   enemyData:
     _serializedList:

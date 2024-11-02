@@ -232,8 +232,8 @@ Tilemap:
   - first: {x: 0, y: 2, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -262,8 +262,8 @@ Tilemap:
   - first: {x: 3, y: 2, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -282,8 +282,8 @@ Tilemap:
   - first: {x: 5, y: 2, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -312,8 +312,8 @@ Tilemap:
   - first: {x: 8, y: 2, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -332,8 +332,8 @@ Tilemap:
   - first: {x: 1, y: 3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -342,8 +342,8 @@ Tilemap:
   - first: {x: 2, y: 3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -362,8 +362,8 @@ Tilemap:
   - first: {x: 4, y: 3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -382,8 +382,8 @@ Tilemap:
   - first: {x: 6, y: 3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -392,8 +392,8 @@ Tilemap:
   - first: {x: 7, y: 3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -402,8 +402,8 @@ Tilemap:
   - first: {x: 8, y: 3, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -422,8 +422,8 @@ Tilemap:
   - first: {x: 0, y: 4, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -432,8 +432,8 @@ Tilemap:
   - first: {x: 1, y: 4, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -452,8 +452,8 @@ Tilemap:
   - first: {x: 3, y: 4, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -462,8 +462,8 @@ Tilemap:
   - first: {x: 4, y: 4, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -472,8 +472,8 @@ Tilemap:
   - first: {x: 5, y: 4, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -482,8 +482,8 @@ Tilemap:
   - first: {x: 6, y: 4, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -502,8 +502,8 @@ Tilemap:
   - first: {x: 8, y: 4, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileIndex: 1
+      m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -513,17 +513,17 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 28
-    m_Data: {fileID: 11400000, guid: 5e43814c301814e609f770ed3d4b0869, type: 2}
+  - m_RefCount: 17
+    m_Data: {fileID: 11400000, guid: 4cd325e7d84964e69bfd90e600d1be55, type: 2}
+  - m_RefCount: 11
+    m_Data: {fileID: 11400000, guid: da5b852fab073455999dff63370fa0c0, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 28
-    m_Data: {fileID: 21300000, guid: f0be0c264e4934ffc8900f8fa555b2e2, type: 3}
+  - m_RefCount: 17
+    m_Data: {fileID: 21300000, guid: bd2b551578b3b475f8247763cf30934b, type: 3}
+  - m_RefCount: 11
+    m_Data: {fileID: 21300000, guid: aed90428c5fc443a6a3dd3cb9d23409c, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 28
     m_Data:
@@ -3156,8 +3156,64 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnDatas:
+  - enemyType: 110
+    spawnTime: 2
+    wayPoints:
+    - {x: 8, y: 3, z: 0}
+    - {x: 8, y: 4, z: 0}
+    - {x: 3, y: 4, z: 0}
+    - {x: 3, y: 3, z: 0}
+    spawnerIndex: 0
+  - enemyType: 110
+    spawnTime: 2
+    wayPoints:
+    - {x: 8, y: 3, z: 0}
+    - {x: 8, y: 2, z: 0}
+    - {x: 3, y: 2, z: 0}
+    - {x: 3, y: 3, z: 0}
+    spawnerIndex: 0
+  - enemyType: 111
+    spawnTime: 6
+    wayPoints:
+    - {x: 8, y: 3, z: 0}
+    - {x: 8, y: 2, z: 0}
+    - {x: 3, y: 2, z: 0}
+    - {x: 3, y: 3, z: 0}
+    spawnerIndex: 0
+  - enemyType: 111
+    spawnTime: 6
+    wayPoints:
+    - {x: 8, y: 3, z: 0}
+    - {x: 8, y: 4, z: 0}
+    - {x: 3, y: 4, z: 0}
+    - {x: 3, y: 3, z: 0}
+    spawnerIndex: 0
+  - enemyType: 110
+    spawnTime: 8
+    wayPoints:
+    - {x: 8, y: 3, z: 0}
+    - {x: 8, y: 4, z: 0}
+    - {x: 3, y: 4, z: 0}
+    - {x: 3, y: 3, z: 0}
+    spawnerIndex: 0
+  - enemyType: 110
+    spawnTime: 8
+    wayPoints:
+    - {x: 8, y: 3, z: 0}
+    - {x: 8, y: 2, z: 0}
+    - {x: 3, y: 2, z: 0}
+    - {x: 3, y: 3, z: 0}
+    spawnerIndex: 0
   - enemyType: 100
-    spawnTime: 1
+    spawnTime: 13
+    wayPoints:
+    - {x: 8, y: 3, z: 0}
+    - {x: 8, y: 2, z: 0}
+    - {x: 3, y: 2, z: 0}
+    - {x: 3, y: 3, z: 0}
+    spawnerIndex: 0
+  - enemyType: 100
+    spawnTime: 13
     wayPoints:
     - {x: 8, y: 3, z: 0}
     - {x: 8, y: 4, z: 0}
@@ -3165,11 +3221,35 @@ MonoBehaviour:
     - {x: 3, y: 3, z: 0}
     spawnerIndex: 0
   - enemyType: 100
-    spawnTime: 2
+    spawnTime: 16
+    wayPoints:
+    - {x: 8, y: 3, z: 0}
+    - {x: 8, y: 4, z: 0}
+    - {x: 3, y: 4, z: 0}
+    - {x: 3, y: 3, z: 0}
+    spawnerIndex: 0
+  - enemyType: 100
+    spawnTime: 16
     wayPoints:
     - {x: 8, y: 3, z: 0}
     - {x: 8, y: 2, z: 0}
     - {x: 3, y: 2, z: 0}
+    - {x: 3, y: 3, z: 0}
+    spawnerIndex: 0
+  - enemyType: 100
+    spawnTime: 19
+    wayPoints:
+    - {x: 8, y: 3, z: 0}
+    - {x: 8, y: 2, z: 0}
+    - {x: 3, y: 2, z: 0}
+    - {x: 3, y: 3, z: 0}
+    spawnerIndex: 0
+  - enemyType: 100
+    spawnTime: 19
+    wayPoints:
+    - {x: 8, y: 3, z: 0}
+    - {x: 8, y: 4, z: 0}
+    - {x: 3, y: 4, z: 0}
     - {x: 3, y: 3, z: 0}
     spawnerIndex: 0
   spawnPoints:
