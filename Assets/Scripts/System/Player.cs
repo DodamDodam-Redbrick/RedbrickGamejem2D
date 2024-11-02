@@ -30,7 +30,6 @@ public class Player : MonoBehaviour
     Coroutine coMoveRoom;
     private void Awake()
     {
-        DontDestroyOnLoad(this);
 
         Instance = this;
     }

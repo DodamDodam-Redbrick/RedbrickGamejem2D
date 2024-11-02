@@ -90,8 +90,8 @@ public class GameSystem : MonoBehaviour
     void Start()
     {
         StartCoroutine(CoStartGame());
-        shopList = null;
-        GetShop();
+        //shopList = null;
+        //GetShop();
 #if UNITY_EDITOR
         mainCharacter = DataManager.Instance.unitData[UnitType.mainCharacter].DeepCopy();
         //shopList = null;

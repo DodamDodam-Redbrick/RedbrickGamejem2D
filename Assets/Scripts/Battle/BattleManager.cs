@@ -24,18 +24,6 @@ public class BattleManager : MonoBehaviour
     
     Unit mainCharacter;
 
-    public int KillCount {  
-        set 
-        {
-            killCount = value;
-            if (killCount >= spawnDatas.Count)
-            {
-                //끝
-                GameSystem.Instance.FinishBattle();
-            }
-        }
-        get { return spawnPoints.Count; } }
-
     [SerializeField]
     int killCount = 0;
 
@@ -66,6 +54,16 @@ public class BattleManager : MonoBehaviour
         spawnDatas.Sort((x, y) => x.spawnTime.CompareTo(y.spawnTime)); // 스폰 시간을 기준으로 정렬
 
         StartCoroutine(CoSpawnEnemies());
+    }
+
+    public void CountKillCount()
+    {
+        killCount++;
+        if (killCount >= spawnDatas.Count)
+        {
+            //끝
+            GameSystem.Instance.FinishBattle();
+        }
     }
 
     IEnumerator CoSpawnEnemies()
