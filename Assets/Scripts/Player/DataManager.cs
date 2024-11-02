@@ -230,13 +230,13 @@ public class DataManager : MonoBehaviour
         EntityStats unitStat = new EntityStats(100, 5, 1, 1, 1, 10, 1);
         //원거리 유닛이면 총알 맨 뒤에 추가해줘야함
         UnitInfo unit = new UnitInfo(unitStat, UnitType.sword, imageData[ImageIndex.unit_sword], prefabData[EntityType.sword]);
-        rewardData[RewardType.unit_sword] = new Reward(unit.thumbnail, "근거리에서 싸우는 유닛입니다", RewardType.unit_sword, 500);
+        rewardData[RewardType.unit_sword] = new Reward(unit.thumbnail, "근거리에서 싸우는 유닛입니다", RewardType.unit_sword, 800);
 
         UnitInfo bowUnit = new UnitInfo(unitStat, UnitType.bow, imageData[ImageIndex.unit_bow], prefabData[EntityType.bow]);
-        rewardData[RewardType.unit_bow] = new Reward(bowUnit.thumbnail, "원거리에서 싸우는 유닛입니다", RewardType.unit_bow, 500);
+        rewardData[RewardType.unit_bow] = new Reward(bowUnit.thumbnail, "원거리에서 싸우는 유닛입니다", RewardType.unit_bow, 1000);
         // 상점용
         rewardData[RewardType.shop_potion] = new Reward(imageData[ImageIndex.shop_potion_one], "상점용 포션1입니다.", RewardType.shop_potion, 300);
-        rewardData[RewardType.shop_potion2] = new Reward(imageData[ImageIndex.shop_potion_two], "상점용 포션2입니다.", RewardType.shop_potion2, 500);
+        rewardData[RewardType.shop_potion2] = new Reward(imageData[ImageIndex.shop_potion_two], "상점용 포션2입니다.", RewardType.shop_potion2, 600);
     }
 
     private void ApplyPrefabDatas()

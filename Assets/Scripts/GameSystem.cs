@@ -49,9 +49,9 @@ public class GameSystem : MonoBehaviour
     [SerializeField]
     GameObject playerLayout;
 
-    List<RewardType> shopList;
+    public List<RewardType> shopList;
     List<RewardType> subList;
-    List<Reward> shops;
+
 
     Dictionary<int, List<MapType>> stageMaps = new Dictionary<int, List<MapType>>()
     {
@@ -70,6 +70,7 @@ public class GameSystem : MonoBehaviour
     {
         OnStartGame();
 #if UNITY_EDITOR
+        shopList = null;
         GetShop();
         // GetReward();
 #endif
@@ -244,30 +245,19 @@ public class GameSystem : MonoBehaviour
 
     public void GetShop()
     {
-        if(shops != null)
-            shops.Clear();
-        shops = new List<Reward>();
+        List<Reward> shops = new List<Reward>();
         List<RewardType> shopType = GetRandomShopEnum();
-        int index = 0;
-        while(index <= shopAmount)
+        while(shops.Count <= shopAmount)
         {
             RewardType rewardType = shopType[Random.Range(0, shopType.Count)];
             bool isUnitType = System.Enum.GetValues(typeof(UnitType)).Cast<UnitType>().Any(unit => rewardType == (RewardType)unit);
 
-            if (index > 2)
-            {
-                if (isUnitType)
-                    continue;
-
-            }
-
-            else
-            {
-                if (!isUnitType)
-                    continue;
-            }
+            // 인덱스에 따른 조건
+            if ((shops.Count > 2 && isUnitType) || (shops.Count <= 2 && !isUnitType))
+                continue;
 
             Reward shop = new Reward(DataManager.rewardData[rewardType].thumbnail, DataManager.rewardData[rewardType].description, rewardType, DataManager.rewardData[rewardType].shopPrice);
+
             switch (rewardType)
             {
                 case RewardType.unit_sword:
@@ -277,12 +267,9 @@ public class GameSystem : MonoBehaviour
                     shop.unit = unit;
                     break;
             }
-
-            shops.Add(shop);
-            index++;
+            shops.Add(shop);           
         }
         shopPanel.ShowShopPanel(shops);
-
     }
 
     T GetRandomEnumType<T>()

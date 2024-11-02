@@ -25,13 +25,18 @@ public class ShopPanel : MonoBehaviour
 
     List<ShopPopUp> shopPools = new List<ShopPopUp>();
 
+    List<RewardType> currentRewards = new List<RewardType>();
+
     public void ShowShopPanel(List<Reward> rewards)
     {
+
         gameObject.SetActive(true);
+       
         UpdateGold();
         foreach (Reward reward in rewards)
         {
-            ShopPopUp shopPopup = GetUnUseRewardPool();
+
+           ShopPopUp shopPopup = GetUnUseRewardPool();
             //재활용으로 바꿀 예정
             if (shopPopup != null)
             {
@@ -82,8 +87,10 @@ public class ShopPanel : MonoBehaviour
         {
             currentRerollCount++;
             UpdateRerollCount();
-            HidePopupPanel();
-            GameSystem.Instance.GetShop();
+            foreach(ShopPopUp shops in shopPools)
+            {
+                shops.RerollPopUp();
+            }
         }
         else
         {
@@ -95,5 +102,10 @@ public class ShopPanel : MonoBehaviour
     private void UpdateRerollCount()
     {
         rerollText.text = $"Rerolls: {maxRerollCount - currentRerollCount}";
+    }
+
+    public List<RewardType> GetCurrentRewards()
+    {
+        return currentRewards;
     }
 }
