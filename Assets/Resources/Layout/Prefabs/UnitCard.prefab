@@ -285,10 +285,12 @@ MonoBehaviour:
       skillCoolTime: 0
       weight: 0
     cost: 0
+    originDamage: 0
     unitType: 0
     placeNodeType: 0
     thumbnail: {fileID: 0}
   isBan: 0
+  cardIndex: 0
 --- !u!114 &4385249767331388748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,7 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 9d6163d6ae038234d8c826e6eb841f15, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
