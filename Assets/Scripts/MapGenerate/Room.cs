@@ -45,6 +45,12 @@ public enum wallType
     LRTB = L|R|T|B,
 }
 
+public enum RoomDifficult
+{
+    easy = 0,
+    hard = 1,
+}
+
 public class Room : MonoBehaviour
 {
     [SerializedDictionary("wallType", "wallPrefab")]
@@ -76,6 +82,10 @@ public class Room : MonoBehaviour
 
     bool isVisited;
 
+    public RoomDifficult roomDifficult;
+
+    RoomManager roomManager;
+
     public RoomType roomType
     {
         get { return _roomType; }
@@ -93,42 +103,20 @@ public class Room : MonoBehaviour
     {
         RoomManager.Instance.rooms.Add(this);
 
-        //SpawnRoom(0);
         StartCoroutine(CoSpawnRoom());
-    }
-
-    void SpawnRoom(int n)
-    {
-        if (n >= 4)
-            return;
-
-        if (RoomManager.Instance.IsSpawnComplete)
-        {
-            RoomManager.Instance.SpawnComplete();
-        }
-
-        if (connectedRoom[n] || spawnPoints[n].isRoom)
-        {
-            SpawnRoom(n + 1);
-            return;
-        }
-
-        int rand = UnityEngine.Random.Range(0, 10);
-
-        if (rand < connectRate)
-        {
-            Room roomInst = Instantiate(roomPrefab, transform.parent).GetComponent<Room>();
-            roomInst.transform.position = spawnPoints[n].transform.position;
-            roomInst.transform.rotation = Quaternion.identity;
-            roomInst.ConnectRoom(reverseDirection[n], this);
-            connectedRoom[n] = roomInst;
-        }
-
-        SpawnRoom(n + 1);
     }
 
     IEnumerator CoSpawnRoom()
     {
+        if(transform.parent.parent.GetComponent<RoomManager>().roomCount > GameSystem.Instance.difficultRoomCount)
+        {
+            roomDifficult = RoomDifficult.hard;
+        }
+        else
+        {
+            roomDifficult = RoomDifficult.easy;
+        }
+
         for (int dir = 0; dir < 4; dir++)
         {
             yield return new WaitForEndOfFrame();
