@@ -445,7 +445,7 @@ MonoBehaviour:
         cost: 0
         originDamage: 0
         unitType: 0
-        placeNodeType: 0
+        placeNodeType: 1
         thumbnail: {fileID: 0}
     - Key: 10
       Value:
@@ -462,7 +462,7 @@ MonoBehaviour:
         cost: 1
         originDamage: 0
         unitType: 10
-        placeNodeType: 0
+        placeNodeType: 1
         thumbnail: {fileID: 0}
     - Key: 11
       Value:
@@ -479,7 +479,7 @@ MonoBehaviour:
         cost: 2
         originDamage: 0
         unitType: 11
-        placeNodeType: 0
+        placeNodeType: 1
         thumbnail: {fileID: 0}
     - Key: 12
       Value:
@@ -496,7 +496,7 @@ MonoBehaviour:
         cost: 3
         originDamage: 0
         unitType: 12
-        placeNodeType: 0
+        placeNodeType: 1
         thumbnail: {fileID: 0}
     - Key: 20
       Value:
@@ -513,7 +513,7 @@ MonoBehaviour:
         cost: 3
         originDamage: 0
         unitType: 20
-        placeNodeType: 0
+        placeNodeType: 1
         thumbnail: {fileID: 0}
     - Key: 21
       Value:
@@ -530,7 +530,7 @@ MonoBehaviour:
         cost: 4
         originDamage: 0
         unitType: 21
-        placeNodeType: 0
+        placeNodeType: 1
         thumbnail: {fileID: 0}
     - Key: 22
       Value:
@@ -547,7 +547,7 @@ MonoBehaviour:
         cost: 5
         originDamage: 0
         unitType: 22
-        placeNodeType: 0
+        placeNodeType: 1
         thumbnail: {fileID: 0}
     - Key: 30
       Value:
@@ -564,7 +564,7 @@ MonoBehaviour:
         cost: 4
         originDamage: 0
         unitType: 30
-        placeNodeType: 0
+        placeNodeType: 1
         thumbnail: {fileID: 0}
     - Key: 31
       Value:
@@ -581,7 +581,7 @@ MonoBehaviour:
         cost: 5
         originDamage: 0
         unitType: 31
-        placeNodeType: 0
+        placeNodeType: 1
         thumbnail: {fileID: 0}
     - Key: 32
       Value:
@@ -598,7 +598,7 @@ MonoBehaviour:
         cost: 6
         originDamage: 0
         unitType: 32
-        placeNodeType: 0
+        placeNodeType: 1
         thumbnail: {fileID: 0}
     - Key: 40
       Value:
@@ -615,7 +615,7 @@ MonoBehaviour:
         cost: 2
         originDamage: 0
         unitType: 40
-        placeNodeType: 0
+        placeNodeType: 1
         thumbnail: {fileID: 0}
     - Key: 41
       Value:
@@ -632,7 +632,7 @@ MonoBehaviour:
         cost: 3
         originDamage: 0
         unitType: 41
-        placeNodeType: 0
+        placeNodeType: 1
         thumbnail: {fileID: 0}
     - Key: 42
       Value:
@@ -649,7 +649,7 @@ MonoBehaviour:
         cost: 4
         originDamage: 0
         unitType: 42
-        placeNodeType: 0
+        placeNodeType: 1
         thumbnail: {fileID: 0}
   enemyData:
     _serializedList:
@@ -723,7 +723,7 @@ MonoBehaviour:
         entityPrefab: {fileID: 6551475974295820344, guid: 9b830c72a2feb4bafa089e4242b7dee3, type: 3}
         bulletPrefab: {fileID: 0}
         entityStats:
-          hp: 34
+          hp: 24
           damage: 12
           def: 0
           moveSpeed: 6
