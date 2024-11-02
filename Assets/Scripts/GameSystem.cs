@@ -42,6 +42,7 @@ public class GameSystem : MonoBehaviour
     int maxRewardGold = 10;
 
     [Header("Panels")]
+
     [SerializeField]
     public EventPanel eventPanel;
 
@@ -79,7 +80,7 @@ public class GameSystem : MonoBehaviour
     public float MapMoveTime { get { return mapMoveTime; } }
 
     public bool isFirstReward = true;
-
+    public bool isOnPanel = false;
     private void Awake()
     {
         Instance = this;
@@ -447,7 +448,6 @@ public class GameSystem : MonoBehaviour
             case RewardType.unit_sword_3:
                 unit = DataManager.Instance.unitData[unitType].DeepCopy();
                 reward.unit = unit;
-                Debug.Log($"{reward.unit.unitType}");
                 break;
 
             case RewardType.unit_archer_1:
@@ -505,4 +505,16 @@ public class GameSystem : MonoBehaviour
         return reward;
     }
 
+    public bool OnPanels()
+    {
+        if(eventPanel.gameObject.activeSelf == true || shopPanel.gameObject.activeSelf == true || rewardPanel.gameObject.activeSelf == true)
+            isOnPanel = true;
+
+        else
+            isOnPanel = false;
+
+        return isOnPanel;
+
+        
+    }
 }

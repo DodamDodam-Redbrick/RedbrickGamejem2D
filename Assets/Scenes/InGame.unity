@@ -1036,7 +1036,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &863807035
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1070,6 +1070,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 102feaa4e58d80e47b24d3b7b7f473a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  addCoinTime: 1
+  addCoinAmount: 1
   placeDistance: 1
   unitGroup: {fileID: 2136295584}
   unitCardPrefab: {fileID: 7266769978987176150, guid: 90530a3d739562e4e9589c1782a692f3, type: 3}
@@ -1125,7 +1127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   playerCharacter: 0
-  gold: 20000
+  gold: 2000
   unitList: []
 --- !u!1 &1020408178
 GameObject:
@@ -3151,6 +3153,7 @@ MonoBehaviour:
   playerLayout: {fileID: 863807036}
   battleMap: {fileID: 0}
   isFirstReward: 1
+  isOnPanel: 0
 --- !u!4 &2147320674
 Transform:
   m_ObjectHideFlags: 0
