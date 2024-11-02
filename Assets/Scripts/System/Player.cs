@@ -45,7 +45,11 @@ public class Player : MonoBehaviour
         //gold°ü·Ã ui µ¿±âÈ­
     }
 
+<<<<<<< HEAD:Assets/Scripts/System/Player.cs
     public void AddUnit(Unit unit)
+=======
+    public void AddUnit(UnitInfo unit)
+>>>>>>> parent of 177f88b (Shop êµ¬í˜„ ì™„ë£Œ):Assets/Scripts/Player/Player.cs
     {
 #if UNITY_EDITOR
         Debug.Log($"{unit.unitInfo.unitType.ToString()} is added to unitList");
