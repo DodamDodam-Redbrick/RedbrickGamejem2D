@@ -42,7 +42,7 @@ public class ShopPopUp : MonoBehaviour
             case RewardType.reward_gold:
                 break;
             case RewardType.unit_sword:
-                Unit unit = new Unit(reward.unit);
+                UnitInfo unit = reward.unit;
                 Player.Instance.AddUnit(unit);
                 break;
 

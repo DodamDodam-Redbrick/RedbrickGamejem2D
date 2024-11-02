@@ -4,9 +4,10 @@ using UnityEngine;
 
 public enum NodeType
 {
-    low,
-    high,
-    nothing,
+    wall,
+    lowRoad,
+    highRoad,
+    onlyWalk,
 }
 
 public class Node
@@ -23,12 +24,13 @@ public class Node
     public int hCost;
 
     public Node parent;
-    public Node(bool walk, Vector3 pos, int X, int Y)
+    public Node(bool walk, Vector3 pos, int X, int Y, NodeType type)
     {
         canWalk = walk;
         myPos = pos;
         myX = X;
         myY = Y;
+        this.type = type;
     }
 
     public int fcost

@@ -7,8 +7,12 @@ TagManager:
   - SpawnPoint
   - Room
   - Minimap
-  - NotRoad
   - UnitCard
+  - lowRoad
+  - highRoad
+  - wall
+  - onlyWalk
+  - NotRoad
   layers:
   - Default
   - TransparentFX
