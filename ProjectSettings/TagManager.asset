@@ -12,9 +12,10 @@ TagManager:
   - highRoad
   - wall
   - onlyWalk
-  - NotRoad
   - Unit
   - Enemy
+  - DataManager
+  - playerData
   layers:
   - Default
   - TransparentFX
