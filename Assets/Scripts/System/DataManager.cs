@@ -30,9 +30,10 @@ public enum UnitType
     sword = EntityType.sword,
     //밑에는 값 만들고 주석 풀기
     //tank = EntityType.tank,
-    //bow = EntityType.bow,
+    bow = EntityType.bow,
     //caster = EntityType.caster,
 }
+
 
 public enum EnemyType
 {
@@ -44,10 +45,15 @@ public enum RewardType
 {
     gold = EntityType.gold,
     unit_sword = EntityType.sword,
+    unit_bow = EntityType.bow,
     //마찬가지
     //unit_tank = EntityType.tank,
     //unit_bow = EntityType.bow,
     //unit_caster = EntityType.caster,
+    shop_potion,
+    shop_potion2,
+    shop_potion3,
+
 }
 
 public enum EventOptionType
@@ -55,10 +61,10 @@ public enum EventOptionType
     gold = EntityType.gold,
     unit_sword = EntityType.sword,
 }
-
 public enum ImageIndex
 {
     unit_sword = EntityType.sword,
+    unit_bow = EntityType.bow,
 
     unit_enemySlime = EntityType.slime,
     unit_enemyWolf = EntityType.wolf,
@@ -71,7 +77,13 @@ public enum ImageIndex
     map_randomEvent,
     map_start,
     map_unknown,
+
+    //Shop
+    shop_potion_one,
+    shop_potion_two,
+    shop_potion_three,
 }
+
 
 public enum MapType
 {
@@ -100,6 +112,13 @@ public class Reward
         this.unit = unit;
     }
 
+    public Reward(Sprite thumbnail, string description, RewardType shopType, int shopPrice, UnitInfo unit = null) // 상점용 생성자
+    {
+        SetInfo(thumbnail, description, shopType);
+        this.unit = unit;
+        this.shopPrice = shopPrice;
+    }
+
     void SetInfo(Sprite thumbnail, string description, RewardType rewardType)
     {
         this.thumbnail = thumbnail;
@@ -107,17 +126,17 @@ public class Reward
         this.rewardType = rewardType;
     }
 
+    public Sprite thumbnail;
     public string description;
     public RewardType rewardType;
+    public int shopPrice;
+
+    [HideInInspector]
+    public UnitInfo unit;
 
     [HideInInspector]
     public int gold;
 
-    [HideInInspector]
-    public Sprite thumbnail;
-
-    [HideInInspector]
-    public UnitInfo unit;
 }
 
 [System.Serializable]
@@ -189,7 +208,7 @@ public class DataManager : MonoBehaviour
 
         ApplyUnitDatas();
         ApplyRewardDatas();
-        
+
         isFinishLoad = true;
     }
 
@@ -203,13 +222,11 @@ public class DataManager : MonoBehaviour
 
     private void ApplyRewardDatas()
     {
-        foreach(Reward item in rewardData.Values)
+        foreach (Reward item in rewardData.Values)
         {
             item.thumbnail = imageData[(ImageIndex)item.rewardType];
-            if (unitData.ContainsKey((UnitType)item.rewardType))
-            {
+            if(unitData.ContainsKey((UnitType)item.rewardType))
                 item.unit = unitData[(UnitType)item.rewardType];
-            }
         }
     }
 
@@ -229,12 +246,18 @@ public class DataManager : MonoBehaviour
         // Enemy Image
         imageData[ImageIndex.unit_enemySlime] = Resources.Load<Sprite>("Battle/Sprites/Slime");
         imageData[ImageIndex.unit_enemyWolf] = Resources.Load<Sprite>("Battle/Sprites/Wolf");
+
+        // Shop
+        imageData[ImageIndex.shop_potion_one] = Resources.Load<Sprite>("Shop/Sprites/Potion_One");
+        imageData[ImageIndex.shop_potion_two] = Resources.Load<Sprite>("Shop/Sprites/Potion_Two");
+        imageData[ImageIndex.shop_potion_three] = Resources.Load<Sprite>("Shop/Sprites/Potion_Three");
     }
 
     private void ApplyPrefabDatas()
     {
         prefabData[EntityType.sword] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
 
+        prefabData[EntityType.bow] = Resources.Load<GameObject>("Battle/Prefabs/Bow");
     }
 
     private void ApplyMapData()

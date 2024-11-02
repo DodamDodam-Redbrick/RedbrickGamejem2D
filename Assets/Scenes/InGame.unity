@@ -4940,10 +4940,10 @@ MonoBehaviour:
     _serializedList:
     - Key: 300
       Value:
-        description: "\uB3C8 \uC785\uB2C8\uB2E4."
-        rewardType: 300
-        gold: 0
         thumbnail: {fileID: 21300000, guid: 0caf4f341ce837442b5c4f49a9a5b277, type: 3}
+        description: "\uB3C8"
+        rewardType: 300
+        shopPrice: 100
         unit:
           entityPrefab: {fileID: 0}
           bulletPrefab: {fileID: 0}
@@ -4959,12 +4959,13 @@ MonoBehaviour:
           unitType: 0
           placeNodeType: 0
           thumbnail: {fileID: 0}
+        gold: 0
     - Key: 1
       Value:
-        description: "\uADFC\uAC70\uB9AC\uC5D0\uC11C \uC2F8\uC6B0\uB294 \uC720\uB2DB\uC785\uB2C8\uB2E4."
+        thumbnail: {fileID: 21300000, guid: 945837f1d95a8d043ba0f5b6e415d305, type: 2}
+        description: "\uADFC\uAC70\uB9AC\uAC80\uC0AC"
         rewardType: 1
-        gold: 0
-        thumbnail: {fileID: 21300000, guid: 0caf4f341ce837442b5c4f49a9a5b277, type: 3}
+        shopPrice: 500
         unit:
           entityPrefab: {fileID: 0}
           bulletPrefab: {fileID: 0}
@@ -4980,6 +4981,7 @@ MonoBehaviour:
           unitType: 0
           placeNodeType: 0
           thumbnail: {fileID: 0}
+        gold: 0
   unitData:
     _serializedList:
     - Key: 1
@@ -4997,7 +4999,7 @@ MonoBehaviour:
         cost: 8
         unitType: 1
         placeNodeType: 0
-        thumbnail: {fileID: 21300000, guid: 945837f1d95a8d043ba0f5b6e415d305, type: 2}
+        thumbnail: {fileID: 0}
   enemyData:
     _serializedList:
     - Key: 100
@@ -5012,50 +5014,9 @@ MonoBehaviour:
           fireRate: 1
           skillCoolTime: 10
           weight: 1
-        enemyType: 0
+        enemyType: 100
   eventData:
-    _serializedList:
-    - Key: 0
-      Value:
-        content: "\uCCAB\uBC88\uC9F8\uC774\uBCA4\uD2B8"
-        eventType: 0
-        options:
-        - option: "\uCCAB\uBC88\uC9F8\uC635\uC158"
-          optionType: 300
-          gold: 0
-          unit:
-            entityPrefab: {fileID: 0}
-            bulletPrefab: {fileID: 0}
-            entityStats:
-              hp: 0
-              damage: 0
-              def: 0
-              moveSpeed: 0
-              fireRate: 0
-              skillCoolTime: 0
-              weight: 0
-            cost: 0
-            unitType: 0
-            placeNodeType: 0
-            thumbnail: {fileID: 0}
-        - option: "\uB450\uBC88\uC9F8\uC635\uC158"
-          optionType: 1
-          gold: 0
-          unit:
-            entityPrefab: {fileID: 0}
-            bulletPrefab: {fileID: 0}
-            entityStats:
-              hp: 0
-              damage: 0
-              def: 0
-              moveSpeed: 0
-              fireRate: 0
-              skillCoolTime: 0
-              weight: 0
-            cost: 0
-            unitType: 0
-            placeNodeType: 0
-            thumbnail: {fileID: 0}
+    _serializedList: []
 --- !u!4 &1356933290
 Transform:
   m_ObjectHideFlags: 0
@@ -6947,7 +6908,9 @@ MonoBehaviour:
   maxRewardGold: 10
   eventPanel: {fileID: 1521222171}
   rewardPanel: {fileID: 2036620124}
-  loadingPanel: {fileID: 0}
+  shopPanel: {fileID: 0}
+  shopList: 
+  shopAmount: 6
   minimapPrefab: {fileID: 6274140249890337117, guid: 5b3ec0cce63a1ee4a89ef2123a0a3853, type: 3}
   playerLayout: {fileID: 863807036}
   battleMap: {fileID: 0}
