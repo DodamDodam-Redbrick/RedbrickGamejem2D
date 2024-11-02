@@ -110,15 +110,22 @@ public class Enemy : MonoBehaviour
 
         attackTime += Time.deltaTime;
 
-        if (attackTime >= enemyInfo.entityStats.fireRate && (vsUnit != null || inBoundUnits.Count > 0))
+        if (attackTime >= enemyInfo.entityStats.fireRate)
         {
             if (vsUnit != null)
             {
-                Attack(vsUnit);
+                if(inBoundUnits.Contains(vsUnit))
+                    Attack(vsUnit);
+                else
+                {
+                    if(inBoundUnits.Count > 0)
+                        Attack(inBoundUnits[0]);
+                }
             }
             else
             {
-                Attack(inBoundUnits[0]);
+                if(inBoundUnits.Count > 0)
+                    Attack(inBoundUnits[0]);
             }
         }
     }
@@ -172,7 +179,7 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         if(vsUnit != null)
-            vsUnit.UnSetvsEnemy();
+            vsUnit.RemovevsEnemy(this);
 
         if(coDie == null)
             coDie = StartCoroutine(CoDie());
@@ -208,7 +215,7 @@ public class Enemy : MonoBehaviour
         vsUnit = unit;
     }
 
-    public void UnSetvsUnit()
+    public void UnsetvsUnit()
     {
         vsUnit = null;
     }
@@ -296,7 +303,7 @@ public class Enemy : MonoBehaviour
                 targetNode = myWay[index];
             }
 
-            if (vsUnit == null) //애니메이션 중에도 멈춰야함
+            if (inBoundUnits.Contains(vsUnit)) //애니메이션 중에도 멈춰야함
             {
                 transform.position = Vector2.MoveTowards(transform.position, targetNode.myPos, Time.deltaTime * enemyInfo.entityStats.moveSpeed);
             }

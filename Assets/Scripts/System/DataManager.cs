@@ -12,23 +12,25 @@ public enum EntityType
     //아군 엔티티
     mainCharacter = 0,
 
+    sword = 1,
     sword_1 = 10,
     sword_2 = 11,
     sword_3 = 12,
 
+    archer = 2,
     archer_1 = 20,
     archer_2 = 21,
     archer_3 = 22,
 
+    wizard = 3, //마스킹용
     wizard_1 = 30,
     wizard_2 = 31,
     wizard_3 = 32,
 
+    soldier = 4,
     soldier_1 = 40,
     soldier_2 = 41,
     soldier_3 = 42,
-
-    caster = 3,
 
     //적 엔티티
     wolf_1 = 100,
