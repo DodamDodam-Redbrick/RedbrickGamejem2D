@@ -173,7 +173,7 @@ public class Room : MonoBehaviour
         gameObject.SetActive(true);
         if (!isVisited)
         {
-            roomTypeSpriteRenderer.sprite = DataManager.imageData[ImageIndex.map_unknown];
+            roomTypeSpriteRenderer.sprite = DataManager.Instance.imageData[ImageIndex.map_unknown];
          
         }
         else
@@ -202,19 +202,19 @@ public class Room : MonoBehaviour
         switch (newValue)
         {
             case RoomType.shop:
-                roomTypeSprite = DataManager.imageData[ImageIndex.map_shop];
+                roomTypeSprite = DataManager.Instance.imageData[ImageIndex.map_shop];
             break;
             case RoomType.start:
-                roomTypeSprite = DataManager.imageData[ImageIndex.map_start];
+                roomTypeSprite = DataManager.Instance.imageData[ImageIndex.map_start];
             break;
             case RoomType.boss:
-                roomTypeSprite = DataManager.imageData[ImageIndex.map_boss];
+                roomTypeSprite = DataManager.Instance.imageData[ImageIndex.map_boss];
             break;
             case RoomType.battle:
-                roomTypeSprite = DataManager.imageData[ImageIndex.map_battle];
+                roomTypeSprite = DataManager.Instance.imageData[ImageIndex.map_battle];
             break;
             case RoomType.randomEvent:
-                roomTypeSprite = DataManager.imageData[ImageIndex.map_randomEvent];
+                roomTypeSprite = DataManager.Instance.imageData[ImageIndex.map_randomEvent];
             break;
             default:
                 roomTypeSprite = null;

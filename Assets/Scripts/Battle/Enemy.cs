@@ -10,18 +10,19 @@ public enum EnemyState
     attack,
 }
 
+[System.Serializable]
 public class EnemyInfo : Entity
 {
     public EnemyInfo(EntityStats enemyStat, EnemyType enemyType, GameObject enemyPrefab, GameObject bulletPrefab = null)
     {
         base.entityStats = entityStats;
-        this.unitType = enemyType;
+        this.enemyType = enemyType;
 
         base.entityPrefab = enemyPrefab;
         base.bulletPrefab = bulletPrefab;
     }
 
-    public EnemyType unitType;
+    public EnemyType enemyType;
 
 }
 

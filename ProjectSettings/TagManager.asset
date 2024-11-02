@@ -8,6 +8,7 @@ TagManager:
   - Room
   - Minimap
   - NotRoad
+  - UnitCard
   layers:
   - Default
   - TransparentFX

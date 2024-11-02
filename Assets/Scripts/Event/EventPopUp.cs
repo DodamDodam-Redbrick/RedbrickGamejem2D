@@ -26,7 +26,7 @@ public class EventPopUp : MonoBehaviour
         switch (optionType)
         {
             case EventOptionType.gold:
-                Player.Instance.ChangeGold(currentEvent.gold);
+                //Player.Instance.ChangeGold(currentEvent.options);
                 break;
         }
         GameSystem.Instance.FinishGetEvent();
