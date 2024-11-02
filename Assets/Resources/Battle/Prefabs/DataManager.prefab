@@ -1,0 +1,232 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6610768549715597660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4426230608901011536}
+  - component: {fileID: 847362217657959151}
+  - component: {fileID: 6891666029337755105}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4426230608901011536
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6610768549715597660}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 838.13104, y: 631.1018, z: -9.030237}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &847362217657959151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6610768549715597660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10dd079338a96df40a8c67cfb24adc2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFinishLoad: 0
+  rewardData:
+    _serializedList: []
+  unitData:
+    _serializedList:
+    - Key: 0
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: a01081a47dd534597979180ab5eea15c, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 100
+          damage: 2
+          def: 0
+          moveSpeed: 0
+          fireRate: 1
+          skillCoolTime: 0
+          weight: 999
+        cost: 0
+        unitType: 0
+        placeNodeType: 0
+        thumbnail: {fileID: 0}
+    - Key: 10
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: b2190c1a09c9042a18eeab6951d1e735, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 50
+          damage: 5
+          def: 0
+          moveSpeed: 0
+          fireRate: 0.5
+          skillCoolTime: 3
+          weight: 1
+        cost: 1
+        unitType: 10
+        placeNodeType: 0
+        thumbnail: {fileID: 0}
+    - Key: 11
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: b2190c1a09c9042a18eeab6951d1e735, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 100
+          damage: 10
+          def: 0
+          moveSpeed: 0
+          fireRate: 0.5
+          skillCoolTime: 3
+          weight: 1
+        cost: 2
+        unitType: 11
+        placeNodeType: 0
+        thumbnail: {fileID: 0}
+    - Key: 12
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: b2190c1a09c9042a18eeab6951d1e735, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 150
+          damage: 20
+          def: 0
+          moveSpeed: 0
+          fireRate: 0.5
+          skillCoolTime: 3
+          weight: 1
+        cost: 3
+        unitType: 12
+        placeNodeType: 0
+        thumbnail: {fileID: 0}
+    - Key: 20
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: 17559394de39145e8976c41e02aa363b, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 40
+          damage: 3
+          def: 0
+          moveSpeed: 0
+          fireRate: 0.4
+          skillCoolTime: 3
+          weight: 1
+        cost: 3
+        unitType: 20
+        placeNodeType: 0
+        thumbnail: {fileID: 0}
+    - Key: 21
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: 17559394de39145e8976c41e02aa363b, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 80
+          damage: 6
+          def: 0
+          moveSpeed: 0
+          fireRate: 0.4
+          skillCoolTime: 3
+          weight: 1
+        cost: 4
+        unitType: 21
+        placeNodeType: 0
+        thumbnail: {fileID: 0}
+    - Key: 22
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: 17559394de39145e8976c41e02aa363b, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 120
+          damage: 12
+          def: 0
+          moveSpeed: 0
+          fireRate: 0.4
+          skillCoolTime: 3
+          weight: 1
+        cost: 5
+        unitType: 22
+        placeNodeType: 0
+        thumbnail: {fileID: 0}
+    - Key: 30
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: cf591f635bda6491a8d75348c7436588, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 30
+          damage: 7
+          def: 0
+          moveSpeed: 0
+          fireRate: 1
+          skillCoolTime: 3
+          weight: 1
+        cost: 4
+        unitType: 30
+        placeNodeType: 0
+        thumbnail: {fileID: 0}
+    - Key: 31
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: cf591f635bda6491a8d75348c7436588, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 60
+          damage: 14
+          def: 0
+          moveSpeed: 0
+          fireRate: 1
+          skillCoolTime: 3
+          weight: 1
+        cost: 5
+        unitType: 31
+        placeNodeType: 0
+        thumbnail: {fileID: 0}
+    - Key: 32
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: cf591f635bda6491a8d75348c7436588, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 100
+          damage: 28
+          def: 0
+          moveSpeed: 0
+          fireRate: 1
+          skillCoolTime: 3
+          weight: 1
+        cost: 6
+        unitType: 32
+        placeNodeType: 0
+        thumbnail: {fileID: 0}
+  enemyData:
+    _serializedList: []
+  eventData:
+    _serializedList: []
+--- !u!114 &6891666029337755105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6610768549715597660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b11da1550bdb834c8dc45b283b71152, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  playerCharacter: 0
+  gold: 0
+  unitList: []
