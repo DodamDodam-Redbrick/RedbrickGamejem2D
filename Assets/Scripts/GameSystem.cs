@@ -56,7 +56,8 @@ public class GameSystem : MonoBehaviour
     void Start()
     {
         //StartCoroutine(CoStartGame());
-
+        shopList = null;
+        GetShop();
 #if UNITY_EDITOR
         //GetReward();
         //GetEvent();
@@ -203,14 +204,14 @@ public class GameSystem : MonoBehaviour
             Reward reward = new Reward(DataManager.Instance.rewardData[rewardType].thumbnail, DataManager.Instance.rewardData[rewardType].description
                         , rewardType);
 
-            if (rewardType == RewardType.gold)
+            if (rewardType == RewardType.reward_gold)
             {
                 reward.gold = Random.Range(minRewardGold, maxRewardGold);
             }
 
             switch (rewardType)
             {
-                case RewardType.gold:
+                case RewardType.reward_gold:
                     break;
                 case RewardType.unit_sword:
                     UnitType unitType = GetRandomEnumType<UnitType>();
@@ -274,7 +275,7 @@ public class GameSystem : MonoBehaviour
     {
         List<Reward> shops = new List<Reward>();
         List<RewardType> shopType = GetRandomShopEnum();
-        while (shops.Count <= shopAmount)
+        while (shops.Count < shopAmount)
         {
             RewardType rewardType = shopType[Random.Range(0, shopType.Count)];
             bool isUnitType = System.Enum.GetValues(typeof(UnitType)).Cast<UnitType>().Any(unit => rewardType == (RewardType)unit);
@@ -312,10 +313,9 @@ public class GameSystem : MonoBehaviour
         }
 
         List<RewardType> subList = new List<RewardType>();
-        subList.Add(RewardType.gold);
+        subList.Add(RewardType.reward_gold);
 
-        shopList.Except(subList);
-
+        shopList = shopList.Except(subList).ToList();
 
         return shopList;
 

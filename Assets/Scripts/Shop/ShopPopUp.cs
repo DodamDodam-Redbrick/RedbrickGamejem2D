@@ -39,14 +39,14 @@ public class ShopPopUp : MonoBehaviour
         //1. 데이터에 자기 리워드 추가시켜주고
         switch (reward.rewardType)
         {
-            case RewardType.gold:
+            case RewardType.reward_gold:
                 break;
             case RewardType.unit_sword:
                 Unit unit = new Unit(reward.unit);
                 Player.Instance.AddUnit(unit);
                 break;
 
-            case RewardType.shop_potion:
+            case RewardType.shop_potion_one:
                 Player.Instance.AddItem();
                 break;
 
