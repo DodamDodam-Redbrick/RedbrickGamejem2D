@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 public enum EntityType
 {
     //아군 엔티티
-    mainCha = 0,
+    mainCharacter = 0,
 
     sword_1 = 10,
     sword_2 = 11,
@@ -42,7 +42,7 @@ public enum EntityType
 }
 public enum UnitType
 {
-    mainCha = EntityType.mainCha,
+    mainCharacter = EntityType.mainCharacter,
 
     sword_1 = EntityType.sword_1,
     sword_2 = EntityType.sword_2,
@@ -117,7 +117,7 @@ public enum EventOptionType
 }
 public enum ImageIndex
 {
-    unit_mainCha = EntityType.mainCha,
+    unit_mainCharacter = EntityType.mainCharacter,
     reward_gold = EntityType.gold,
 
     //Unit
@@ -321,7 +321,7 @@ public class DataManager : MonoBehaviour
 
         imageData[ImageIndex.reward_gold] = Resources.Load<Sprite>("Reward/Sprites/Gold");
 
-        imageData[ImageIndex.unit_mainCha] = Resources.Load<Sprite>("Battle/Sprites/MainCh_Idle");
+        imageData[ImageIndex.unit_mainCharacter] = Resources.Load<Sprite>("Battle/Sprites/MainCh_Idle");
 
         imageData[ImageIndex.unit_sword_1] = Resources.Load<Sprite>("Battle/Sprites/Sword_Idle");
         imageData[ImageIndex.unit_sword_2] = Resources.Load<Sprite>("Battle/Sprites/Sword_Idle");
@@ -352,7 +352,7 @@ public class DataManager : MonoBehaviour
     private void ApplyPrefabDatas()
     {
 
-        prefabData[EntityType.mainCha] = Resources.Load<GameObject>("Battle/Prefabs/MainCha");
+        prefabData[EntityType.mainCharacter] = Resources.Load<GameObject>("Battle/Prefabs/MainCha");
 
         prefabData[EntityType.sword_1] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
         prefabData[EntityType.sword_2] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
