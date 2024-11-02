@@ -45,7 +45,7 @@ public class Unit : MonoBehaviour
 
     public Node placedNode;
 
-    List<Enemy> vsEnemy;
+    List<Enemy> vsEnemy = new List<Enemy>();
 
     List<Enemy> inBoundEnemies = new List<Enemy>();
 
