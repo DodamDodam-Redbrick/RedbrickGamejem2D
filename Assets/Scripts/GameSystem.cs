@@ -7,6 +7,8 @@ using static Unity.VisualScripting.Dependencies.Sqlite.SQLite3;
 
 public class GameSystem : MonoBehaviour
 {
+    public Transform canvasTrans;
+
     public float maxCold = 10f;
     public float cold = 0f;
     public float coldIncreaseAmount = 1f;
@@ -39,6 +41,9 @@ public class GameSystem : MonoBehaviour
     public List<RewardType> shopList;
     public int shopAmount = 6;
 
+    [SerializeField]
+    GameObject loadingPanel;
+
     [Header("Prefabs")]
     [SerializeField]
     GameObject minimapPrefab;
@@ -64,7 +69,7 @@ public class GameSystem : MonoBehaviour
     {
         StartCoroutine(CoStartGame());
         shopList = null;
-        GetShop();
+        // GetShop();
 #if UNITY_EDITOR
         //GetReward();
         //GetEvent();
@@ -103,6 +108,7 @@ public class GameSystem : MonoBehaviour
 
     void OnStartGame()
     {
+        ShowLoading();
         //게임 시작하면
         //1. 맵 랜덤생성
         if (minimap != null)
@@ -114,6 +120,8 @@ public class GameSystem : MonoBehaviour
         minimap = Instantiate(minimapPrefab).GetComponent<RoomManager>();
         minimap.Init();
         minimap.GenerateRandomMap();
+
+        minimap.gameObject.transform.SetParent(canvasTrans, false);
     }
 
     public void EnterNewRoom(RoomType roomType)
@@ -121,7 +129,7 @@ public class GameSystem : MonoBehaviour
         switch (roomType)
         {
             case RoomType.battle:
-                // StartBattle();
+                StartBattle();
                 break;
             case RoomType.boss:
                 StartBossBattle();
@@ -367,6 +375,19 @@ public class GameSystem : MonoBehaviour
             deBuffColdPersent = 0.25f;
             cold = maxCold;
         }
+    }
+
+    public void ShowLoading()
+    {
+        loadingPanel.SetActive(true);
+    }
+
+    public IEnumerator FinishLoading(float time)
+    {
+        yield return new WaitForSeconds(time);
+        loadingPanel.SetActive(false);
+
+
     }
 
 
