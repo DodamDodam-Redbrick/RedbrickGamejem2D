@@ -1081,7 +1081,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793aedc3557cf974ba2449cdde047687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeSceneName: 0
+  changeSceneName: 1
 --- !u!1 &2144272287
 GameObject:
   m_ObjectHideFlags: 0

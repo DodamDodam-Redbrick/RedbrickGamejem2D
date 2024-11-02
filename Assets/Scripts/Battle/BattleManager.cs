@@ -35,7 +35,8 @@ public class BattleManager : MonoBehaviour
             }
         }
         get { return spawnPoints.Count; } }
-    
+
+    [SerializeField]
     int killCount = 0;
 
     [HideInInspector]
@@ -78,9 +79,12 @@ public class BattleManager : MonoBehaviour
 
             if (spawnDatas[spawnIndex].spawnTime <= timer)
             {
-                spawnDatas[spawnIndex].wayPoints.Add(mainCharacter.transform.position); //무조건 마지막엔 메인 캐릭터로
-                spawnPoints[spawnDatas[spawnIndex].spawnerIndex].SpawnEnemy(spawnDatas[spawnIndex]);
-                spawnIndex++;
+                if (mainCharacter != null) //죽으면 null됨
+                {
+                    spawnDatas[spawnIndex].wayPoints.Add(mainCharacter.transform.position); //무조건 마지막엔 메인 캐릭터로
+                    spawnPoints[spawnDatas[spawnIndex].spawnerIndex].SpawnEnemy(spawnDatas[spawnIndex]);
+                    spawnIndex++;
+                }
             }
 
             yield return null;

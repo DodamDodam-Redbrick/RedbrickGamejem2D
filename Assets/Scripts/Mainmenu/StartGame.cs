@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-enum SceneName
+public enum SceneName
 {
+    MainMenu,
     InGame,
 }
 

@@ -303,7 +303,7 @@ public class Enemy : MonoBehaviour
                 targetNode = myWay[index];
             }
 
-            if (inBoundUnits.Contains(vsUnit)) //애니메이션 중에도 멈춰야함
+            if (!inBoundUnits.Contains(vsUnit)) //애니메이션 중에도 멈춰야함
             {
                 transform.position = Vector2.MoveTowards(transform.position, targetNode.myPos, Time.deltaTime * enemyInfo.entityStats.moveSpeed);
             }

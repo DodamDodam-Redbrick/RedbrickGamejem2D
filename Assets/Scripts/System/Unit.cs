@@ -84,7 +84,7 @@ public class Unit : MonoBehaviour
     {
         MaterialPropertyBlock mpb = new MaterialPropertyBlock();
 
-        SpriteRenderer unitSpriteRender = new SpriteRenderer();
+        SpriteRenderer unitSpriteRender = transform.parent.GetComponent<SpriteRenderer>();
 
         unitSpriteRender.GetPropertyBlock(mpb);
 
@@ -112,7 +112,7 @@ public class Unit : MonoBehaviour
         { //적 지정은 유닛에서만 할 거
             //일기토 시작
             AddvsEnemy();
-            foreach(Enemy enemy in inBoundEnemies)
+            foreach(Enemy enemy in vsEnemy)
             {
                 enemy.SetvsUnit(this);
             }
@@ -161,8 +161,10 @@ public class Unit : MonoBehaviour
                     e.GetDamaged(damage);
                 }
             }
-
-            enemy.GetDamaged(damage);
+            else
+            {
+                enemy.GetDamaged(damage);
+            }
         }
 
     }
@@ -172,8 +174,13 @@ public class Unit : MonoBehaviour
     {
         GameSystem.Instance.battleMap.mapGrid.GetNodeFromVector(transform.position).isUse = false;
 
-        if(vsEnemy != null)
-            vsEnemy[0].UnsetvsUnit();
+        if(vsEnemy.Count > 0)
+        {
+            foreach (var enemy in vsEnemy)
+            {
+                enemy.UnsetvsUnit();
+            }
+        }
 
         if (coDie == null)
             coDie = StartCoroutine(CoDie());
@@ -188,6 +195,12 @@ public class Unit : MonoBehaviour
 
         coDie = null;
 
+        //조금 기다렸다가 끝내기
+        if(unitInfo.unitType == UnitType.mainCharacter)
+        {
+            GameSystem.Instance.DefeatedBattle();
+        }
+
         yield return null;
     }
 
@@ -195,7 +208,7 @@ public class Unit : MonoBehaviour
     {
         foreach(Enemy enemy in inBoundEnemies)
         {
-            if (CheckVsCount())
+            if (!CheckVsCount())
                 break;
 
             if (!vsEnemy.Contains(enemy))
