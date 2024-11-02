@@ -38,14 +38,6 @@ public class ShopPopUp : MonoBehaviour
         UnitInfo originUnitInfo;
         switch (reward.rewardType)
         {
-            case RewardType.unit_sword:
-                unitType = (UnitType)reward.rewardType;
-                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
-                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
-                reward.unit = unit;
-                Debug.Log($"{reward.unit.unitType}");
-                break;
-
             case RewardType.unit_sword_1:
                 unitType = (UnitType)reward.rewardType;
                 originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
@@ -54,8 +46,16 @@ public class ShopPopUp : MonoBehaviour
                 Debug.Log($"{reward.unit.unitType}");
                 break;
 
-
             case RewardType.unit_sword_2:
+                unitType = (UnitType)reward.rewardType;
+                originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
+                unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+                reward.unit = unit;
+                Debug.Log($"{reward.unit.unitType}");
+                break;
+
+
+            case RewardType.unit_sword_3:
                 unitType = (UnitType)reward.rewardType;
                 originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
                 unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
@@ -80,16 +80,16 @@ public class ShopPopUp : MonoBehaviour
             case RewardType.reward_gold:
                 break;
 
-            case RewardType.unit_sword:
+            case RewardType.unit_sword_1:
                 UnitInfo unit = reward.unit;
                 Player.Instance.AddUnit(unit);
                 break;
 
-            case RewardType.unit_sword_1:
+            case RewardType.unit_sword_2:
                 Player.Instance.AddUnit(reward.unit);
                 break;
                 
-            case RewardType.unit_sword_2:
+            case RewardType.unit_sword_3:
                 Player.Instance.AddUnit(reward.unit);
                 break;
 
