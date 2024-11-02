@@ -35,7 +35,7 @@ public class RewardPopup : MonoBehaviour
                 Player.Instance.ChangeGold(reward.gold);
                 break;
             case RewardType.unit_sword:
-                Unit unit = new Unit(reward.unit);
+                UnitInfo unit = reward.unit;
                 Player.Instance.AddUnit(unit);
                 break;
         }

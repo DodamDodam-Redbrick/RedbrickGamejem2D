@@ -1,11 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PlayerLayout : MonoBehaviour
 {
+    enum Dir
+    {
+        left,
+        right,
+        top,
+        bottom,
+    }
+
+    enum Axis
+    {
+        horizontal,
+        vertical,
+    }
+
+    [SerializeField]
+    float placeDistance = 1f;
+
     [SerializeField]
     GameObject unitGroup;
 
@@ -18,6 +37,13 @@ public class PlayerLayout : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI nowCost;
 
+    [SerializeField]
+    GraphicRaycaster canvasRaycaster;
+
+    PointerEventData pointerEventData;
+
+    EventSystem eventSystem;
+
     [SerializeField, Tooltip("마우스 기준 유닛이 어떻게 표시 될 지 오프셋")]
     Vector3 offset = new Vector3(0f, 10f, 0f);
 
@@ -27,9 +53,15 @@ public class PlayerLayout : MonoBehaviour
 
     Unit selectedUnit;
 
+    UnitCard selectedUnitCard;
+
     Camera mainCam;
 
     Vector3 buttonDownMousePosition;
+
+    bool isButtonDown = false;
+
+    float[] dirRotation = { 180, 0, 90, 270 }; //left, right, top, bottom
 
     int step = 0;
 
@@ -38,44 +70,131 @@ public class PlayerLayout : MonoBehaviour
     {
         if (gameObject.activeInHierarchy)
         {
-
-            if(selectedUnit != null)
+            if (step == 0) //드래그해서 놓을 때 까지
             {
-                Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
-                selectedUnit.transform.position = mousePosition + offset;
-            }
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                Vector2 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
-
-                RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
-
-                if(hit.collider != null)
+                if (selectedUnit != null)
                 {
-                    UnitCard unitCard = hit.collider.GetComponent<UnitCard>();
+                    Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
+                    MapGrid mapGrid = GameSystem.Instance.battleMap.mapGrid;
+                    mousePosition = new Vector3(mousePosition.x, mousePosition.y, 0);
 
-                    if (unitCard != null)
+                    if (mapGrid.GetNodeFromVector(mousePosition).type == selectedUnit.unitInfo.placeNodeType)
                     {
-                        selectedUnit = unitCard.unit;
-                        unitCard.DeactiveUnitCard();
+                        selectedUnit.transform.parent.position = mapGrid.GetNodeFromVector(mousePosition).myPos;
+                    }
+                    else
+                    {
+                        selectedUnit.transform.parent.position = mousePosition;
                     }
 
                 }
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Vector3 mousePosition = Input.mousePosition;
+
+                    pointerEventData = new PointerEventData(eventSystem);
+                    pointerEventData.position = mousePosition;
+
+                    List<RaycastResult> results = new List<RaycastResult>();
+
+                    canvasRaycaster.Raycast(pointerEventData, results);
+
+                    foreach (RaycastResult hit in results)
+                    {
+                        UnitCard unitCard = hit.gameObject.GetComponent<UnitCard>();
+
+                        if (unitCard != null)
+                        {
+                            selectedUnitCard = unitCard;
+                            selectedUnit = Instantiate(selectedUnitCard.unit.entityPrefab, GameSystem.Instance.battleMap.transform).GetComponentInChildren<Unit>();
+                            selectedUnit.Init(selectedUnitCard.unit);
+                        }
+                    }
+                }
+
+                if (Input.GetMouseButtonUp(0))
+                {
+                    Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
+
+                    MapGrid mapGrid = GameSystem.Instance.battleMap.mapGrid;
+
+                    if (selectedUnit != null)
+                    {
+                        if (mapGrid.GetNodeFromVector(mousePosition).type == selectedUnit.unitInfo.placeNodeType)
+                        {
+                            selectedUnit.transform.parent.position = mapGrid.GetNodeFromVector(mousePosition).myPos;
+
+                            step = 1 - step;
+                        }
+                        else
+                        {
+                            Destroy(selectedUnit.gameObject);
+                            selectedUnit = null;
+                            selectedUnitCard = null;
+                        }
+
+                    }
+                }
             }
-            if (Input.GetMouseButtonUp(0))
+            else
             {
-                Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
+                if (isButtonDown)
+                {
+                    Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
-                BattleManager battleMap = GameSystem.Instance.battleMap;
+                    Vector3 vector = mousePosition - buttonDownMousePosition; //x,y 중 절대값 더 큰 값 고르고 0이상 이하로 판단
 
-                MapGrid mapGrid = battleMap.mapGrid;
+                    Axis axis = Mathf.Abs(vector.x) > Mathf.Abs(vector.y) ? Axis.horizontal : Axis.vertical;
 
-                //if(mapGrid.GetNodeFromVector(mousePosition).type) {
+                    Dir dir = new Dir();
 
-                selectedUnit = null;
+                    if (axis == Axis.horizontal)
+                    {
+                        dir = vector.x > 0 ? Dir.right : Dir.left;
+                    }
+                    else
+                    {
+                        dir = vector.y > 0 ? Dir.top : Dir.bottom;
+                    }
+
+                    selectedUnit.transform.parent.GetComponent<SpriteRenderer>().flipX = vector.x < 0;
+
+                    selectedUnit.transform.rotation = Quaternion.Euler(0f, 0f, dirRotation[(int)dir]);
+                }
+
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
+
+                    buttonDownMousePosition = mousePosition;
+                    isButtonDown = true;
+                }
+                if (Input.GetMouseButtonUp(0))
+                {
+                    Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
+
+                    float distance = Vector3.Distance(mousePosition, buttonDownMousePosition);
+
+                    //distance로 취소 체크
+                    if(distance > placeDistance)
+                    {
+                        selectedUnitCard.DeactiveUnitCard();
+                    }
+                    else
+                    {
+                        Debug.Log($"{distance}");
+                        Destroy(selectedUnit.gameObject);
+                    }
+
+                    selectedUnit = null;
+                    selectedUnitCard = null;
+                    isButtonDown = false;
+                    step = 1 - step;
+                }
             }
-            //클릭 감지해서 설치 진행
+
+            
         }
     }
     
@@ -86,8 +205,10 @@ public class PlayerLayout : MonoBehaviour
 
         if (mainCam == null)
         {
-            mainCam = Camera.main;
+            mainCam = GameSystem.Instance.battleMap.cam;
         }
+
+        eventSystem = GetComponent<EventSystem>();
 
         SetUnitCards();
     }

@@ -157,10 +157,14 @@ public class GameSystem : MonoBehaviour
 
     public void StartBattle()
     {
-        SetBattleLayout();
         //랜덤맵 정해서 배틀맵 보여주기
         MapType mapType = GetRandomEnumType<MapType>();
         battleMap = Instantiate(DataManager.Instance.mapDatas[mapType]).GetComponent<BattleManager>();
+        battleMap.Init();
+        battleMap.StartBattle();
+
+        //배틀맵 세팅하고 레이아웃 켜야함
+        SetBattleLayout();
     }
 
     public void StartBossBattle()
