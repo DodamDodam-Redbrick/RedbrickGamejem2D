@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using static Unity.VisualScripting.Dependencies.Sqlite.SQLite3;
 
 public class GameSystem : MonoBehaviour
 {
+    public float maxCold = 10f;
+    public float cold = 0f;
+    public float coldIncreaseAmount = 1f;
+
+    public float deBuffColdPersent;
+
     public static GameSystem Instance;
 
     [SerializeField, Tooltip("초단위")]
@@ -128,6 +135,8 @@ public class GameSystem : MonoBehaviour
                 break;
 
         }
+
+        IncreaseCold();
     }
 
     public void CloseBattleMap()
@@ -322,4 +331,43 @@ public class GameSystem : MonoBehaviour
         return shopList;
 
     }
+
+
+    // 추위 증가
+    void IncreaseCold() 
+    {
+        cold += coldIncreaseAmount;
+        SetCold();
+        
+    }
+
+    void SetCold()
+    {
+        if (cold >= 2f)
+        {
+            deBuffColdPersent = 0.85f;
+        }
+        else if (cold >= 4f)
+        {
+            deBuffColdPersent = 0.7f;
+
+        }
+        else if (cold >= 6f)
+        {
+            deBuffColdPersent = 0.55f;
+
+        }
+        else if (cold >= 8f)
+        {
+            deBuffColdPersent = 0.40f;
+
+        }
+        else if (cold >= maxCold)
+        {
+            deBuffColdPersent = 0.25f;
+            cold = maxCold;
+        }
+    }
+
+
 }

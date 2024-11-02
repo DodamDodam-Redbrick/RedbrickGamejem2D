@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,6 +9,8 @@ public enum PlayerCharacter
     firstCharacter,
     secondCharacter,
 }
+
+
 
 public class Player : MonoBehaviour
 {
@@ -123,8 +126,6 @@ public class Player : MonoBehaviour
         }
 
         
-
-
     }
 
 }
