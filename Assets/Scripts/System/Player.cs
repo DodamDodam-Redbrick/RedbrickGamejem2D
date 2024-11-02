@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
     public PlayerCharacter playerCharacter = PlayerCharacter.firstCharacter;
 
-    int gold;
+    public int gold;
 
     public List<Unit> UnitList { get { return unitList; } }
 
@@ -45,6 +45,10 @@ public class Player : MonoBehaviour
         //gold관련 ui 동기화
     }
 
+    public void AddItem()
+    {
+        // 아이템 관련 (포션 등)
+    }
     public void AddUnit(Unit unit)
     {
 #if UNITY_EDITOR
@@ -60,7 +64,7 @@ public class Player : MonoBehaviour
 
     public void MoveRoom(Room room)
     {
-        if(coMoveRoom != null)
+        if (coMoveRoom != null)
         {
             StopCoroutine(coMoveRoom);
             coMoveRoom = null;
@@ -80,7 +84,7 @@ public class Player : MonoBehaviour
         while (runtime <= duration)
         {
             runtime += Time.deltaTime;
-            transform.position = Vector2.Lerp(firstPosition, room.transform.position, runtime/duration);
+            transform.position = Vector2.Lerp(firstPosition, room.transform.position, runtime / duration);
             yield return null;
         }
 
