@@ -39,15 +39,15 @@ public class Player : MonoBehaviour
 
     public void ChangeGold(int value)
     {
-        //µ·À» ½áµµ ÀÌ°É ºÎ¸£±â
+        //ëˆì„ ì¨ë„ ì´ê±¸ ë¶€ë¥´ê¸°
         gold += value;
 
-        //gold°ü·Ã ui µ¿±âÈ­
+        //goldê´€ë ¨ ui ë™ê¸°í™”
     }
 
     public void AddItem()
     {
-        // ¾ÆÀÌÅÛ °ü·Ã (Æ÷¼Ç µî)
+        // ì•„ì´í…œ ê´€ë ¨ (í¬ì…˜ ë“±)
     }
     public void AddUnit(Unit unit)
     {
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
         float runtime = 0f;
         float duration = GameSystem.Instance.MapMoveTime;
 
-        //¾Ö´Ï¸ŞÀÌ¼Ç ´Ş¸®´Â ¸ğ½À
+        //ì• ë‹ˆë©”ì´ì…˜ ë‹¬ë¦¬ëŠ” ëª¨ìŠµ
 
         while (runtime <= duration)
         {
@@ -89,6 +89,6 @@ public class Player : MonoBehaviour
         }
 
         coMoveRoom = null;
-        //¾Ö´Ï¸ŞÀÌ¼Ç ¸ØÃçÀÖ´Â ¸ğ½À
+        //ì• ë‹ˆë©”ì´ì…˜ ë©ˆì¶°ìˆëŠ” ëª¨ìŠµ
     }
 }
