@@ -45,7 +45,7 @@ public class Unit : MonoBehaviour
 
     public Node placedNode;
 
-    Enemy vsEnemy;
+    List<Enemy> vsEnemy;
 
     List<Enemy> inBoundEnemies = new List<Enemy>();
 
@@ -101,23 +101,28 @@ public class Unit : MonoBehaviour
         transform.parent.GetComponent<SpriteRenderer>().SetPropertyBlock(mpb);
     }
 
+    bool CheckVsCount()
+    {
+        return vsEnemy.Count < unitInfo.entityStats.weight;
+    }
+
     private void Update()
     {
-        if (vsEnemy == null) //대치중이 없을 때 근처 적 중 가장 처음 만난 적을 대치
+        if (CheckVsCount() && inBoundEnemies.Count > 0) //대치중이 없을 때 근처 적 중 가장 처음 만난 적을 대치
         { //적 지정은 유닛에서만 할 거
-            if (inBoundEnemies.Count > 0)
+            //일기토 시작
+            AddvsEnemy();
+            foreach(Enemy enemy in inBoundEnemies)
             {
-                //일기토 시작
-                SetvsEnemy(inBoundEnemies[0]);
-                vsEnemy.SetvsUnit(this);
+                enemy.SetvsUnit(this);
             }
         }
 
         attackTime += Time.deltaTime;
 
-        if(attackTime >= unitInfo.entityStats.fireRate && vsEnemy)
+        if(attackTime >= unitInfo.entityStats.fireRate && vsEnemy.Count > 0)
         {
-            Attack(vsEnemy);
+            Attack(vsEnemy[0]);
         }
     }
 
@@ -145,11 +150,18 @@ public class Unit : MonoBehaviour
             //불렛 구현해서 날리자 그냥 자기 데미지 불렛한테 넘겨주고 그 데미지 만큼 
 
             bullet.transform.position = Vector3.zero;
-            bullet.transform.LookAt(vsEnemy.transform);
-
+            bullet.transform.LookAt(vsEnemy[0].transform);
         }
         else
         {
+            if(((int)unitInfo.unitType % 100)/10 == (int)EntityType.wizard)
+            {
+                foreach(Enemy e in inBoundEnemies)
+                {
+                    e.GetDamaged(damage);
+                }
+            }
+
             enemy.GetDamaged(damage);
         }
 
@@ -161,7 +173,7 @@ public class Unit : MonoBehaviour
         GameSystem.Instance.battleMap.mapGrid.GetNodeFromVector(transform.position).isUse = false;
 
         if(vsEnemy != null)
-            vsEnemy.UnSetvsUnit();
+            vsEnemy[0].UnsetvsUnit();
 
         if (coDie == null)
             coDie = StartCoroutine(CoDie());
@@ -179,14 +191,23 @@ public class Unit : MonoBehaviour
         yield return null;
     }
 
-    public void SetvsEnemy(Enemy enemy)
+    public void AddvsEnemy()
     {
-        vsEnemy = enemy;
+        foreach(Enemy enemy in inBoundEnemies)
+        {
+            if (CheckVsCount())
+                break;
+
+            if (!vsEnemy.Contains(enemy))
+            {
+                vsEnemy.Add(enemy);
+            }
+        }
     }
 
-    public void UnSetvsEnemy()
+    public void RemovevsEnemy(Enemy enemy)
     {
-        vsEnemy = null;
+        vsEnemy.Remove(enemy);
     }
 
     public void GetDamaged(int damage)
