@@ -55,6 +55,8 @@ public class Player : MonoBehaviour
         Debug.Log($"{unit.unitType.ToString()} is added to unitList");
 #endif
         unitList.Add(unit);
+
+        UpgradeUnit();
     }
 
     public void RemoveUnit(UnitInfo unit)
@@ -91,4 +93,31 @@ public class Player : MonoBehaviour
         coMoveRoom = null;
         //애니메이션 멈춰있는 모습
     }
+
+    public void UpgradeUnit()
+    {
+        for (int i = 0; i < unitList.Count - 1; i++)
+        {
+            UnitInfo unitA = unitList[i];
+            UnitInfo unitB = unitList[i + 1];
+
+            if (unitA.unitType == unitB.unitType) // 타입이 같고 업그레이드할수있는경우 진행
+            {
+                UnitType upgradeUnit = (UnitType)(int)unitA.unitType + 1;
+
+                if (DataManager.Instance.unitData.ContainsKey(upgradeUnit))
+                {
+                    AddUnit(DataManager.Instance.unitData[upgradeUnit]);    
+
+                    RemoveUnit(unitA);
+                    RemoveUnit(unitB);
+
+                    i--;
+                }
+            }
+
+        }
+    }
+
+    
 }

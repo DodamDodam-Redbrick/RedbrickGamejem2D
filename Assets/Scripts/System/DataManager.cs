@@ -11,6 +11,7 @@ public enum EntityType
 {
     //아군 엔티티
     tank = 0,
+
     sword = 10,
     sword_1 = 11,
     sword_2 = 12,
@@ -18,6 +19,7 @@ public enum EntityType
     bow = 20,
     bow_1 = 21,
     bow_2 = 22,
+
     caster = 3,
 
     //적 엔티티
@@ -33,9 +35,13 @@ public enum EntityType
 public enum UnitType
 {
     sword = EntityType.sword,
+    sword_1 = EntityType.sword_1,
+    sword_2 = EntityType.sword_2,
     //밑에는 값 만들고 주석 풀기
     //tank = EntityType.tank,
     bow = EntityType.bow,
+    bow_1 = EntityType.bow_1,
+    bow_2 = EntityType.bow_2,
     //caster = EntityType.caster,
 }
 
