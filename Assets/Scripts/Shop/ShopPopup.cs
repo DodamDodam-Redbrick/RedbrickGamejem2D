@@ -57,6 +57,19 @@ public class ShopPopUp : MonoBehaviour
                 Player.Instance.AddUnit(reward.unit);
                 break;
 
+
+            case RewardType.unit_archer_1:  
+                Player.Instance.AddUnit(reward.unit);
+                break;
+
+            case RewardType.unit_archer_2:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+
+            case RewardType.unit_archer_3:
+                Player.Instance.AddUnit(reward.unit);
+                break;
+
             case RewardType.shop_potion_one:
                 Player.Instance.AddItem();
                 break;

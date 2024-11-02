@@ -160,7 +160,7 @@ public class GameSystem : MonoBehaviour
 
         }
 
-        IncreaseCold();
+      
     }
 
     public void CloseBattleMap()
@@ -355,14 +355,14 @@ public class GameSystem : MonoBehaviour
 
 
     // 추위 증가
-    void IncreaseCold() 
+    public void IncreaseCold() 
     {
         cold += coldIncreaseAmount;
         SetCold();
         
     }
 
-    void SetCold()
+    public void SetCold()
     {
         if (cold >= 2f)
         {

@@ -67,12 +67,14 @@ public class Player : MonoBehaviour
 
     public void MoveRoom(Room room)
     {
+
         if (coMoveRoom != null)
         {
             StopCoroutine(coMoveRoom);
             coMoveRoom = null;
         }
 
+        GameSystem.Instance.IncreaseCold();
         coMoveRoom = StartCoroutine(CoMoveRoom(room));
     }
 
