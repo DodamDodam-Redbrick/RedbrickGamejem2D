@@ -20,6 +20,7 @@ public class EventPanel : MonoBehaviour
         {
             string option = showEvent.options[i].option;
             EventOptionType optionType = showEvent.options[i].optionType;
+
             EventPopUp eventPopUp = GetUnUseEventPool();
             if (eventPopUp != null)
             {
@@ -30,7 +31,7 @@ public class EventPanel : MonoBehaviour
                 eventPopUp = Instantiate(eventPopUpPrefab, eventLayOut).GetComponent<EventPopUp>();
                 eventPools.Add(eventPopUp);
             }
-            eventPopUp.Set(option, optionType, showEvent);
+            eventPopUp.Set(option);
         }
     }
 

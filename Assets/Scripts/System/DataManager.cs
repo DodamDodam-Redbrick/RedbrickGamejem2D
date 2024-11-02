@@ -54,7 +54,11 @@ public enum RewardType
 
 }
 
-
+public enum EventOptionType
+{
+    gold = EntityType.gold,
+    unit_sword = EntityType.sword,
+}
 
 public enum ImageIndex
 {
@@ -88,17 +92,7 @@ public enum EventType
     one,
     two,
     three,
-}
 
-public enum EventOptionType // 이벤트 옵션별 보상?
-{
-    gold = EntityType.gold,
-    sword = EntityType.sword,
-}
-
-public enum ShopType
-{
-    gold = EntityType.gold,
 }
 
 [System.Serializable]
@@ -165,6 +159,7 @@ public class Event
     {
         this.content = mainEvent;
         this.options = optionType;
+
         this.eventType = eventType;
     }
 
@@ -172,20 +167,6 @@ public class Event
     public EventType eventType;
 
     public List<EventOption> options;
-}
-
-public class Shop
-{
-    public Shop(Sprite thumbnail, string description, ShopType shopType)
-    {
-        this.thumbnail = thumbnail;
-        this.description= description;
-        this.shopType = shopType;
-    }
-
-    public Sprite thumbnail;
-    public string description;
-    public ShopType shopType;
 }
 
 public class DataManager : MonoBehaviour
@@ -277,5 +258,6 @@ public class DataManager : MonoBehaviour
     {
         mapDatas[MapType.firstStage_one] = Resources.Load<GameObject>("Battle/Prefabs/FirstMap");
     }
+
 
 }

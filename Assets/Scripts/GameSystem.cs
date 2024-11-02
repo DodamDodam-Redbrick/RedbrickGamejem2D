@@ -69,8 +69,8 @@ public class GameSystem : MonoBehaviour
 #if UNITY_EDITOR
         //GetReward();
         //GetEvent();
-
         GetUnitReward(UnitType.sword, StartBattle);
+
 #endif
     }
 
