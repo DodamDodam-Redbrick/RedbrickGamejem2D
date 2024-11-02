@@ -26,13 +26,12 @@ public class ShopPopUp : MonoBehaviour
         this.reward = reward;
         rewardImage.sprite = reward.thumbnail;
         rewardDescription.text = reward.description;
-        priceText.text = $"{reward.shopPrice} G";
+        priceText.text = $"{reward.shopPrice}";
     }
 
     public void OnClickBuy()
     {
-        Debug.Log($"{reward.shopPrice}");
-        if(reward.shopPrice > Player.Instance.gold)
+        if (reward.shopPrice > Player.Instance.gold)
         {
             Debug.Log("Dont Have Money");
             return;
@@ -41,16 +40,20 @@ public class ShopPopUp : MonoBehaviour
         switch (reward.rewardType)
         {
             case RewardType.gold:
-                Player.Instance.ChangeGold(reward.gold);
                 break;
             case RewardType.unit_sword:
-                Player.Instance.AddUnit(reward.unit);
+                Unit unit = new Unit(reward.unit);
+                Player.Instance.AddUnit(unit);
                 break;
+
+            case RewardType.shop_potion:
+                Player.Instance.AddItem();
+                break;
+
+
         }
-
-        //2. 부모가 되는 리워드 레이아웃 숨김
-        GameSystem.Instance.FinishGetReward();
-
+        Player.Instance.ChangeGold(-reward.shopPrice);
+        GameSystem.Instance.shopPanel.UpdateGold();
         //3. 다음 스텝 진행
         //go to minimap
     }
@@ -58,7 +61,7 @@ public class ShopPopUp : MonoBehaviour
     public void RerollPopUp()
     {
         bool isUnitType = System.Enum.GetValues(typeof(UnitType)).Cast<UnitType>().Any(unit => reward.rewardType == (RewardType)unit);
-        List <RewardType> rewardTypes = GameSystem.Instance.shopList;
+        List<RewardType> rewardTypes = GameSystem.Instance.shopList;
 
         if (rewardTypes.Count == 0)
         {
@@ -84,7 +87,7 @@ public class ShopPopUp : MonoBehaviour
             (!isUnitType && isNewUnitType)); // 기존 보상이 유닛 타입이 아니고 새 보상도 유닛 타입이 아닌 경우
 
         Reward rerollReward = new Reward(
-            DataManager.rewardData[newRewardType].thumbnail, DataManager.rewardData[newRewardType].description, newRewardType, DataManager.rewardData[newRewardType].shopPrice);
+            DataManager.Instance.rewardData[newRewardType].thumbnail, DataManager.Instance.rewardData[newRewardType].description, newRewardType, DataManager.Instance.rewardData[newRewardType].shopPrice);
 
         Set(rerollReward);
     }
