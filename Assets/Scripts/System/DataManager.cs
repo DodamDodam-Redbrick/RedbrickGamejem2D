@@ -10,7 +10,8 @@ using UnityEngine.UIElements;
 public enum EntityType
 {
     //아군 엔티티
-    tank = 0,
+    mainCharacter = 0,
+
     sword = 10,
     sword_1 = 11,
     sword_2 = 12,
@@ -18,7 +19,7 @@ public enum EntityType
     bow = 20,
     bow_1 = 21,
     bow_2 = 22,
-    caster = 3,
+    caster = 30,
 
     //적 엔티티
     slime = 100,
@@ -29,9 +30,14 @@ public enum EntityType
 
     //그 외
     gold = 300,
+    shop_potion_one = 301,
+    shop_potion_two = 302,
+    shop_potion_three = 303,
 }
 public enum UnitType
 {
+    mainCharacter = EntityType.mainCharacter,
+
     sword = EntityType.sword,
     //밑에는 값 만들고 주석 풀기
     //tank = EntityType.tank,
@@ -53,9 +59,9 @@ public enum RewardType
     unit_bow = EntityType.bow,
 
     //Shop
-    shop_potion_one,
-    shop_potion_two,
-    shop_potion_three,
+    shop_potion_one = EntityType.shop_potion_one,
+    shop_potion_two = EntityType.shop_potion_two,
+    shop_potion_three = EntityType.shop_potion_three,
 
 }
 
@@ -69,16 +75,16 @@ public enum ImageIndex
     reward_gold = EntityType.gold,
     unit_sword = EntityType.sword,
     unit_bow = EntityType.bow,
+    unit_mainCharacter = EntityType.mainCharacter,
 
     //Shop
-    shop_potion_one,
-    shop_potion_two,
-    shop_potion_three,
+    shop_potion_one = EntityType.shop_potion_one,
+    shop_potion_two = EntityType.shop_potion_two,
+    shop_potion_three = EntityType.shop_potion_three,
 
     unit_enemySlime = EntityType.slime,
     unit_enemyWolf = EntityType.wolf,
 
-   
 
     map_boss,
     map_battle,
@@ -256,6 +262,7 @@ public class DataManager : MonoBehaviour
 
         imageData[ImageIndex.unit_sword] = Resources.Load<Sprite>("Battle/Sprites/Sword");
         imageData[ImageIndex.unit_bow] = Resources.Load<Sprite>("Battle/Sprites/Bow");
+        imageData[ImageIndex.unit_mainCharacter] = Resources.Load<Sprite>("Battle/Sprites/Sword");
 
         // Enemy Image
         imageData[ImageIndex.unit_enemySlime] = Resources.Load<Sprite>("Battle/Sprites/Slime");

@@ -113,7 +113,8 @@ public class PlayerLayout : MonoBehaviour
 
                             selectedUnitCard = unitCard;
                             selectedUnit = Instantiate(selectedUnitCard.unit.entityPrefab, GameSystem.Instance.battleMap.transform).GetComponentInChildren<Unit>();
-                            selectedUnit.Init(selectedUnitCard.unit);
+                            selectedUnit.Init(selectedUnitCard.unit, selectedUnitCard.cardIndex);
+                            selectedUnit.isSpawning = true;
                         }
                     }
                 }
@@ -185,6 +186,7 @@ public class PlayerLayout : MonoBehaviour
                     if(distance > placeDistance)
                     {
                         selectedUnitCard.DeactiveUnitCard();
+                        selectedUnit.isSpawning = false;
                     }
                     else
                     {
@@ -245,7 +247,7 @@ public class PlayerLayout : MonoBehaviour
                 unitCards.Add(unitCard);
             }
 
-            unitCard.Set(player.UnitList[i]);
+            unitCard.Set(player.UnitList[i], i);
         }
     }
 

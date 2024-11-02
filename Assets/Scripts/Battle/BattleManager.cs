@@ -21,7 +21,9 @@ public class BattleManager : MonoBehaviour
     List<EnemySpawner> spawnPoints;
 
     [SerializeField]
-    GameObject mainCharacter;
+    Transform mainCharacterPos;
+    
+    Unit mainCharacter;
 
     [HideInInspector]
     public MapGrid mapGrid;
@@ -38,6 +40,11 @@ public class BattleManager : MonoBehaviour
     {
         cam = GetComponentInChildren<Camera>();
         mapGrid = GetComponentInChildren<MapGrid>();
+
+        mainCharacter = Instantiate(GameSystem.Instance.mainCharacter.entityPrefab, transform).GetComponentInChildren<Unit>();
+        mainCharacter.transform.parent.position = mainCharacterPos.position;
+        mainCharacter.transform.parent.rotation = mainCharacterPos.rotation;
+        mainCharacter.Init(GameSystem.Instance.mainCharacter);
     }
 
     public void SpawnEnemies()

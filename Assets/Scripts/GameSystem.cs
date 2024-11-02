@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,6 +12,9 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField, Tooltip("초단위")]
     float mapMoveTime = 2;
+
+    [SerializeField]
+    public float bulletSpeed = 3f;
 
     [SerializeField]
     int rewardAmount = 3;
@@ -32,6 +37,9 @@ public class GameSystem : MonoBehaviour
     public List<RewardType> shopList;
     public int shopAmount = 6;
 
+    [HideInInspector]
+    public UnitInfo mainCharacter;
+
     [Header("Prefabs")]
     [SerializeField]
     GameObject minimapPrefab;
@@ -42,7 +50,7 @@ public class GameSystem : MonoBehaviour
     PlayerLayout playerLayout;
 
     //int stage = 1;
-
+    [HideInInspector]
     public BattleManager battleMap;
 
     public float MapMoveTime { get { return mapMoveTime; } }
@@ -55,14 +63,14 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(CoStartGame());
-        shopList = null;
-        GetShop();
+        //StartCoroutine(CoStartGame());
 #if UNITY_EDITOR
+        mainCharacter = DataManager.Instance.unitData[UnitType.mainCharacter].DeepCopy();
+        //shopList = null;
+        //GetShop();
         //GetReward();
         //GetEvent();
-        // GetUnitReward(UnitType.sword, StartBattle);
-
+        GetUnitReward(UnitType.sword, StartBattle);
 #endif
     }
 
@@ -107,6 +115,9 @@ public class GameSystem : MonoBehaviour
         minimap = Instantiate(minimapPrefab).GetComponent<RoomManager>();
         minimap.Init();
         minimap.GenerateRandomMap();
+
+        //메인캐릭터 딥카피
+        mainCharacter = DataManager.Instance.unitData[UnitType.mainCharacter].DeepCopy();
     }
 
     public void EnterNewRoom(RoomType roomType)
@@ -114,7 +125,7 @@ public class GameSystem : MonoBehaviour
         switch (roomType)
         {
             case RoomType.battle:
-                // StartBattle();
+                 StartBattle();
                 break;
             case RoomType.boss:
                 StartBossBattle();
@@ -173,6 +184,8 @@ public class GameSystem : MonoBehaviour
 
     public void StartBossBattle()
     {
+        //스테이지에 맞는 보스맵
+        
         SetBattleLayout();
         //보스맵으로 배틀맵 보여주기
     }
@@ -259,7 +272,7 @@ public class GameSystem : MonoBehaviour
             //보상 중 랜덤하게 rewards에 추가
         }
 
-        ShowRewardPopup(rewards);
+        ShowRewardPopup(rewards); //endAction도 추가
     }
 
     public void ShowRewardPopup(List<Reward> rewards, UnityAction endAction = null)
@@ -298,7 +311,7 @@ public class GameSystem : MonoBehaviour
                 case RewardType.unit_sword:
                     UnitType unitType = GetRandomEnumType<UnitType>();
                     UnitInfo originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
-                    UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+                    UnitInfo unit = originUnitInfo.DeepCopy(); //깊은 복사
                     shop.unit = unit;
                     break;
             }
