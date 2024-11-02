@@ -11,8 +11,13 @@ public enum EntityType
 {
     //아군 엔티티
     tank = 0,
-    sword = 1,
-    bow = 2,
+    sword = 10,
+    sword_1 = 11,
+    sword_2 = 12,
+
+    bow = 20,
+    bow_1 = 21,
+    bow_2 = 22,
     caster = 3,
 
     //적 엔티티

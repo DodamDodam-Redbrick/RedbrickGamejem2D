@@ -72,7 +72,7 @@ public class Room : MonoBehaviour
 
     Sprite roomTypeSprite;
 
-    RoomType _roomType;
+    public RoomType _roomType;
 
     bool isVisited;
 

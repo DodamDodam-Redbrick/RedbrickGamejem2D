@@ -55,13 +55,13 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //StartCoroutine(CoStartGame());
+        StartCoroutine(CoStartGame());
         shopList = null;
         GetShop();
 #if UNITY_EDITOR
         //GetReward();
         //GetEvent();
-        GetUnitReward(UnitType.sword, StartBattle);
+        // GetUnitReward(UnitType.sword, StartBattle);
 
 #endif
     }
@@ -114,7 +114,7 @@ public class GameSystem : MonoBehaviour
         switch (roomType)
         {
             case RoomType.battle:
-                StartBattle();
+                // StartBattle();
                 break;
             case RoomType.boss:
                 StartBossBattle();
@@ -122,6 +122,9 @@ public class GameSystem : MonoBehaviour
 
             case RoomType.randomEvent:
                 StartRandomEvent();
+                break;
+            case RoomType.shop:
+                GetShop();
                 break;
 
         }
