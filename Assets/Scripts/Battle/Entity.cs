@@ -3,8 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct EntityStats
+public class EntityStats
 {
+    public EntityStats DeepCopy()
+    {
+        EntityStats other = (EntityStats)this.MemberwiseClone();
+
+        return other;
+    }
+
     public EntityStats(float hp, float damage, float def, float moveSpeed, float fireRate, float skillCoolTime, int weight)
     {
         this.hp = hp;

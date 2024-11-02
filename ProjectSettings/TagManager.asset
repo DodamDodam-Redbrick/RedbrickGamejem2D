@@ -13,6 +13,8 @@ TagManager:
   - wall
   - onlyWalk
   - NotRoad
+  - Unit
+  - Enemy
   layers:
   - Default
   - TransparentFX
