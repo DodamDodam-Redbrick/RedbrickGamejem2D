@@ -206,7 +206,10 @@ public class DataManager : MonoBehaviour
         foreach(Reward item in rewardData.Values)
         {
             item.thumbnail = imageData[(ImageIndex)item.rewardType];
-            item.unit = unitData[(UnitType)item.rewardType];
+            if (unitData.ContainsKey((UnitType)item.rewardType))
+            {
+                item.unit = unitData[(UnitType)item.rewardType];
+            }
         }
     }
 
