@@ -34,8 +34,6 @@ public class EnemyInfo : Entity
 
 }
 
-
-
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
@@ -178,6 +176,8 @@ public class Enemy : MonoBehaviour
 
         if(coDie == null)
             coDie = StartCoroutine(CoDie());
+
+        GameSystem.Instance.battleMap.KillCount += 1;
     }
 
     IEnumerator CoDie()

@@ -100,7 +100,8 @@ public class Unit : MonoBehaviour
 
     public void Attack(Enemy enemy)
     {
-        int damage = (int)unitInfo.entityStats.damage; //여기서 장비나 디버프 전부 추가
+        //여기서 장비나 디버프 전부 추가
+        int damage = (int)(unitInfo.entityStats.damage * (1 - GameSystem.Instance.deBuffColdPercent));
 
         attackTime = 0;
 
@@ -134,6 +135,8 @@ public class Unit : MonoBehaviour
 
     public void Die()
     {
+        GameSystem.Instance.battleMap.mapGrid.GetNodeFromVector(transform.position).isUse = false;
+
         if(vsEnemy != null)
             vsEnemy.UnSetvsUnit();
 

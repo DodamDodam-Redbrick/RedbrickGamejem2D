@@ -13,9 +13,8 @@ public class SpawnData
 
 public class BattleManager : MonoBehaviour 
 {
-
     [SerializeField]
-    List<SpawnData> spawnDatas;
+    List<SpawnData> spawnDatas; //스폰 데이터의 갯수로 적 잡은 수 카운트 해서 종료 체크
 
     [SerializeField]
     List<EnemySpawner> spawnPoints;
@@ -24,6 +23,20 @@ public class BattleManager : MonoBehaviour
     Transform mainCharacterPos;
     
     Unit mainCharacter;
+
+    public int KillCount {  
+        set 
+        {
+            killCount = value;
+            if (killCount >= spawnDatas.Count)
+            {
+                //끝
+                GameSystem.Instance.FinishBattle();
+            }
+        }
+        get { return spawnPoints.Count; } }
+    
+    int killCount = 0;
 
     [HideInInspector]
     public MapGrid mapGrid;

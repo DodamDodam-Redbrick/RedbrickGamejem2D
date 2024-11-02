@@ -127,9 +127,11 @@ public class PlayerLayout : MonoBehaviour
 
                     if (selectedUnit != null)
                     {
-                        if (mapGrid.GetNodeFromVector(mousePosition).type == selectedUnit.unitInfo.placeNodeType)
+                        Node node = mapGrid.GetNodeFromVector(mousePosition);
+                        if (node.type == selectedUnit.unitInfo.placeNodeType 
+                            && !node.isUse)
                         {
-                            selectedUnit.transform.parent.position = mapGrid.GetNodeFromVector(mousePosition).myPos;
+                            selectedUnit.transform.parent.position = node.myPos;
 
                             step = 1 - step;
                         }
@@ -185,6 +187,9 @@ public class PlayerLayout : MonoBehaviour
                     //distance로 취소 체크
                     if(distance > placeDistance)
                     {
+                        MapGrid mapGrid = GameSystem.Instance.battleMap.mapGrid;
+                        mapGrid.GetNodeFromVector(selectedUnit.transform.position).isUse = true;
+
                         selectedUnitCard.DeactiveUnitCard();
                         selectedUnit.isSpawning = false;
                     }

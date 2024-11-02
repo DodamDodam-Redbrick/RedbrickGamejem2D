@@ -15,7 +15,7 @@ public class GameSystem : MonoBehaviour
     public float cold = 0f;
     public float coldIncreaseAmount = 1f;
 
-    public float deBuffColdPersent;
+    public float deBuffColdPercent;
 
     public static GameSystem Instance;
 
@@ -366,26 +366,26 @@ public class GameSystem : MonoBehaviour
     {
         if (cold >= 2f)
         {
-            deBuffColdPersent = 0.85f;
+            deBuffColdPercent = 0.85f;
         }
         else if (cold >= 4f)
         {
-            deBuffColdPersent = 0.7f;
+            deBuffColdPercent = 0.7f;
 
         }
         else if (cold >= 6f)
         {
-            deBuffColdPersent = 0.55f;
+            deBuffColdPercent = 0.55f;
 
         }
         else if (cold >= 8f)
         {
-            deBuffColdPersent = 0.40f;
+            deBuffColdPercent = 0.40f;
 
         }
         else if (cold >= maxCold)
         {
-            deBuffColdPersent = 0.25f;
+            deBuffColdPercent = 0.25f;
             cold = maxCold;
         }
     }
