@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
     public PlayerCharacter playerCharacter = PlayerCharacter.firstCharacter;
 
-    int gold;
+    public int gold;
 
     public List<Unit> UnitList { get { return unitList; } }
 
@@ -39,21 +39,17 @@ public class Player : MonoBehaviour
 
     public void ChangeGold(int value)
     {
-        //µ·À» ½áµµ ÀÌ°É ºÎ¸£±â
+        //ëˆì„ ì¨ë„ ì´ê±¸ ë¶€ë¥´ê¸°
         gold += value;
 
-        //gold°ü·Ã ui µ¿±âÈ­
+        //goldê´€ë ¨ ui ë™ê¸°í™”
     }
 
-<<<<<<< HEAD:Assets/Scripts/System/Player.cs
-    public void AddUnit(Unit unit)
-=======
     public void AddItem()
     {
-        // ¾ÆÀÌÅÛ °ü·Ã (Æ÷¼Ç µî)
+        // ì•„ì´í…œ ê´€ë ¨ (í¬ì…˜ ë“±)
     }
-    public void AddUnit(UnitInfo unit)
->>>>>>> Shop:Assets/Scripts/Player/Player.cs
+    public void AddUnit(Unit unit)
     {
 #if UNITY_EDITOR
         Debug.Log($"{unit.unitInfo.unitType.ToString()} is added to unitList");
@@ -68,7 +64,7 @@ public class Player : MonoBehaviour
 
     public void MoveRoom(Room room)
     {
-        if(coMoveRoom != null)
+        if (coMoveRoom != null)
         {
             StopCoroutine(coMoveRoom);
             coMoveRoom = null;
@@ -83,16 +79,16 @@ public class Player : MonoBehaviour
         float runtime = 0f;
         float duration = GameSystem.Instance.MapMoveTime;
 
-        //¾Ö´Ï¸ŞÀÌ¼Ç ´Ş¸®´Â ¸ğ½À
+        //ì• ë‹ˆë©”ì´ì…˜ ë‹¬ë¦¬ëŠ” ëª¨ìŠµ
 
         while (runtime <= duration)
         {
             runtime += Time.deltaTime;
-            transform.position = Vector2.Lerp(firstPosition, room.transform.position, runtime/duration);
+            transform.position = Vector2.Lerp(firstPosition, room.transform.position, runtime / duration);
             yield return null;
         }
 
         coMoveRoom = null;
-        //¾Ö´Ï¸ŞÀÌ¼Ç ¸ØÃçÀÖ´Â ¸ğ½À
+        //ì• ë‹ˆë©”ì´ì…˜ ë©ˆì¶°ìˆëŠ” ëª¨ìŠµ
     }
 }

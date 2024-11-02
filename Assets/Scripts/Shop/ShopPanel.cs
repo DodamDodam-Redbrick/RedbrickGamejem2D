@@ -31,12 +31,12 @@ public class ShopPanel : MonoBehaviour
     {
 
         gameObject.SetActive(true);
-       
+
         UpdateGold();
         foreach (Reward reward in rewards)
         {
 
-           ShopPopUp shopPopup = GetUnUseRewardPool();
+            ShopPopUp shopPopup = GetUnUseRewardPool();
             //재활용으로 바꿀 예정
             if (shopPopup != null)
             {
@@ -47,7 +47,7 @@ public class ShopPanel : MonoBehaviour
                 shopPopup = Instantiate(ShopPopupPrefab, RewardLayout.transform).GetComponent<ShopPopUp>();
                 shopPools.Add(shopPopup);
             }
-              
+
             shopPopup.Set(reward);
         }
         Debug.Log($"{shopPools.Count}");
@@ -87,7 +87,7 @@ public class ShopPanel : MonoBehaviour
         {
             currentRerollCount++;
             UpdateRerollCount();
-            foreach(ShopPopUp shops in shopPools)
+            foreach (ShopPopUp shops in shopPools)
             {
                 shops.RerollPopUp();
             }
@@ -95,7 +95,7 @@ public class ShopPanel : MonoBehaviour
         else
         {
             Debug.Log("No more rerolls available.");
-        
+
         }
     }
 

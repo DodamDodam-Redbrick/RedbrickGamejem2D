@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -25,6 +26,11 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField]
     public RewardPanel rewardPanel;
+
+    [SerializeField]
+    public ShopPanel shopPanel;
+    public List<RewardType> shopList;
+    public int shopAmount = 6;
 
     [Header("Prefabs")]
     [SerializeField]
@@ -76,7 +82,7 @@ public class GameSystem : MonoBehaviour
         {
             Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
-            if(hit.collider != null)
+            if (hit.collider != null)
             {
                 Arrow arrowHit = hit.collider.GetComponent<Arrow>();
                 if (arrowHit != null)
@@ -91,7 +97,7 @@ public class GameSystem : MonoBehaviour
     {
         //게임 시작하면
         //1. 맵 랜덤생성
-        if(minimap != null)
+        if (minimap != null)
         {
             Destroy(minimap.gameObject);
             minimap = null;
@@ -191,13 +197,13 @@ public class GameSystem : MonoBehaviour
         //랜덤으로 리워드 정하기
         List<Reward> rewards = new List<Reward>();
 
-        for(int i = 0; i < rewardAmount; i++)
+        for (int i = 0; i < rewardAmount; i++)
         {
             RewardType rewardType = GetRandomEnumType<RewardType>();
             Reward reward = new Reward(DataManager.Instance.rewardData[rewardType].thumbnail, DataManager.Instance.rewardData[rewardType].description
                         , rewardType);
 
-            if(rewardType == RewardType.gold)
+            if (rewardType == RewardType.gold)
             {
                 reward.gold = Random.Range(minRewardGold, maxRewardGold);
             }
@@ -224,7 +230,7 @@ public class GameSystem : MonoBehaviour
     {
         rewardPanel.HidePopupPanel();
 
-        if(endAction != null)
+        if (endAction != null)
         {
             endAction();
         }
@@ -262,5 +268,56 @@ public class GameSystem : MonoBehaviour
     {
         var enumValues = System.Enum.GetValues(enumType: typeof(T));
         return (T)enumValues.GetValue(Random.Range(0, enumValues.Length));
+    }
+
+    public void GetShop()
+    {
+        List<Reward> shops = new List<Reward>();
+        List<RewardType> shopType = GetRandomShopEnum();
+        while (shops.Count <= shopAmount)
+        {
+            RewardType rewardType = shopType[Random.Range(0, shopType.Count)];
+            bool isUnitType = System.Enum.GetValues(typeof(UnitType)).Cast<UnitType>().Any(unit => rewardType == (RewardType)unit);
+
+            // 인덱스에 따른 조건
+            if ((shops.Count > 2 && isUnitType) || (shops.Count <= 2 && !isUnitType))
+                continue;
+
+            Reward shop = new Reward(DataManager.Instance.rewardData[rewardType].thumbnail, DataManager.Instance.rewardData[rewardType].description, rewardType, DataManager.Instance.rewardData[rewardType].shopPrice);
+
+            switch (rewardType)
+            {
+                case RewardType.unit_sword:
+                    UnitType unitType = GetRandomEnumType<UnitType>();
+                    UnitInfo originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
+                    UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
+                    shop.unit = unit;
+                    break;
+            }
+            shops.Add(shop);
+        }
+        shopPanel.ShowShopPanel(shops);
+    }
+
+    List<RewardType> GetRandomShopEnum()
+    {
+        if (shopList != null)
+            return shopList;
+
+        shopList = new List<RewardType>();
+
+        foreach (RewardType rT in System.Enum.GetValues(enumType: typeof(RewardType)))
+        {
+            shopList.Add(rT);
+        }
+
+        List<RewardType> subList = new List<RewardType>();
+        subList.Add(RewardType.gold);
+
+        shopList.Except(subList);
+
+
+        return shopList;
+
     }
 }
