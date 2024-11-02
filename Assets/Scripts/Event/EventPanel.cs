@@ -15,11 +15,17 @@ public class EventPanel : MonoBehaviour
     public void ShowEventPanel(Event showEvent)
     {
         gameObject.SetActive(true);
+<<<<<<< HEAD
         mainText.text = showEvent.content;
         for(int i = 0; i < showEvent.options.Count; i++) 
         {
             string option = showEvent.options[i].option;
             EventOptionType optionType = showEvent.options[i].optionType;
+=======
+        mainText.text = showEvent.mainEvent;
+        foreach (string option in showEvent.options)
+        {
+>>>>>>> parent of 84b5558 (Merge branch 'main' into BattleSetting)
             EventPopUp eventPopUp = GetUnUseEventPool();
             if (eventPopUp != null)
             {
@@ -30,7 +36,7 @@ public class EventPanel : MonoBehaviour
                 eventPopUp = Instantiate(eventPopUpPrefab, eventLayOut).GetComponent<EventPopUp>();
                 eventPools.Add(eventPopUp);
             }
-            eventPopUp.Set(option, optionType, showEvent);
+            eventPopUp.Set(option);
         }
     }
 

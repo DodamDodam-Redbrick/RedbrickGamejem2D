@@ -51,23 +51,23 @@ public class Room : MonoBehaviour
     public SerializedDictionary<wallType, GameObject> wallDic;
 
     // Start is called before the first frame update
-    // ì´ë¯¸ ìŠ¤í°í¬ì¸íŠ¸ì— ë°©ì´ ìˆìœ¼ë©´ ì‡ì§€ ì•ŠëŠ”ë‹¤
+    // ÀÌ¹Ì ½ºÆùÆ÷ÀÎÆ®¿¡ ¹æÀÌ ÀÖÀ¸¸é ÀÕÁö ¾Ê´Â´Ù
     [SerializeField]
     GameObject roomPrefab;
 
     [SerializeField]
     SpriteRenderer roomTypeSpriteRenderer;
 
-    [SerializeField, Tooltip("left, right, top, bottom ìˆœìœ¼ë¡œ ì •ë ¬í•´ì•¼í•¨")]
+    [SerializeField, Tooltip("left, right, top, bottom ¼øÀ¸·Î Á¤·ÄÇØ¾ßÇÔ")]
     SpawnPoint[] spawnPoints;
 
-    [SerializeField, Tooltip("left, right, top, bottom ìˆœìœ¼ë¡œ ì •ë ¬í•´ì•¼í•¨")]
+    [SerializeField, Tooltip("left, right, top, bottom ¼øÀ¸·Î Á¤·ÄÇØ¾ßÇÔ")]
     GameObject[] arrowPrefabs;
 
     [SerializeField]
     GameObject arrowParent;
 
-    [SerializeField, Tooltip("ë°©ì´ ìƒì„±ë˜ëŠ” í™•ë¥ , ê¸°ì¤€ì€ í• ")]
+    [SerializeField, Tooltip("¹æÀÌ »ı¼ºµÇ´Â È®·ü, ±âÁØÀº ÇÒ")]
     int connectRate = 6;
 
     Sprite roomTypeSprite;
@@ -113,7 +113,7 @@ public class Room : MonoBehaviour
                 continue;
             }
 
-            if (spawnPoints[dir].isRoom) //ì´ê²Œ ì˜¤ë¥˜ì¼ ìˆ˜ë„ ìˆìŒ
+            if (spawnPoints[dir].isRoom) //ÀÌ°Ô ¿À·ùÀÏ ¼öµµ ÀÖÀ½
             {
                 continue;
             }
@@ -173,8 +173,12 @@ public class Room : MonoBehaviour
         gameObject.SetActive(true);
         if (!isVisited)
         {
+<<<<<<< HEAD
             roomTypeSpriteRenderer.sprite = DataManager.Instance.imageData[ImageIndex.map_unknown];
          
+=======
+            roomTypeSpriteRenderer.sprite = DataManager.imageData[ImageIndex.map_unknown];
+>>>>>>> parent of 84b5558 (Merge branch 'main' into BattleSetting)
         }
         else
         {
@@ -228,8 +232,8 @@ public class Room : MonoBehaviour
         {
             if(isVisited == false)
             {
-                isVisited = true; //ë¬´ì¡°ê±´ ShowRoomë³´ë‹¤ ë¨¼ì €
-                //ìê¸° ë°© íƒ€ì…ì— ë§ëŠ” ì´ë²¤íŠ¸ ì§„ì…
+                isVisited = true; //¹«Á¶°Ç ShowRoomº¸´Ù ¸ÕÀú
+                //ÀÚ±â ¹æ Å¸ÀÔ¿¡ ¸Â´Â ÀÌº¥Æ® ÁøÀÔ
                 GameSystem.Instance.EnterNewRoom(roomType);
             }
 
