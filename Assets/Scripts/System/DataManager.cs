@@ -50,6 +50,12 @@ public enum RewardType
     //unit_caster = EntityType.caster,
 }
 
+public enum EventOptionType
+{
+    gold = EntityType.gold,
+    unit_sword = EntityType.sword,
+}
+
 public enum ImageIndex
 {
     unit_sword = EntityType.sword,
@@ -126,7 +132,6 @@ public class EventOption
 [System.Serializable]
 public class Event
 {
-<<<<<<< HEAD:Assets/Scripts/System/DataManager.cs
     public Event(string mainEvent, EventType eventType, List<EventOption> optionType)
     {
         SetEventInfo(mainEvent, eventType, optionType);
@@ -136,46 +141,15 @@ public class Event
     {
         this.content = mainEvent;
         this.options = optionType;
-=======
-    public Event(string mainEvent, List<string> options, List<RewardType> rewardTypes, EventType eventType)
-    {
-        SetEventInfo(mainEvent, options, eventType);
-    }
 
-    void SetEventInfo(string mainEvent, List<string> options, EventType eventType)
-    {
-        this.mainEvent = mainEvent;
-        this.options = options;
->>>>>>> parent of 84b5558 (Merge branch 'main' into BattleSetting):Assets/Scripts/Player/DataManager.cs
         this.eventType = eventType;
     }
 
     public string content;
     public EventType eventType;
 
-<<<<<<< HEAD:Assets/Scripts/System/DataManager.cs
     public List<EventOption> options;
 }
-
-public class Shop
-{
-    public Shop(Sprite thumbnail, string description, ShopType shopType)
-    {
-        this.thumbnail = thumbnail;
-        this.description= description;
-        this.shopType = shopType;
-    }
-
-    public Sprite thumbnail;
-    public string description;
-    public ShopType shopType;
-}
-=======
-    public List<string> options;
-    public List<RewardType> rewardTypes;
-}
-
->>>>>>> parent of 84b5558 (Merge branch 'main' into BattleSetting):Assets/Scripts/Player/DataManager.cs
 
 public class DataManager : MonoBehaviour
 {
@@ -265,83 +239,5 @@ public class DataManager : MonoBehaviour
         mapDatas[MapType.firstStage_one] = Resources.Load<GameObject>("Battle/Prefabs/FirstMap");
     }
 
-<<<<<<< HEAD:Assets/Scripts/System/DataManager.cs
-=======
-    private void ApplyEntityDatas()
-    {
-        EntityStats swordStat = new EntityStats(100, 5, 1, 1, 1, 10, 1);
-        entityData[EntityType.sword] = new UnitInfo(swordStat, UnitType.sword, imageData[ImageIndex.unit_sword], Resources.Load<GameObject>("Battle/Prefabs/Sword"));
 
-        EntityStats slimeStat = new EntityStats(50, 3, 0, 1, 1, 10, 1);
-        entityData[EntityType.slime] = new EnemyInfo(slimeStat, EnemyType.slime, Resources.Load<GameObject>("Battle/Prefabs/Slime"));
-
-        //EntityStats wolfStat = new EntityStats(50, 3, 0, 1, 1, 10, 1);
-        //entityData[EntityType.wolf] = new EnemyInfo(wolfStat, EnemyType.wolf, wolfPrefab);
-    }
-
-    private void ApplyEventDatas()
-    {
-        // 옵션 별 보상 추가해야함. 
-
-        //이벤트 별 텍스트 넣는 법 : 메인 이벤트 , 선택지들 , 이벤트타입
-        eventData[EventType.one] = new Event("메인 이벤트_01", 
-        new List<string>
-        {
-            "옵션 1",
-            "옵션 2",
-            "옵션 3",
-        },
-
-        new List<RewardType>
-        { 
-            RewardType.gold,
-            RewardType.unit_sword,
-            RewardType.gold,
-        },
-
-        EventType.one);
-
-
-        eventData[EventType.two] = new Event("메인 이벤트_02",
-        new List<string>
-        {
-            "옵션 1",
-            "옵션 2",
-            "옵션 3",
-            "옵션 4",
-        },
-
-
-        new List<RewardType>
-        {
-            RewardType.gold,
-            RewardType.unit_sword,
-            RewardType.gold,
-            RewardType.unit_sword,
-        },
-
-        EventType.two);
-
-
-        eventData[EventType.three] = new Event("메인 이벤트_02",
-        new List<string>
-        {
-            "옵션 1",
-            "옵션 2",
-            "옵션 3",
-            "옵션 4",
-        },
-
-
-        new List<RewardType>
-        {
-            RewardType.gold,
-            RewardType.unit_sword,
-            RewardType.gold,
-            RewardType.unit_sword,
-        },
-
-        EventType.two);
-    }
->>>>>>> parent of 84b5558 (Merge branch 'main' into BattleSetting):Assets/Scripts/Player/DataManager.cs
 }

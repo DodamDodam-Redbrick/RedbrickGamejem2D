@@ -173,12 +173,8 @@ public class Room : MonoBehaviour
         gameObject.SetActive(true);
         if (!isVisited)
         {
-<<<<<<< HEAD
             roomTypeSpriteRenderer.sprite = DataManager.Instance.imageData[ImageIndex.map_unknown];
          
-=======
-            roomTypeSpriteRenderer.sprite = DataManager.imageData[ImageIndex.map_unknown];
->>>>>>> parent of 84b5558 (Merge branch 'main' into BattleSetting)
         }
         else
         {

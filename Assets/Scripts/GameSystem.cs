@@ -54,11 +54,8 @@ public class GameSystem : MonoBehaviour
 #if UNITY_EDITOR
         //GetReward();
         //GetEvent();
-<<<<<<< HEAD
-
         GetUnitReward(UnitType.sword, StartBattle);
-=======
->>>>>>> parent of 84b5558 (Merge branch 'main' into BattleSetting)
+
 #endif
     }
 

@@ -21,15 +21,12 @@ public class EventPopUp : MonoBehaviour
 
     public void OnClickOption()
     {
-<<<<<<< HEAD
-        switch (optionType)
-        {
-            case EventOptionType.gold:
-                //Player.Instance.ChangeGold(currentEvent.options);
-                break;
-        }
-=======
->>>>>>> parent of 84b5558 (Merge branch 'main' into BattleSetting)
+        //switch (optionType)
+        //{
+        //    case EventOptionType.gold:
+        //        //Player.Instance.ChangeGold(currentEvent.options);
+        //        break;
+        //}
         GameSystem.Instance.FinishGetEvent();
     }
 
