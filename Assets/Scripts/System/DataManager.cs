@@ -24,6 +24,10 @@ public enum EntityType
     wizard_2 = 31,
     wizard_3 = 32,
 
+    soldier_1 = 40,
+    soldier_2 = 41,
+    soldier_3 = 42,
+
     caster = 3,
 
     //적 엔티티
@@ -52,6 +56,10 @@ public enum UnitType
     wizard_1 = EntityType.wizard_1,
     wizard_2 = EntityType.wizard_2,
     wizard_3 = EntityType.wizard_3,
+
+    soldier_1 = EntityType.soldier_1,
+    soldier_2 = EntityType.soldier_2,
+    soldier_3 = EntityType.soldier_3,
 }
 
 
@@ -77,6 +85,10 @@ public enum RewardType
     unit_wizard_2 = EntityType.wizard_2,
     unit_wizard_3 = EntityType.wizard_3,
 
+    unit_soldier_1 = EntityType.soldier_1,
+    unit_soldier_2 = EntityType.soldier_2,
+    unit_soldier_3 = EntityType.soldier_3,
+
     //Shop
     shop_potion_one,
     shop_potion_two,
@@ -98,6 +110,10 @@ public enum EventOptionType
     unit_wizard_1 = EntityType.wizard_1,
     unit_wizard_2 = EntityType.wizard_2,
     unit_wizard_3 = EntityType.wizard_3,
+
+    unit_soldier_1 = EntityType.soldier_1,
+    unit_soldier_2 = EntityType.soldier_2,
+    unit_soldier_3 = EntityType.soldier_3,
 }
 public enum ImageIndex
 {
@@ -116,6 +132,10 @@ public enum ImageIndex
     unit_wizard_1 = EntityType.wizard_1,
     unit_wizard_2 = EntityType.wizard_2,
     unit_wizard_3 = EntityType.wizard_3,
+
+    unit_soldier_1 = EntityType.soldier_1,
+    unit_soldier_2 = EntityType.soldier_2,
+    unit_soldier_3 = EntityType.soldier_3,
 
     //Shop
     shop_potion_one,
@@ -315,6 +335,10 @@ public class DataManager : MonoBehaviour
         imageData[ImageIndex.unit_wizard_2] = Resources.Load<Sprite>("Battle/Sprites/Wizard_Idle");
         imageData[ImageIndex.unit_wizard_3] = Resources.Load<Sprite>("Battle/Sprites/Wizard_Idle");
 
+        imageData[ImageIndex.unit_soldier_1] = Resources.Load<Sprite>("Battle/Sprites/Soldier_Idle");
+        imageData[ImageIndex.unit_soldier_2] = Resources.Load<Sprite>("Battle/Sprites/Soldier_Idle");
+        imageData[ImageIndex.unit_soldier_3] = Resources.Load<Sprite>("Battle/Sprites/Soldier_Idle");
+
         // Enemy Image
         imageData[ImageIndex.unit_enemySlime] = Resources.Load<Sprite>("Battle/Sprites/Slime");
         imageData[ImageIndex.unit_enemyWolf] = Resources.Load<Sprite>("Battle/Sprites/Wolf");
@@ -341,6 +365,10 @@ public class DataManager : MonoBehaviour
         prefabData[EntityType.wizard_1] = Resources.Load<GameObject>("Battle/Prefabs/Wizard");
         prefabData[EntityType.wizard_2] = Resources.Load<GameObject>("Battle/Prefabs/Wizard");
         prefabData[EntityType.wizard_3] = Resources.Load<GameObject>("Battle/Prefabs/Wizard");
+
+        prefabData[EntityType.soldier_1] = Resources.Load<GameObject>("Battle/Prefabs/Soldier");
+        prefabData[EntityType.soldier_2] = Resources.Load<GameObject>("Battle/Prefabs/Soldier");
+        prefabData[EntityType.soldier_3] = Resources.Load<GameObject>("Battle/Prefabs/Soldier");
     }
 
     private void ApplyMapData()
