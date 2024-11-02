@@ -29,6 +29,9 @@ public class PlayerLayout : MonoBehaviour
     int addCoinAmount = 1;
 
     [SerializeField]
+    public int battleCoin;
+
+    [SerializeField]
     float placeDistance = 1f;
 
     [SerializeField]
@@ -42,6 +45,8 @@ public class PlayerLayout : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI nowCost;
+    [SerializeField]
+    Image costFillImage;
 
     [SerializeField]
     GraphicRaycaster canvasRaycaster;
@@ -75,10 +80,12 @@ public class PlayerLayout : MonoBehaviour
     void Update()
     {
         t += Time.deltaTime;
-        if(addCoinTime <= t)
+        costFillImage.fillAmount = t / addCoinTime;
+        if (addCoinTime <= t)
         {
             t = 0f;
-            Player.Instance.ChangeGold(addCoinAmount);
+            battleCoin += addCoinAmount;
+            
             SetNowCost();
         }
         if (gameObject.activeInHierarchy)
@@ -124,13 +131,13 @@ public class PlayerLayout : MonoBehaviour
                                 return;
                             }
 
-                            if(unitCard.unit.cost > Player.Instance.gold)
+                            if(unitCard.unit.cost > battleCoin)
                             {
                                 Debug.Log("돈이부족해소환할수없습니다!");
                                 return;
                             }    
 
-                            Player.Instance.ChangeGold(-unitCard.unit.cost);
+                            battleCoin -= unitCard.unit.cost;
                             SetNowCost();
                             selectedUnitCard = unitCard;
                             selectedUnit = Instantiate(selectedUnitCard.unit.entityPrefab, GameSystem.Instance.battleMap.transform).GetComponentInChildren<Unit>();
@@ -248,6 +255,7 @@ public class PlayerLayout : MonoBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
+        battleCoin = 0;
         SetNowCost();
         Init();
     }
@@ -301,6 +309,6 @@ public class PlayerLayout : MonoBehaviour
 
     public void SetNowCost()
     {
-        nowCost.text = $"{Player.Instance.gold}";
+        nowCost.text = $"{battleCoin}";
     }
 }
