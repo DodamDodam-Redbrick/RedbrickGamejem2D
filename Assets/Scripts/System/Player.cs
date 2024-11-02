@@ -45,7 +45,15 @@ public class Player : MonoBehaviour
         //gold관련 ui 동기화
     }
 
+<<<<<<< HEAD:Assets/Scripts/System/Player.cs
     public void AddUnit(Unit unit)
+=======
+    public void AddItem()
+    {
+        // 아이템 관련 (포션 등)
+    }
+    public void AddUnit(UnitInfo unit)
+>>>>>>> Shop:Assets/Scripts/Player/Player.cs
     {
 #if UNITY_EDITOR
         Debug.Log($"{unit.unitInfo.unitType.ToString()} is added to unitList");
