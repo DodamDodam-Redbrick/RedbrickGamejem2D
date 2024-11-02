@@ -2711,7 +2711,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &863807035
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2748,7 +2748,8 @@ MonoBehaviour:
   unitGroup: {fileID: 2136295584}
   unitCardPrefab: {fileID: 7266769978987176150, guid: 90530a3d739562e4e9589c1782a692f3, type: 3}
   playerPortrait: {fileID: 1505970743}
-  nowCost: {fileID: 0}
+  nowCost: {fileID: 409171172}
+  canvasRaycaster: {fileID: 1020408179}
   offset: {x: 0, y: 10, z: 0}
 --- !u!1 &876401044
 GameObject:
@@ -4998,7 +4999,7 @@ MonoBehaviour:
           weight: 1
         cost: 8
         unitType: 1
-        placeNodeType: 0
+        placeNodeType: 1
         thumbnail: {fileID: 0}
   enemyData:
     _serializedList:
