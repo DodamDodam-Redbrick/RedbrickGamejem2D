@@ -36,43 +36,47 @@ public class PlayerLayout : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(selectedUnit != null)
+        if (gameObject.activeInHierarchy)
         {
-            Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
-            selectedUnit.transform.position = mousePosition + offset;
-        }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
-
-            RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero, 0f);
-
-            if(hit.collider != null)
+            if(selectedUnit != null)
             {
-                UnitCard unitCard = hit.collider.GetComponent<UnitCard>();
-
-                if (unitCard != null)
-                {
-                    selectedUnit = unitCard.unit;
-                    unitCard.DeactiveUnitCard();
-                }
-
+                Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
+                selectedUnit.transform.position = mousePosition + offset;
             }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector2 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
+
+                RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
+
+                if(hit.collider != null)
+                {
+                    UnitCard unitCard = hit.collider.GetComponent<UnitCard>();
+
+                    if (unitCard != null)
+                    {
+                        selectedUnit = unitCard.unit;
+                        unitCard.DeactiveUnitCard();
+                    }
+
+                }
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
+
+                BattleManager battleMap = GameSystem.Instance.battleMap;
+
+                MapGrid mapGrid = battleMap.mapGrid;
+
+                //if(mapGrid.GetNodeFromVector(mousePosition).type) {
+
+                selectedUnit = null;
+            }
+            //클릭 감지해서 설치 진행
         }
-        if (Input.GetMouseButtonUp(0))
-        {
-            Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
-
-            BattleManager battleMap = GameSystem.Instance.battleMap;
-
-            MapGrid mapGrid = battleMap.mapGrid;
-
-            //if(mapGrid.GetNodeFromVector(mousePosition).type) {
-
-            selectedUnit = null;
-        }
-        //클릭 감지해서 설치 진행
     }
     
     public void Init()
