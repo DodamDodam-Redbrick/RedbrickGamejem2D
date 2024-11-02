@@ -28,22 +28,22 @@ public class RewardPopup : MonoBehaviour
 
     public void OnClickCard()
     {
-        //1. µ¥ÀÌÅÍ¿¡ ÀÚ±â ¸®¿öµå Ãß°¡½ÃÄÑÁÖ°í
+        //1. ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½Ú±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö°ï¿½
         switch (reward.rewardType)
         {   
             case RewardType.reward_gold:
                 Player.Instance.ChangeGold(reward.gold);
                 break;
-            case RewardType.unit_sword:
+            case RewardType.unit_sword_1:
                 UnitInfo unit = reward.unit;
                 Player.Instance.AddUnit(unit);
                 break;
         }
 
-        //2. ºÎ¸ð°¡ µÇ´Â ¸®¿öµå ·¹ÀÌ¾Æ¿ô ¼û±è
+        //2. ï¿½Î¸ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾Æ¿ï¿½ ï¿½ï¿½ï¿½ï¿½
         GameSystem.Instance.FinishGetReward(endAction);
 
-        //3. ´ÙÀ½ ½ºÅÜ ÁøÇà
+        //3. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         //go to minimap
     }
 }

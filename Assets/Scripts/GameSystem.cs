@@ -229,7 +229,7 @@ public class GameSystem : MonoBehaviour
             {
                 case RewardType.reward_gold:
                     break;
-                case RewardType.unit_sword:
+                case RewardType.unit_sword_1:
                     UnitType unitType = GetRandomEnumType<UnitType>();
                     UnitInfo originUnitInfo = DataManager.Instance.unitData[unitType]; //얕은 복사
                     UnitInfo unit = new UnitInfo(originUnitInfo.entityStats, unitType, originUnitInfo.thumbnail, originUnitInfo.entityPrefab, originUnitInfo.cost, originUnitInfo.placeNodeType); //깊은 복사
