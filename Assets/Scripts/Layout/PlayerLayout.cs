@@ -80,13 +80,15 @@ public class PlayerLayout : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         t += Time.deltaTime;
         costFillImage.fillAmount = t / addCoinTime;
         if (addCoinTime <= t)
         {
             t = 0f;
             battleCoin += addCoinAmount;
-            
+
+
             SetNowCost();
         }
         if (gameObject.activeInHierarchy)
@@ -333,5 +335,19 @@ public class PlayerLayout : MonoBehaviour
     public void SetNowCost()
     {
         nowCost.text = $"{battleCoin}";
+        UnitOffPanel();
+    }
+
+    void UnitOffPanel()
+    {
+        foreach (UnitCard card in unitCards)
+        {
+            if (card.unit.cost > battleCoin)
+            {
+                card.ShowOffUnitPanel();
+            }
+            else
+                card.FinishOffUnitPanel();
+        }
     }
 }
