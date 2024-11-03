@@ -51,6 +51,9 @@ public class Unit : MonoBehaviour
     //AudioClip deathClip;
 
     [SerializeField]
+    Animator hitAni;
+
+    [SerializeField]
     AudioClip attackClip;
 
     List<Enemy> vsEnemy = new List<Enemy>();
@@ -143,7 +146,7 @@ public class Unit : MonoBehaviour
 
     void PlaySound(AudioClip clip)
     {
-        if (clip != null)
+        if (audioSource != null)
         {
             audioSource.clip = clip;
             audioSource.Play();
@@ -158,6 +161,11 @@ public class Unit : MonoBehaviour
         attackTime = 0;
 
         PlaySound(attackClip);
+
+        if (hitAni != null)
+        {
+            hitAni.SetTrigger("hit");
+        }
 
         //어택 애니메이션
         if(unitInfo.bulletPrefab != null)
