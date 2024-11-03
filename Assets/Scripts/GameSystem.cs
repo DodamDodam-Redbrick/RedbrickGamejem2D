@@ -77,9 +77,10 @@ public class GameSystem : MonoBehaviour
     [HideInInspector]
     public BattleManager battleMap;
 
+    int startRewardCount = 0;
+
     public float MapMoveTime { get { return mapMoveTime; } }
 
-    public bool isFirstReward = true;
     public bool isOnPanel = false;
     private void Awake()
     {
@@ -89,7 +90,7 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // StartCoroutine(CoStartGame());
+         StartCoroutine(CoStartGame());
         //shopList = null;
         //GetShop();
 #if UNITY_EDITOR
@@ -97,7 +98,7 @@ public class GameSystem : MonoBehaviour
         //shopList = null;
         //GetShop();
         //GetReward();
-        StartRandomEvent();
+        //StartRandomEvent();
         //GetUnitReward(UnitType.sword_2, StartTestBattle);
 #endif
     }
@@ -133,6 +134,8 @@ public class GameSystem : MonoBehaviour
     void OnStartGame()
     {
         ShowLoading();
+
+
         //게임 시작하면
         //1. 맵 랜덤생성
         if (minimap != null)
@@ -150,10 +153,28 @@ public class GameSystem : MonoBehaviour
         mainCharacter = DataManager.Instance.unitData[UnitType.mainCharacter].DeepCopy();
     }
 
+    public void EnterStartRoom()
+    {
+        if(startRewardCount >= 3)
+        {
+            return;
+        }
+
+        GetRandomReward(true, EnterStartRoom);
+
+        startRewardCount += 1;
+    }
+
     public void EnterNewRoom(RoomType roomType)
     {
         switch (roomType)
         {
+            case RoomType.start:
+                
+                EnterStartRoom();
+
+                break;
+
             case RoomType.battle:
 
                 StartBattle();
@@ -171,8 +192,6 @@ public class GameSystem : MonoBehaviour
                 break;
 
         }
-
-      
     }
 
 
@@ -246,7 +265,7 @@ public class GameSystem : MonoBehaviour
     {
         SetMinimapLayout();
 
-        GetRandomReward(CloseBattleMap);
+        GetRandomReward(false ,CloseBattleMap);
     }
 
     public void GetUnitReward(UnitType unitType, UnityAction endAction = null)
@@ -266,18 +285,15 @@ public class GameSystem : MonoBehaviour
         rewardPanel.ShowPopupPanel(rewards, endAction);
     }
 
-    public Reward GetReward(RewardType rewardType, bool ignoreFirst = false)
+    public Reward GetReward(RewardType rewardType, bool onlyUnit = false)
     {
         Reward reward = new Reward(DataManager.Instance.rewardData[rewardType].thumbnail, DataManager.Instance.rewardData[rewardType].description
                         , rewardType);
 
         bool isUnitType = System.Enum.GetValues(typeof(UnitType)).Cast<UnitType>().Any(unit => rewardType == (RewardType)unit);
 
-        if (!ignoreFirst)
-        {
-            if (isFirstReward && !isUnitType)
-                return null;
-        }
+        if (onlyUnit && !isUnitType)
+            return null;
 
         if (rewardType == RewardType.reward_gold)
         {
@@ -287,26 +303,22 @@ public class GameSystem : MonoBehaviour
         return reward;
     }
 
-    public void GetRandomReward(UnityAction endAction = null)
+    public void GetRandomReward(bool isOnlyUnit = false, UnityAction endAction = null)
     {
         //랜덤으로 리워드 정하기
         List<Reward> rewards = new List<Reward>();
 
-
-        while(rewards.Count < rewardAmount)
+        while(rewards.Count <= rewardAmount)
         {
             RewardType rewardType = GetRandomEnumType<RewardType>();
 
-            Reward reward = GetReward(rewardType);
+            Reward reward = GetReward(rewardType, isOnlyUnit);
 
             if (reward == null)
                 continue;
 
             rewards.Add(CopyUnitType(reward));
         }
-
-        if(isFirstReward)
-            isFirstReward = false;
 
         rewardPanel.ShowPopupPanel(rewards, endAction);
     }
