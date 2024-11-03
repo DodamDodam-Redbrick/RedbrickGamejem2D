@@ -49,6 +49,15 @@ public class Enemy : MonoBehaviour
 
     MapGrid mapGrid;
 
+    AudioSource audioSource;
+
+    //death 오디오 얻으면 사용
+    [SerializeField]
+    AudioClip deathClip;
+
+    [SerializeField]
+    AudioClip attackClip;
+
     [SerializeField] //디버깅용
     public EnemyInfo enemyInfo;
 
@@ -141,6 +150,8 @@ public class Enemy : MonoBehaviour
     {
         int damage = (int)enemyInfo.entityStats.damage; //여기서 장비나 디버프 전부 추가
 
+        PlaySound(attackClip);
+
         attackTime = 0;
 
         //어택 애니메이션
@@ -181,11 +192,11 @@ public class Enemy : MonoBehaviour
 
         if(coDie == null)
             coDie = StartCoroutine(CoDie());
-
     }
 
     IEnumerator CoDie()
     {
+        PlaySound(deathClip);
         //죽는 애니메이션하고 죽을때까지 기다리고 없애기
         GameSystem.Instance.battleMap.CountKillCount();
         //재활용 안됨
@@ -279,6 +290,14 @@ public class Enemy : MonoBehaviour
             myWay = newWay;
 
             coMove = StartCoroutine(CoMove());
+        }
+    }
+    void PlaySound(AudioClip clip)
+    {
+        if (clip != null)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
         }
     }
 

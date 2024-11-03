@@ -45,6 +45,14 @@ public class Unit : MonoBehaviour
 
     public Node placedNode;
 
+    AudioSource audioSource;
+
+    //death 오디오 얻으면 사용
+    //AudioClip deathClip;
+
+    [SerializeField]
+    AudioClip attackClip;
+
     List<Enemy> vsEnemy = new List<Enemy>();
 
     List<Enemy> inBoundEnemies = new List<Enemy>();
@@ -70,6 +78,8 @@ public class Unit : MonoBehaviour
         this.unitInfo = unitInfo;
 
         attackTime = unitInfo.entityStats.fireRate;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void Init(UnitInfo unitInfo, int cardIndex)
@@ -79,6 +89,8 @@ public class Unit : MonoBehaviour
         this.cardIndex = cardIndex;
 
         attackTime = unitInfo.entityStats.fireRate;
+
+        audioSource = GetComponent<AudioSource>();
 
         ChangeEdgeColor();
     }
@@ -129,12 +141,23 @@ public class Unit : MonoBehaviour
         }
     }
 
+    void PlaySound(AudioClip clip)
+    {
+        if (clip != null)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
+    }
+
     public void Attack(Enemy enemy)
     {
         //여기서 장비나 디버프 전부 추가
         int damage = (int)(unitInfo.entityStats.damage * (1 - GameSystem.Instance.deBuffColdPercent));
 
         attackTime = 0;
+
+        PlaySound(attackClip);
 
         //어택 애니메이션
         if(unitInfo.bulletPrefab != null)

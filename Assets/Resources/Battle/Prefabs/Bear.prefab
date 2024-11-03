@@ -117,6 +117,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   wayPoints: []
+  deathClip: {fileID: 8300000, guid: 1b68e7925eef34c8d9996dcc3a0a123a, type: 3}
+  attackClip: {fileID: 8300000, guid: c28df9d575de74631b59d2ca7669e73c, type: 3}
   enemyInfo:
     entityPrefab: {fileID: 0}
     bulletPrefab: {fileID: 0}
