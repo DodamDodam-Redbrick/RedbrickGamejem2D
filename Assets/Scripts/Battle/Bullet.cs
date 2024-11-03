@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour
     {
         if (unit != null)//유닛이 공격
         {
-            Enemy hit = collision.GetComponent<Enemy>();
+            Enemy hit = collision.transform.parent.GetComponent<Enemy>();
 
             if (hit != null)
             {
@@ -50,7 +50,7 @@ public class Bullet : MonoBehaviour
         }
         else if (enemy != null)//에너미가 공격
         {
-            Unit hit = collision.GetComponent<Unit>();
+            Unit hit = collision.transform.parent.GetComponent<Unit>();
 
             if (hit != null)
             {
