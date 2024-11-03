@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -326,10 +327,10 @@ public class PlayerLayout : MonoBehaviour
             else
             {
                 unitCard = Instantiate(unitCardPrefab, unitGroup.transform).GetComponent<UnitCard>();
-                unitCard.ActiveUnitCard();
                 unitCards.Add(unitCard);
             }
 
+            unitCard.ActiveUnitCard();
             unitCard.Set(player.UnitList[i], i);
         }
     }
@@ -348,11 +349,17 @@ public class PlayerLayout : MonoBehaviour
         {
             if (unitCard.gameObject.activeInHierarchy == false)
             {
+                unitCard.gameObject.SetActive(true);
+
                 return unitCard;
             }
         }
 
-        return null;
+        UnitCard instUnitCard = Instantiate(unitCardPrefab, unitGroup.transform).GetComponent<UnitCard>();
+
+        unitCards.Add(instUnitCard);
+
+        return instUnitCard;
     }
 
     public void SetNowCost()

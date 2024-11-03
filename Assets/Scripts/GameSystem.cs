@@ -6,7 +6,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using static Unity.VisualScripting.Dependencies.Sqlite.SQLite3;
 
 public class GameSystem : MonoBehaviour
 {
