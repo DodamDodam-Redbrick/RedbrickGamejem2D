@@ -316,6 +316,7 @@ MonoBehaviour:
     unitType: 1
     placeNodeType: 0
     thumbnail: {fileID: 0}
+  attackClip: {fileID: 8300000, guid: 5d2c7be9019264c0387ecf500d57beaa, type: 3}
   cardIndex: 0
   rangeView: {fileID: 5420273926016719705}
   isSpawning: 0

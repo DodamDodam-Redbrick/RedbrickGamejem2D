@@ -41,6 +41,21 @@ public class GameSystem : MonoBehaviour
     [SerializeField]
     int maxRewardGold = 10;
 
+    AudioSource audioSource;
+
+    [SerializeField]
+    AudioClip rewardClip;
+
+    [SerializeField]
+    AudioClip defeatedClip;
+
+    [SerializeField]
+    AudioClip winClip;
+
+    [SerializeField]
+    public AudioClip buyClip;
+
+
     [Header("Panels")]
 
     [SerializeField]
@@ -109,12 +124,24 @@ public class GameSystem : MonoBehaviour
 #endif
     }
 
+    public void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();            
+        }
+    }
+
     IEnumerator CoStartGame()
     {
+        audioSource = GetComponent<AudioSource>();
+
         while (!DataManager.Instance.isFinishLoad)
         {
             yield return null;
         }
+
 
         OnStartGame();
     }
@@ -241,12 +268,14 @@ public class GameSystem : MonoBehaviour
     void SetMinimapLayout()
     {
         Player.Instance.GetComponentInChildren<AudioListener>().enabled = true;
+        Player.Instance.GetComponentInChildren<AudioSource>().mute = false;
         playerLayout.Hide();
     }
 
     void SetBattleLayout()
     {
         Player.Instance.GetComponentInChildren<AudioListener>().enabled = false;
+        Player.Instance.GetComponentInChildren<AudioSource>().mute = true;
         playerLayout.Show();
     }
 
@@ -282,6 +311,8 @@ public class GameSystem : MonoBehaviour
 
     public void FinishBattle()
     {
+        PlaySound(winClip);
+
         SetMinimapLayout();
 
         SyncUnitData();
@@ -358,6 +389,8 @@ public class GameSystem : MonoBehaviour
     {
         rewardPanel.HidePopupPanel();
 
+        PlaySound(rewardClip);
+
         if (endAction != null)
         {
             endAction();
@@ -366,7 +399,7 @@ public class GameSystem : MonoBehaviour
 
     public void DefeatedBattle()
     {
-
+        PlaySound(defeatedClip);
         //할거 다하고 메인메뉴로 가기 (가기전에 통계표 보여주는것도 ㄱㅊ을듯
         defeatedPanel.SetActive(true);
     }
