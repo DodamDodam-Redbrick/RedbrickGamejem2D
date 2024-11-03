@@ -23,6 +23,12 @@ public class EventPopUp : MonoBehaviour
 
     public void OnClickOption()
     {
+        Debug.Log($"{reward.rewardType}");
+        if(reward.rewardType == RewardType.reward_gold)
+        {
+            Player.Instance.ChangeGold(reward.gold);
+            Debug.Log($"{reward.gold}를 가져갑니다");
+        }
         reward = GameSystem.Instance.CopyUnitType(reward);
         List<Reward> rewards = new List<Reward>();
         rewards.Add(reward);
