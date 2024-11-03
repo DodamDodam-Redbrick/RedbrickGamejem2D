@@ -98,15 +98,17 @@ public class PlayerLayout : MonoBehaviour
                     MapGrid mapGrid = GameSystem.Instance.battleMap.mapGrid;
                     mousePosition = new Vector3(mousePosition.x, mousePosition.y, 0);
 
-                    if (mapGrid.GetNodeFromVector(mousePosition).type == selectedUnit.unitInfo.placeNodeType)
+                    if (mapGrid.IsNotOutOfBind(mousePosition))
                     {
-                        selectedUnit.transform.parent.position = mapGrid.GetNodeFromVector(mousePosition).myPos;
+                        if (mapGrid.GetNodeFromVector(mousePosition).type == selectedUnit.unitInfo.placeNodeType)
+                        {
+                            selectedUnit.transform.parent.position = mapGrid.GetNodeFromVector(mousePosition).myPos;
+                        }
+                        else
+                        {
+                            selectedUnit.transform.parent.position = mousePosition;
+                        }
                     }
-                    else
-                    {
-                        selectedUnit.transform.parent.position = mousePosition;
-                    }
-
                 }
 
                 if (Input.GetMouseButtonDown(0))
@@ -131,14 +133,12 @@ public class PlayerLayout : MonoBehaviour
                                 return;
                             }
 
-                            if(unitCard.unit.cost > battleCoin)
+                            if (unitCard.unit.cost > battleCoin)
                             {
                                 Debug.Log("돈이부족해소환할수없습니다!");
                                 return;
-                            }    
+                            }
 
-                            battleCoin -= unitCard.unit.cost;
-                            SetNowCost();
                             selectedUnitCard = unitCard;
                             selectedUnit = Instantiate(selectedUnitCard.unit.entityPrefab, GameSystem.Instance.battleMap.transform).GetComponentInChildren<Unit>();
                             selectedUnit.Init(selectedUnitCard.unit, selectedUnitCard.cardIndex);
@@ -165,7 +165,7 @@ public class PlayerLayout : MonoBehaviour
                         }
                         else
                         {
-                            Destroy(selectedUnit.gameObject);
+                            Destroy(selectedUnit.transform.parent.gameObject);
                             selectedUnit = null;
                             selectedUnitCard = null;
                         }
@@ -203,6 +203,8 @@ public class PlayerLayout : MonoBehaviour
                 {
                     Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
+                    selectedUnit.ShowRange();
+
                     buttonDownMousePosition = mousePosition;
                     isButtonDown = true;
                 }
@@ -212,18 +214,23 @@ public class PlayerLayout : MonoBehaviour
 
                     float distance = Vector3.Distance(mousePosition, buttonDownMousePosition);
 
+                    selectedUnit.HideRange();
+
                     //distance로 취소 체크
                     if(distance > placeDistance)
                     {
                         MapGrid mapGrid = GameSystem.Instance.battleMap.mapGrid;
                         mapGrid.GetNodeFromVector(selectedUnit.transform.position).isUse = true;
 
+                        battleCoin -= selectedUnit.unitInfo.cost;
+                        SetNowCost();
+
                         selectedUnitCard.DeactiveUnitCard();
                         selectedUnit.isSpawning = false;
                     }
                     else
                     {
-                        Destroy(selectedUnit.gameObject);
+                        Destroy(selectedUnit.transform.parent.gameObject);
                     }
 
                     selectedUnit = null;

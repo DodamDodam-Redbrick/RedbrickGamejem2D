@@ -59,6 +59,9 @@ public class Unit : MonoBehaviour
 
     List<Bullet> bulletPool = new List<Bullet>();
 
+    [SerializeField]
+    public SpriteRenderer rangeView;
+
     [HideInInspector]
     public bool isSpawning;
 
@@ -168,7 +171,18 @@ public class Unit : MonoBehaviour
         }
 
     }
-  
+
+    public void ShowRange()
+    {
+        if(rangeView != null)
+            rangeView.gameObject.SetActive(true);
+    }
+
+    public void HideRange()
+    {
+        if(rangeView != null)
+            rangeView.gameObject.SetActive(false);
+    }
 
     public void Die()
     {

@@ -266,7 +266,7 @@ public class Enemy : MonoBehaviour
     {
         List<Node> newWay = null;
 
-        if (mapGrid.IsOutOfBind(goalPosition) && mapGrid.GetNodeFromVector(transform.position) != mapGrid.GetNodeFromVector(goalPosition))
+        if (mapGrid.IsNotOutOfBind(goalPosition) && mapGrid.GetNodeFromVector(transform.position) != mapGrid.GetNodeFromVector(goalPosition))
             newWay = PathFinding.PathFind(transform.position, goalPosition, mapGrid);
 
         if (newWay != null)

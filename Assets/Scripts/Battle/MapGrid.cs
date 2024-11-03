@@ -67,7 +67,7 @@ public class MapGrid : MonoBehaviour
         }
     }
 
-    public bool IsOutOfBind(Vector3 position)
+    public bool IsNotOutOfBind(Vector3 position)
     {
         if (position.x >= 0 && position.y >= 0 && position.x < nodeCountX && position.y < nodeCountY) return true;
         return false;
@@ -83,7 +83,7 @@ public class MapGrid : MonoBehaviour
             newVec.x = node.myX + dir[i, 0];
             newVec.y = node.myY + dir[i, 1];
 
-            if (IsOutOfBind(newVec)) nodeList.Add(myNode[(int)newVec.x, (int)newVec.y]);
+            if (IsNotOutOfBind(newVec)) nodeList.Add(myNode[(int)newVec.x, (int)newVec.y]);
         }
 
         return nodeList;
