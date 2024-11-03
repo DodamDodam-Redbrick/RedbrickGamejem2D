@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.MaterialProperty;
 
 public class ShopPopUp : MonoBehaviour
 {
