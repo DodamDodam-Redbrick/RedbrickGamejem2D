@@ -14,6 +14,9 @@ public class UnitCard : MonoBehaviour
     Image ban;
 
     [SerializeField]
+    GameObject offUnitPanel;
+
+    [SerializeField]
     TextMeshProUGUI costText;
 
     [HideInInspector]
@@ -40,6 +43,7 @@ public class UnitCard : MonoBehaviour
         mat.SetFloat("_OutlineSize", GameSystem.Instance.outlineSize);
     }
 
+
     public void Set(UnitInfo unit, int cardIndex)
     {
         this.unit = unit;
@@ -63,4 +67,14 @@ public class UnitCard : MonoBehaviour
         isBan = true;
     }
     //카드 비활성화
+
+    public void ShowOffUnitPanel()
+    {
+        offUnitPanel.SetActive(true);
+    }
+
+    public void FinishOffUnitPanel()
+    {
+        offUnitPanel.SetActive(false);
+    }
 }
