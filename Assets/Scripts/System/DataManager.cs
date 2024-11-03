@@ -207,6 +207,9 @@ public enum ImageIndex
 public enum MapType
 {
     firstStage_one,
+    firstStage_two,
+
+    firstStage_Boss,
 }
 
 public enum EventType
@@ -437,6 +440,9 @@ public class DataManager : MonoBehaviour
     private void ApplyMapData()
     {
         mapDatas[MapType.firstStage_one] = Resources.Load<GameObject>("Battle/Prefabs/EasyMap01");
+        mapDatas[MapType.firstStage_two] = Resources.Load<GameObject>("Battle/Prefabs/Map2");
+
+        mapDatas[MapType.firstStage_Boss] = Resources.Load<GameObject>("Battle/Prefabs/Map3");
     }
 
 
