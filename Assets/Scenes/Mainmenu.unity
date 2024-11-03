@@ -1276,6 +1276,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
+      propertyPath: eventData._serializedList.Array.data[1].Value.eventType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
+      propertyPath: rewardData._serializedList.Array.data[6].Value.rewardType
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
       propertyPath: enemyData._serializedList.Array.data[3].Value.entityPrefab
       value: 
       objectReference: {fileID: 6551475974295820344, guid: 9b830c72a2feb4bafa089e4242b7dee3, type: 3}
@@ -1283,6 +1291,30 @@ PrefabInstance:
       propertyPath: enemyData._serializedList.Array.data[6].Value.entityPrefab
       value: 
       objectReference: {fileID: 6551475974295820344, guid: 25f767ed32e384231abd79bc4c976fa0, type: 3}
+    - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
+      propertyPath: unitData._serializedList.Array.data[4].Value.placeNodeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
+      propertyPath: unitData._serializedList.Array.data[5].Value.placeNodeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
+      propertyPath: unitData._serializedList.Array.data[6].Value.placeNodeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
+      propertyPath: unitData._serializedList.Array.data[7].Value.placeNodeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
+      propertyPath: unitData._serializedList.Array.data[8].Value.placeNodeType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
+      propertyPath: unitData._serializedList.Array.data[9].Value.placeNodeType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
       propertyPath: enemyData._serializedList.Array.data[1].Value.entityStats.hp
       value: 40
@@ -1453,7 +1485,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
       propertyPath: eventData._serializedList.Array.data[1].Value.options.Array.data[1].optionType
-      value: 0
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
       propertyPath: eventData._serializedList.Array.data[1].Value.options.Array.data[2].optionType

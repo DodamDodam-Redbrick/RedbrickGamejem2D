@@ -12,8 +12,8 @@ public class GameSystem : MonoBehaviour
 {
     public Transform canvasTrans;
 
-    public float maxCold = 10f;
-    public float cold = 0f;
+    public int maxCold = 10;
+    public int coldLevel = 0;
     public float coldIncreaseAmount = 1f;
 
     public float deBuffColdPercent;
@@ -66,6 +66,9 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField]
     GameObject loadingPanel;
+
+    [SerializeField]
+    IceLayout icePanel;
 
     [Header("Prefabs")]
     [SerializeField]
@@ -154,6 +157,17 @@ public class GameSystem : MonoBehaviour
 
         //메인캐릭터 딥카피
         mainCharacter = DataManager.Instance.unitData[UnitType.mainCharacter].DeepCopy();
+    }
+
+    public void ShowIcePanel()
+    {
+        icePanel.gameObject.SetActive(true);
+        icePanel.SetIceLevel(coldLevel);
+    }
+
+    public void HideIcePanel()
+    {
+        icePanel.gameObject.SetActive(false);
     }
 
     public void EnterStartRoom()
@@ -429,36 +443,45 @@ public class GameSystem : MonoBehaviour
     // 추위 증가
     public void IncreaseCold() 
     {
-        cold += coldIncreaseAmount;
+        coldLevel += (int)coldIncreaseAmount;
         SetCold();
-        
+
+        if(coldLevel < 2)
+        {
+            HideIcePanel();
+        }
+        else
+        {
+            ShowIcePanel();
+        }
+
     }
 
     public void SetCold()
     {
-        if (cold >= 2f)
+        if (coldLevel >= 2)
         {
             deBuffColdPercent = 0.85f;
         }
-        else if (cold >= 4f)
+        else if (coldLevel >= 4)
         {
             deBuffColdPercent = 0.7f;
 
         }
-        else if (cold >= 6f)
+        else if (coldLevel >= 6)
         {
             deBuffColdPercent = 0.55f;
 
         }
-        else if (cold >= 8f)
+        else if (coldLevel >= 8)
         {
             deBuffColdPercent = 0.40f;
 
         }
-        else if (cold >= maxCold)
+        else if (coldLevel >= maxCold)
         {
             deBuffColdPercent = 0.25f;
-            cold = maxCold;
+            coldLevel = maxCold;
         }
     }
 
