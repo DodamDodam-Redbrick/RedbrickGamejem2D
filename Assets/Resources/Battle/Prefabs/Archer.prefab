@@ -238,6 +238,7 @@ MonoBehaviour:
     unitType: 1
     placeNodeType: 0
     thumbnail: {fileID: 0}
+  hitAni: {fileID: 0}
   attackClip: {fileID: 0}
   cardIndex: 0
   rangeView: {fileID: 8280354233672768830}
@@ -289,7 +290,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0

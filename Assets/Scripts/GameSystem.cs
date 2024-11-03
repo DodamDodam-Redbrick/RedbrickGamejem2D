@@ -369,7 +369,7 @@ public class GameSystem : MonoBehaviour
     {
         // 랜덤으로 리워드 정하기
         List<Reward> rewards = new List<Reward>();
-        while (rewards.Count < rewardAmount)
+        while (rewards.Count <= rewardAmount)
         {
             RewardType rewardType = GetRandomRewardType();
             Reward reward = GetReward(rewardType, isOnlyUnit);

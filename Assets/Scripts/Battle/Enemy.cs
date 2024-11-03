@@ -36,9 +36,6 @@ public class EnemyInfo : Entity
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField]
-    Animator anim;
-
     [SerializeField] //디버깅 끝나면 지워도 됨
     List<Vector3> wayPoints;
 
@@ -50,6 +47,9 @@ public class Enemy : MonoBehaviour
     MapGrid mapGrid;
 
     AudioSource audioSource;
+
+    [SerializeField]
+    Animator hitAni;
 
     //death 오디오 얻으면 사용
     [SerializeField]
@@ -151,6 +151,11 @@ public class Enemy : MonoBehaviour
         int damage = (int)enemyInfo.entityStats.damage; //여기서 장비나 디버프 전부 추가
 
         PlaySound(attackClip);
+
+        if (hitAni != null)
+        {
+            hitAni.SetTrigger("hit");
+        }
 
         attackTime = 0;
 
@@ -294,7 +299,7 @@ public class Enemy : MonoBehaviour
     }
     void PlaySound(AudioClip clip)
     {
-        if (clip != null)
+        if (audioSource != null)
         {
             audioSource.clip = clip;
             audioSource.Play();
