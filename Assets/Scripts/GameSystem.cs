@@ -89,7 +89,7 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(CoStartGame());
+        // StartCoroutine(CoStartGame());
         //shopList = null;
         //GetShop();
 #if UNITY_EDITOR
@@ -528,12 +528,5 @@ public class GameSystem : MonoBehaviour
         
     }
 
-    public void StartTestBattle()
-    {
-        battleMap = Instantiate(DataManager.Instance.mapDatas[MapType.firstStage_one]).GetComponent<BattleManager>();
-        battleMap.Init();
-        battleMap.StartBattle();
 
-        SetBattleLayout();
-    }
 }
