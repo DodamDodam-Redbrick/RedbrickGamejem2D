@@ -30,7 +30,7 @@ public class GameSystem : MonoBehaviour
     float mapMoveTime = 2;
 
     [SerializeField]
-    public float bulletSpeed = 3f;
+    public float bulletSpeed = 10f;
 
     [SerializeField]
     int rewardAmount = 3;
