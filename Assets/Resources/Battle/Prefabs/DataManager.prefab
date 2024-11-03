@@ -661,7 +661,7 @@ MonoBehaviour:
           hp: 20
           damage: 8
           def: 0
-          moveSpeed: 10
+          moveSpeed: 3
           fireRate: 0.4
           skillCoolTime: 0
           weight: 1
@@ -674,7 +674,7 @@ MonoBehaviour:
           hp: 40
           damage: 16
           def: 0
-          moveSpeed: 10
+          moveSpeed: 3
           fireRate: 0.4
           skillCoolTime: 0
           weight: 1
@@ -687,7 +687,7 @@ MonoBehaviour:
           hp: 80
           damage: 32
           def: 0
-          moveSpeed: 10
+          moveSpeed: 3
           fireRate: 0.4
           skillCoolTime: 0
           weight: 1
@@ -700,7 +700,7 @@ MonoBehaviour:
           hp: 6
           damage: 3
           def: 0
-          moveSpeed: 6
+          moveSpeed: 2
           fireRate: 0.5
           skillCoolTime: 0
           weight: 1
@@ -726,11 +726,102 @@ MonoBehaviour:
           hp: 24
           damage: 12
           def: 0
-          moveSpeed: 6
+          moveSpeed: 2
           fireRate: 0.5
           skillCoolTime: 0
           weight: 1
         enemyType: 112
+    - Key: 120
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: 25f767ed32e384231abd79bc4c976fa0, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 10
+          damage: 5
+          def: 0
+          moveSpeed: 1
+          fireRate: 0.7
+          skillCoolTime: 0
+          weight: 1
+        enemyType: 120
+    - Key: 121
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: 25f767ed32e384231abd79bc4c976fa0, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 20
+          damage: 10
+          def: 0
+          moveSpeed: 1
+          fireRate: 0.7
+          skillCoolTime: 0
+          weight: 1
+        enemyType: 121
+    - Key: 122
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: 25f767ed32e384231abd79bc4c976fa0, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 40
+          damage: 20
+          def: 0
+          moveSpeed: 1
+          fireRate: 0.7
+          skillCoolTime: 0
+          weight: 1
+        enemyType: 122
+    - Key: 130
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: 11113a4da4e6b40daafb803965e8e51a, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 8
+          damage: 4
+          def: 0
+          moveSpeed: 1
+          fireRate: 0.6
+          skillCoolTime: 0
+          weight: 1
+        enemyType: 130
+    - Key: 131
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: 11113a4da4e6b40daafb803965e8e51a, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 16
+          damage: 8
+          def: 0
+          moveSpeed: 1
+          fireRate: 0.6
+          skillCoolTime: 0
+          weight: 1
+        enemyType: 131
+    - Key: 132
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: 11113a4da4e6b40daafb803965e8e51a, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 32
+          damage: 16
+          def: 0
+          moveSpeed: 1
+          fireRate: 0.6
+          skillCoolTime: 0
+          weight: 1
+        enemyType: 132
+    - Key: 140
+      Value:
+        entityPrefab: {fileID: 6551475974295820344, guid: da94d19b07c1741efa68fd543bc8e22d, type: 3}
+        bulletPrefab: {fileID: 0}
+        entityStats:
+          hp: 300
+          damage: 50
+          def: 0
+          moveSpeed: 0.5
+          fireRate: 1.2
+          skillCoolTime: 0
+          weight: 1
+        enemyType: 140
   eventData:
     _serializedList: []
 --- !u!114 &8964203554701144244
