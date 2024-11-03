@@ -380,6 +380,7 @@ public class GameSystem : MonoBehaviour
             //보상 중 랜덤하게 rewards에 추가
         }
 
+
         ShowRewardPopup(rewards); //endAction도 추가
     }
 
@@ -502,7 +503,7 @@ public class GameSystem : MonoBehaviour
         UnitType unitType = (UnitType)reward.rewardType;
         RewardType rewardType = reward.rewardType;
         UnitInfo unit;
-        mainCharacter = DataManager.Instance.unitData[UnitType.mainCharacter].DeepCopy();
+        // mainCharacter = DataManager.Instance.unitData[UnitType.mainCharacter].DeepCopy();
 
         switch (rewardType)
         {

@@ -10,11 +10,11 @@ public class EventPopUp : MonoBehaviour
 {
     [SerializeField] Button optionButton;
     [SerializeField] TextMeshProUGUI optionText;
-    List<Reward> rewards = new List<Reward>();
+    Reward reward;
 
     public void Set(string option, Reward reward)
     {
-        rewards.Add(reward);
+        this.reward = reward;
 
         optionText.text = option;
 
@@ -23,6 +23,9 @@ public class EventPopUp : MonoBehaviour
 
     public void OnClickOption()
     {
+        reward = GameSystem.Instance.CopyUnitType(reward);
+        List<Reward> rewards = new List<Reward>();
+        rewards.Add(reward);
         GameSystem.Instance.rewardPanel.ShowPopupPanel(rewards, GameSystem.Instance.FinishGetEvent);
 
     }
