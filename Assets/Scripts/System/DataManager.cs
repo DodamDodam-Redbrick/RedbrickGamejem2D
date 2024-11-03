@@ -313,6 +313,9 @@ public class DataManager : MonoBehaviour
     [SerializedDictionary("EventType", "Event")]
     public SerializedDictionary<EventType, Event> eventData = new SerializedDictionary<EventType, Event>(); // 이벤트 데이터 저장용
 
+    [SerializedDictionary("RewardChances", "RewardType")]
+    public SerializedDictionary<RewardType, float> rewardChanceDatas = new SerializedDictionary<RewardType, float>();
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
