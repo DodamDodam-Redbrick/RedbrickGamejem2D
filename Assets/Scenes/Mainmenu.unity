@@ -1220,6 +1220,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
+      propertyPath: eventData._serializedList.Array.data[1].Value.eventType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
       propertyPath: eventData._serializedList.Array.data[0].Value.options.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -1321,7 +1325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
       propertyPath: eventData._serializedList.Array.data[1].Value.options.Array.data[1].optionType
-      value: 0
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5158660685251341299, guid: 141cb7cda522a40f5984ef7d1e508bdc, type: 3}
       propertyPath: eventData._serializedList.Array.data[1].Value.options.Array.data[2].optionType

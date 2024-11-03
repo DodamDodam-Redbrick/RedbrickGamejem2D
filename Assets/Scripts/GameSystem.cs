@@ -97,8 +97,8 @@ public class GameSystem : MonoBehaviour
         //shopList = null;
         //GetShop();
         //GetReward();
-        //GetEvent();
-        GetUnitReward(UnitType.sword_2, StartTestBattle);
+        StartRandomEvent();
+        //GetUnitReward(UnitType.sword_2, StartTestBattle);
 #endif
     }
 
@@ -246,10 +246,10 @@ public class GameSystem : MonoBehaviour
     {
         SetMinimapLayout();
 
-        GetReward(CloseBattleMap);
+        GetRandomReward(CloseBattleMap);
     }
 
-    void GetUnitReward(UnitType unitType, UnityAction endAction = null)
+    public void GetUnitReward(UnitType unitType, UnityAction endAction = null)
     {
         List<Reward> rewards = new List<Reward>();
         RewardType rewardType = (RewardType)unitType;
@@ -265,7 +265,29 @@ public class GameSystem : MonoBehaviour
 
         rewardPanel.ShowPopupPanel(rewards, endAction);
     }
-    public void GetReward(UnityAction endAction = null)
+
+    public Reward GetReward(RewardType rewardType, bool ignoreFirst = false)
+    {
+        Reward reward = new Reward(DataManager.Instance.rewardData[rewardType].thumbnail, DataManager.Instance.rewardData[rewardType].description
+                        , rewardType);
+
+        bool isUnitType = System.Enum.GetValues(typeof(UnitType)).Cast<UnitType>().Any(unit => rewardType == (RewardType)unit);
+
+        if (!ignoreFirst)
+        {
+            if (isFirstReward && !isUnitType)
+                return null;
+        }
+
+        if (rewardType == RewardType.reward_gold)
+        {
+            reward.gold = Random.Range(minRewardGold, maxRewardGold);
+        }
+
+        return reward;
+    }
+
+    public void GetRandomReward(UnityAction endAction = null)
     {
         //랜덤으로 리워드 정하기
         List<Reward> rewards = new List<Reward>();
@@ -274,26 +296,18 @@ public class GameSystem : MonoBehaviour
         while(rewards.Count < rewardAmount)
         {
             RewardType rewardType = GetRandomEnumType<RewardType>();
-            Reward reward = new Reward(DataManager.Instance.rewardData[rewardType].thumbnail, DataManager.Instance.rewardData[rewardType].description
-                        , rewardType);
 
-            bool isUnitType = System.Enum.GetValues(typeof(UnitType)).Cast<UnitType>().Any(unit => rewardType == (RewardType)unit);
+            Reward reward = GetReward(rewardType);
 
-            if (isFirstReward && !isUnitType)
+            if (reward == null)
                 continue;
 
-            if (rewardType == RewardType.reward_gold)
-            {
-                reward.gold = Random.Range(minRewardGold, maxRewardGold);
-            }
-
-            CopyUnitType(reward);
-
-            rewards.Add(reward);
+            rewards.Add(CopyUnitType(reward));
         }
 
         if(isFirstReward)
             isFirstReward = false;
+
         rewardPanel.ShowPopupPanel(rewards, endAction);
     }
 
