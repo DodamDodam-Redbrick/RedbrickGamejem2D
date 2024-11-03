@@ -55,6 +55,7 @@ public class GameSystem : MonoBehaviour
     [SerializeField]
     public AudioClip buyClip;
 
+    bool bossClear;
 
     [Header("Panels")]
 
@@ -245,13 +246,25 @@ public class GameSystem : MonoBehaviour
 
     public void OnClickWinPanel()
     {
+        if (bossClear)
+        {
+            GoToMainMenu();
+
+            return;
+        }
+
         GetRandomReward(false, CloseBattleMap);
 
         HideWinPanel();
     }
 
-    public void ShowWinPanel()
+    public void ShowWinPanel(bool isBoss = false)
     {
+        if (isBoss)
+        {
+            bossClear = true;
+        }
+
         winPanel.gameObject.SetActive(true);
     }
 
@@ -337,6 +350,7 @@ public class GameSystem : MonoBehaviour
         SyncUnitData();
 
         ShowWinPanel();
+
         //winPanel 열어서 reward 창으로 넘김
     }
 
