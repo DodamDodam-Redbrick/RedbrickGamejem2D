@@ -4,30 +4,36 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public int damage;
+    public float damage;
 
-    Transform parentTransform;
+    Transform target;
 
     Unit unit;
+
     Enemy enemy;
 
-    public Bullet(int damage, Unit unit, Transform parent)
+    public void Init(Unit unit, Transform target, float damage)
     {
-        this.damage = damage;
         this.unit = unit;
-        parentTransform = parent;
+        this.target = target;
+        this.damage = damage;
     }
 
-    public Bullet(int damage, Enemy enemy, Transform parent)
+    public void Init(Enemy enemy, Transform target, float damage)
     {
-        this.damage = damage;
         this.enemy = enemy;
-        parentTransform = parent;
+        this.target = target;
+        this.damage = damage;
     }
 
     private void Update()
     {
-        transform.Translate(transform.forward * GameSystem.Instance.bulletSpeed * Time.deltaTime);
+        if (gameObject.activeInHierarchy)
+        {
+            transform.LookAt(target);
+            transform.Translate(transform.forward * GameSystem.Instance.bulletSpeed * Time.deltaTime);
+
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -38,7 +44,7 @@ public class Bullet : MonoBehaviour
 
             if (hit != null)
             {
-                hit.GetDamaged(damage);
+                hit.GetDamaged((int)unit.unitInfo.entityStats.damage);
                 gameObject.SetActive(false);
             }
         }
@@ -48,7 +54,7 @@ public class Bullet : MonoBehaviour
 
             if (hit != null)
             {
-                hit.GetDamaged(damage);
+                hit.GetDamaged((int)enemy.enemyInfo.entityStats.damage);
                 gameObject.SetActive(false);
             }
         }

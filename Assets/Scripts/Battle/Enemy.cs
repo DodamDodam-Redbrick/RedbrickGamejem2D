@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
     MapGrid mapGrid;
 
     [SerializeField] //디버깅용
-    EnemyInfo enemyInfo;
+    public EnemyInfo enemyInfo;
 
     Coroutine coDie;
 
@@ -146,20 +146,18 @@ public class Enemy : MonoBehaviour
         //어택 애니메이션
         if (enemyInfo.bulletPrefab != null)
         {
-            //RangeAttack
             Bullet bullet = GetUnUseBulletPool();
-            if (bullet == null)
-            {
-                bullet = Instantiate(enemyInfo.bulletPrefab, this.transform).GetComponent<Bullet>();
-                bulletPool.Add(bullet);
-            }
-            else
-            {
-                bullet.gameObject.SetActive(true);
-            }
-            //불렛 구현해서 날리자 그냥 자기 데미지 불렛한테 넘겨주고 그 데미지 만큼 
 
-            bullet.transform.position = Vector3.zero;
+            //RangeAttack
+            if (vsUnit != null)
+            {
+                return;
+            }
+            //RangeAttack
+            //불렛 구현해서 날리자 그냥 자기 데미지 불렛한테 넘겨주고 그 데미지 만큼 
+            bullet.Init(this, vsUnit.transform, enemyInfo.entityStats.damage);
+            bullet.transform.localPosition = Vector3.zero;
+            //불렛 구현해서 날리자 그냥 자기 데미지 불렛한테 넘겨주고 그 데미지 만큼 
 
             if (vsUnit != null)
             {
@@ -345,11 +343,17 @@ public class Enemy : MonoBehaviour
         {
             if (bullet.gameObject.activeInHierarchy == false)
             {
+                bullet.gameObject.SetActive(true);
+
                 return bullet;
             }
         }
 
-        return null;
+        Bullet instBullet = Instantiate(enemyInfo.bulletPrefab, this.transform.parent).GetComponent<Bullet>();
+
+        bulletPool.Add(instBullet);
+
+        return instBullet;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
