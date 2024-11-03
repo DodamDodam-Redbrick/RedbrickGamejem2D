@@ -184,6 +184,8 @@ public class GameSystem : MonoBehaviour
 
     public void EnterNewRoom(RoomType roomType)
     {
+        ShowLoading();
+        Invoke("FinishLoading", 0.5f);
         switch (roomType)
         {
             case RoomType.start:
