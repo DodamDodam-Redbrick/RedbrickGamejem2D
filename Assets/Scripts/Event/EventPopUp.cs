@@ -17,6 +17,7 @@ public class EventPopUp : MonoBehaviour
         optionText.text = option;
 
         optionButton.onClick.AddListener(() => OnClickOption());
+        Debug.Log(optionText.text);
     }
 
     public void OnClickOption()

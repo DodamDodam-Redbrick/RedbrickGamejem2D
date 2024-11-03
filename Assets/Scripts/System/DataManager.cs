@@ -359,7 +359,7 @@ public class DataManager : MonoBehaviour
     private void ApplyPrefabDatas()
     {
 
-        prefabData[EntityType.mainCha] = Resources.Load<GameObject>("Battle/Prefabs/MainCha");
+        prefabData[EntityType.mainCharacter] = Resources.Load<GameObject>("Battle/Prefabs/MainCha");
 
         prefabData[EntityType.sword_1] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
         prefabData[EntityType.sword_2] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
