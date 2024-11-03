@@ -45,6 +45,17 @@ public class Unit : MonoBehaviour
 
     public Node placedNode;
 
+    AudioSource audioSource;
+
+    //death 오디오 얻으면 사용
+    //AudioClip deathClip;
+
+    [SerializeField]
+    Animator hitAni;
+
+    [SerializeField]
+    AudioClip attackClip;
+
     List<Enemy> vsEnemy = new List<Enemy>();
 
     List<Enemy> inBoundEnemies = new List<Enemy>();
@@ -70,6 +81,8 @@ public class Unit : MonoBehaviour
         this.unitInfo = unitInfo;
 
         attackTime = unitInfo.entityStats.fireRate;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void Init(UnitInfo unitInfo, int cardIndex)
@@ -79,6 +92,8 @@ public class Unit : MonoBehaviour
         this.cardIndex = cardIndex;
 
         attackTime = unitInfo.entityStats.fireRate;
+
+        audioSource = GetComponent<AudioSource>();
 
         ChangeEdgeColor();
     }
@@ -129,6 +144,15 @@ public class Unit : MonoBehaviour
         }
     }
 
+    void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
+    }
+
     public void Attack(Enemy enemy)
     {
         //여기서 장비나 디버프 전부 추가
@@ -136,24 +160,25 @@ public class Unit : MonoBehaviour
 
         attackTime = 0;
 
+        PlaySound(attackClip);
+
+        if (hitAni != null)
+        {
+            hitAni.SetTrigger("hit");
+        }
+
         //어택 애니메이션
         if(unitInfo.bulletPrefab != null)
         {
+            if (vsEnemy.Count <= 0)
+            {
+                return;
+            }
             //RangeAttack
             Bullet bullet = GetUnUseBulletPool();
-            if (bullet == null)
-            {
-                bullet = Instantiate(unitInfo.bulletPrefab, this.transform).GetComponent<Bullet>();
-                bulletPool.Add(bullet);
-            }
-            else
-            {
-                bullet.gameObject.SetActive(true);
-            }
             //불렛 구현해서 날리자 그냥 자기 데미지 불렛한테 넘겨주고 그 데미지 만큼 
-
-            bullet.transform.position = Vector3.zero;
-            bullet.transform.LookAt(vsEnemy[0].transform);
+            bullet.Init(this, vsEnemy[0].transform, unitInfo.entityStats.damage);
+            bullet.transform.localPosition = Vector3.zero;
         }
         else
         {
@@ -276,11 +301,17 @@ public class Unit : MonoBehaviour
         {
             if (bullet.gameObject.activeInHierarchy == false)
             {
+                bullet.gameObject.SetActive(true);
+
                 return bullet;
             }
         }
 
-        return null;
+        Bullet instBullet = Instantiate(unitInfo.bulletPrefab, this.transform).GetComponent<Bullet>();
+
+        bulletPool.Add(instBullet);
+
+        return instBullet;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -30,7 +30,7 @@ public class GameSystem : MonoBehaviour
     float mapMoveTime = 2;
 
     [SerializeField]
-    public float bulletSpeed = 3f;
+    public float bulletSpeed = 10f;
 
     [SerializeField]
     int rewardAmount = 3;
@@ -40,6 +40,21 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField]
     int maxRewardGold = 10;
+
+    AudioSource audioSource;
+
+    [SerializeField]
+    AudioClip rewardClip;
+
+    [SerializeField]
+    AudioClip defeatedClip;
+
+    [SerializeField]
+    AudioClip winClip;
+
+    [SerializeField]
+    public AudioClip buyClip;
+
 
     [Header("Panels")]
 
@@ -109,12 +124,24 @@ public class GameSystem : MonoBehaviour
 #endif
     }
 
+    public void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();            
+        }
+    }
+
     IEnumerator CoStartGame()
     {
+        audioSource = GetComponent<AudioSource>();
+
         while (!DataManager.Instance.isFinishLoad)
         {
             yield return null;
         }
+
 
         OnStartGame();
     }
@@ -195,7 +222,7 @@ public class GameSystem : MonoBehaviour
                 break;
 
             case RoomType.battle:
-
+                minimap.OffDeckButton();
                 StartBattle();
 
                 break;
@@ -241,12 +268,14 @@ public class GameSystem : MonoBehaviour
     void SetMinimapLayout()
     {
         Player.Instance.GetComponentInChildren<AudioListener>().enabled = true;
+        Player.Instance.GetComponentInChildren<AudioSource>().mute = false;
         playerLayout.Hide();
     }
 
     void SetBattleLayout()
     {
         Player.Instance.GetComponentInChildren<AudioListener>().enabled = false;
+        Player.Instance.GetComponentInChildren<AudioSource>().mute = true;
         playerLayout.Show();
     }
 
@@ -282,6 +311,8 @@ public class GameSystem : MonoBehaviour
 
     public void FinishBattle()
     {
+        PlaySound(winClip);
+
         SetMinimapLayout();
 
         SyncUnitData();
@@ -336,13 +367,11 @@ public class GameSystem : MonoBehaviour
 
     public void GetRandomReward(bool isOnlyUnit = false, UnityAction endAction = null)
     {
-        //랜덤으로 리워드 정하기
+        // 랜덤으로 리워드 정하기
         List<Reward> rewards = new List<Reward>();
-
-        while(rewards.Count <= rewardAmount)
+        while (rewards.Count <= rewardAmount)
         {
-            RewardType rewardType = GetRandomEnumType<RewardType>();
-
+            RewardType rewardType = GetRandomRewardType();
             Reward reward = GetReward(rewardType, isOnlyUnit);
 
             if (reward == null)
@@ -354,9 +383,41 @@ public class GameSystem : MonoBehaviour
         rewardPanel.ShowPopupPanel(rewards, endAction);
     }
 
+    private RewardType GetRandomRewardType()
+    {
+        float totalWeight = DataManager.Instance.rewardChanceDatas
+                            .Where(pair => !IsShopReward(pair.Key)) // shop_potion 타입 제외
+                            .Sum(pair => pair.Value);
+        float randomValue = UnityEngine.Random.Range(0, totalWeight);
+        float cumulativeWeight = 0f;
+
+        foreach (var rewardChance in DataManager.Instance.rewardChanceDatas)
+        {
+            if (IsShopReward(rewardChance.Key))
+                continue;
+
+            cumulativeWeight += rewardChance.Value;
+            if (randomValue <= cumulativeWeight)
+            {
+                return rewardChance.Key;
+            }
+        }
+
+        return RewardType.reward_gold; // Default return value, should not reach here
+    }
+
+    private bool IsShopReward(RewardType rewardType)
+    {
+        return rewardType == RewardType.shop_potion_one
+            || rewardType == RewardType.shop_potion_two
+            || rewardType == RewardType.shop_potion_three;
+    }
+
     public void FinishGetReward(UnityAction endAction = null)
     {
         rewardPanel.HidePopupPanel();
+
+        PlaySound(rewardClip);
 
         if (endAction != null)
         {
@@ -366,7 +427,7 @@ public class GameSystem : MonoBehaviour
 
     public void DefeatedBattle()
     {
-
+        PlaySound(defeatedClip);
         //할거 다하고 메인메뉴로 가기 (가기전에 통계표 보여주는것도 ㄱㅊ을듯
         defeatedPanel.SetActive(true);
     }

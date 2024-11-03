@@ -22,12 +22,6 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     Transform mainCharacterPos;
 
-    [SerializeField]
-    GameObject lowArea;
-
-    [SerializeField]
-    GameObject highArea;
-
     Unit mainCharacter;
 
     [SerializeField]

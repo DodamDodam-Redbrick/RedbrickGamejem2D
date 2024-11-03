@@ -7,6 +7,9 @@ public class RoomManager : MonoBehaviour
     public static RoomManager Instance;
 
     [SerializeField]
+    public GameObject deckButton;
+
+    [SerializeField]
     public int roomCount = 10;
 
     [SerializeField]
@@ -126,5 +129,10 @@ public class RoomManager : MonoBehaviour
 
         rooms[0].roomType = RoomType.start;
         rooms[rooms.Count - 1].roomType = RoomType.boss;
+    }
+
+    public void OffDeckButton()
+    {
+        deckButton.SetActive(false);
     }
 }

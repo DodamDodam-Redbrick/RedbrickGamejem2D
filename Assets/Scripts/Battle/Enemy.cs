@@ -36,9 +36,6 @@ public class EnemyInfo : Entity
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField]
-    Animator anim;
-
     [SerializeField] //디버깅 끝나면 지워도 됨
     List<Vector3> wayPoints;
 
@@ -49,8 +46,20 @@ public class Enemy : MonoBehaviour
 
     MapGrid mapGrid;
 
+    AudioSource audioSource;
+
+    [SerializeField]
+    Animator hitAni;
+
+    //death 오디오 얻으면 사용
+    [SerializeField]
+    AudioClip deathClip;
+
+    [SerializeField]
+    AudioClip attackClip;
+
     [SerializeField] //디버깅용
-    EnemyInfo enemyInfo;
+    public EnemyInfo enemyInfo;
 
     Coroutine coDie;
 
@@ -141,25 +150,30 @@ public class Enemy : MonoBehaviour
     {
         int damage = (int)enemyInfo.entityStats.damage; //여기서 장비나 디버프 전부 추가
 
+        PlaySound(attackClip);
+
+        if (hitAni != null)
+        {
+            hitAni.SetTrigger("hit");
+        }
+
         attackTime = 0;
 
         //어택 애니메이션
         if (enemyInfo.bulletPrefab != null)
         {
-            //RangeAttack
             Bullet bullet = GetUnUseBulletPool();
-            if (bullet == null)
-            {
-                bullet = Instantiate(enemyInfo.bulletPrefab, this.transform).GetComponent<Bullet>();
-                bulletPool.Add(bullet);
-            }
-            else
-            {
-                bullet.gameObject.SetActive(true);
-            }
-            //불렛 구현해서 날리자 그냥 자기 데미지 불렛한테 넘겨주고 그 데미지 만큼 
 
-            bullet.transform.position = Vector3.zero;
+            //RangeAttack
+            if (vsUnit != null)
+            {
+                return;
+            }
+            //RangeAttack
+            //불렛 구현해서 날리자 그냥 자기 데미지 불렛한테 넘겨주고 그 데미지 만큼 
+            bullet.Init(this, vsUnit.transform, enemyInfo.entityStats.damage);
+            bullet.transform.localPosition = Vector3.zero;
+            //불렛 구현해서 날리자 그냥 자기 데미지 불렛한테 넘겨주고 그 데미지 만큼 
 
             if (vsUnit != null)
             {
@@ -183,11 +197,11 @@ public class Enemy : MonoBehaviour
 
         if(coDie == null)
             coDie = StartCoroutine(CoDie());
-
     }
 
     IEnumerator CoDie()
     {
+        PlaySound(deathClip);
         //죽는 애니메이션하고 죽을때까지 기다리고 없애기
         GameSystem.Instance.battleMap.CountKillCount();
         //재활용 안됨
@@ -283,6 +297,14 @@ public class Enemy : MonoBehaviour
             coMove = StartCoroutine(CoMove());
         }
     }
+    void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
+    }
 
     IEnumerator CoMove()
     {
@@ -345,11 +367,17 @@ public class Enemy : MonoBehaviour
         {
             if (bullet.gameObject.activeInHierarchy == false)
             {
+                bullet.gameObject.SetActive(true);
+
                 return bullet;
             }
         }
 
-        return null;
+        Bullet instBullet = Instantiate(enemyInfo.bulletPrefab, this.transform.parent).GetComponent<Bullet>();
+
+        bulletPool.Add(instBullet);
+
+        return instBullet;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

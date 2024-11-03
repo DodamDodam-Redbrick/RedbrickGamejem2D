@@ -78,6 +78,7 @@ public class ShopPanel : MonoBehaviour
 
     public void UpdateGold()
     {
+        GameSystem.Instance.PlaySound(GameSystem.Instance.buyClip);
         goldText.text = $"{Player.Instance.gold}";
     }
 

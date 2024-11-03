@@ -35,6 +35,12 @@ public class PlayerLayout : MonoBehaviour
     float placeDistance = 1f;
 
     [SerializeField]
+    GameObject lowArea;
+
+    [SerializeField]
+    GameObject highArea;
+
+    [SerializeField]
     GameObject unitGroup;
 
     [SerializeField]
@@ -256,8 +262,6 @@ public class PlayerLayout : MonoBehaviour
                     step = 1 - step;
                 }
             }
-
-            
         }
     }
     
@@ -275,6 +279,25 @@ public class PlayerLayout : MonoBehaviour
 
         SetUnitCards();
     }
+
+    public void ShowArea(NodeType nodeType)
+    {
+        if (nodeType == NodeType.lowRoad)
+        {
+            lowArea.SetActive(true);
+        }
+        else if (nodeType == NodeType.highRoad)
+        {
+            highArea.SetActive(true);
+        }
+    }
+
+    public void HideArea()
+    {
+        lowArea.SetActive(false);
+        highArea.SetActive(false);
+    }
+
 
     public void Show()
     {
