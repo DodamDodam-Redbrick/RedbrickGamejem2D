@@ -90,6 +90,18 @@ public class PlayerLayout : MonoBehaviour
         }
         if (gameObject.activeInHierarchy)
         {
+#if UNITY_EDITOR
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector3 mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
+                MapGrid mapGrid = GameSystem.Instance.battleMap.mapGrid;
+                Node nodePosition = mapGrid.GetNodeFromVector(mousePosition);
+
+                Debug.Log($"x : {nodePosition.myX}, y: {nodePosition.myY}");
+            }
+#endif
+
+
             if (step == 0) //드래그해서 놓을 때 까지
             {
                 if (selectedUnit != null)
