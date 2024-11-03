@@ -312,11 +312,11 @@ public class Enemy : MonoBehaviour
 
             if (characterX < targetNode.myX)
             {
-                transform.localScale = new Vector3(1, 1, 1);
+                transform.localScale = new Vector3(-1, 1, 1);
             }
             else if (characterX > targetNode.myX)
             {
-                transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(1, 1, 1);
             }
 
             yield return null;

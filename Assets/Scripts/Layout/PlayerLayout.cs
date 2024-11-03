@@ -45,6 +45,7 @@ public class PlayerLayout : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI nowCost;
+
     [SerializeField]
     Image costFillImage;
 
@@ -79,13 +80,15 @@ public class PlayerLayout : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         t += Time.deltaTime;
         costFillImage.fillAmount = t / addCoinTime;
         if (addCoinTime <= t)
         {
             t = 0f;
             battleCoin += addCoinAmount;
-            
+
+
             SetNowCost();
         }
         if (gameObject.activeInHierarchy)
@@ -237,6 +240,8 @@ public class PlayerLayout : MonoBehaviour
                         battleCoin -= selectedUnit.unitInfo.cost;
                         SetNowCost();
 
+                        GameSystem.Instance.placedUnit.Add(selectedUnit);
+
                         selectedUnitCard.DeactiveUnitCard();
                         selectedUnit.isSpawning = false;
                     }
@@ -275,6 +280,7 @@ public class PlayerLayout : MonoBehaviour
     {
         gameObject.SetActive(true);
         battleCoin = 0;
+        GameSystem.Instance.placedUnit.Clear();
         SetNowCost();
         Init();
     }
@@ -329,5 +335,19 @@ public class PlayerLayout : MonoBehaviour
     public void SetNowCost()
     {
         nowCost.text = $"{battleCoin}";
+        UnitOffPanel();
+    }
+
+    void UnitOffPanel()
+    {
+        foreach (UnitCard card in unitCards)
+        {
+            if (card.unit.cost > battleCoin)
+            {
+                card.ShowOffUnitPanel();
+            }
+            else
+                card.FinishOffUnitPanel();
+        }
     }
 }

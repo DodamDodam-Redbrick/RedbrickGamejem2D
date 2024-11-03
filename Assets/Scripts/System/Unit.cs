@@ -51,7 +51,7 @@ public class Unit : MonoBehaviour
 
     int vsCount;
 
-    int cardIndex;
+    public int cardIndex;
 
     float attackTime;
 
@@ -196,6 +196,7 @@ public class Unit : MonoBehaviour
             }
         }
 
+
         if (coDie == null)
             coDie = StartCoroutine(CoDie());
     }
@@ -203,9 +204,6 @@ public class Unit : MonoBehaviour
     IEnumerator CoDie()
     {
         //죽는 애니메이션하고 죽을때까지 기다리고 없애기
-        
-
-        Destroy(transform.parent.gameObject);
 
         coDie = null;
 
@@ -214,6 +212,13 @@ public class Unit : MonoBehaviour
         {
             GameSystem.Instance.DefeatedBattle();
         }
+        else
+        {
+            //메인캐릭터는 없으니까
+            Player.Instance.unitList.Remove(unitInfo);
+        }
+
+        Destroy(transform.parent.gameObject);
 
         yield return null;
     }
