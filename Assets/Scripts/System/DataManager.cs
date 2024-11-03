@@ -41,6 +41,16 @@ public enum EntityType
     bat_2 = 111,
     bat_3 = 112,
 
+    branchMonkey_1 = 120,
+    branchMonkey_2 = 121,
+    branchMonkey_3 = 122,
+
+    rockMonkey_1 = 130,
+    rockMonkey_2 = 131,
+    rockMonkey_3 = 132,
+
+    bear = 140,
+
     //엔티티 투사체
     bowBullet = 200,
 
@@ -80,6 +90,15 @@ public enum EnemyType
     bat_2 = EntityType.bat_2,
     bat_3 = EntityType.bat_3,
 
+    branchMonkey_1 = EntityType.branchMonkey_1,
+    branchMonkey_2 = EntityType.branchMonkey_2,
+    branchMonkey_3 = EntityType.branchMonkey_3,
+
+    rockMonkey_1 = EntityType.rockMonkey_1,
+    rockMonkey_2 = EntityType.rockMonkey_2,
+    rockMonkey_3 = EntityType.rockMonkey_3,
+
+    bear = EntityType.bear,
 }
 
 //보상 목록
@@ -164,6 +183,15 @@ public enum ImageIndex
     unit_enemyBat_2 = EntityType.bat_2,
     unit_enemyBat_3 = EntityType.bat_3,
 
+    unit_enemyBranchMonkey_1 = EntityType.branchMonkey_1,
+    unit_enemyBranchMonkey_2 = EntityType.branchMonkey_2,
+    unit_enemyBranchMonkey_3 = EntityType.branchMonkey_3,
+
+    unit_enemyRockMonkey_1 = EntityType.rockMonkey_1,
+    unit_enemyRockMonkey_2 = EntityType.rockMonkey_2,
+    unit_enemyRockMonkey_3 = EntityType.rockMonkey_3,
+
+    unit_enemyBear = EntityType.bear,
 
     map_boss,
     map_battle,
@@ -364,6 +392,16 @@ public class DataManager : MonoBehaviour
         imageData[ImageIndex.unit_enemyBat_1] = Resources.Load<Sprite>("Battle/Sprites/Bat");
         imageData[ImageIndex.unit_enemyBat_2] = Resources.Load<Sprite>("Battle/Sprites/Bat");
         imageData[ImageIndex.unit_enemyBat_3] = Resources.Load<Sprite>("Battle/Sprites/Bat");
+
+        imageData[ImageIndex.unit_enemyBranchMonkey_1] = Resources.Load<Sprite>("Battle/Sprites/BranchMonkey");
+        imageData[ImageIndex.unit_enemyBranchMonkey_2] = Resources.Load<Sprite>("Battle/Sprites/BranchMonkey");
+        imageData[ImageIndex.unit_enemyBranchMonkey_3] = Resources.Load<Sprite>("Battle/Sprites/BranchMonkey");
+
+        imageData[ImageIndex.unit_enemyRockMonkey_1] = Resources.Load<Sprite>("Battle/Sprites/RockMonkey");
+        imageData[ImageIndex.unit_enemyRockMonkey_2] = Resources.Load<Sprite>("Battle/Sprites/RockMonkey");
+        imageData[ImageIndex.unit_enemyRockMonkey_3] = Resources.Load<Sprite>("Battle/Sprites/RockMonkey");
+
+        imageData[ImageIndex.unit_enemyBear] = Resources.Load<Sprite>("Battle/Sprites/Bear");
 
         // Shop
         imageData[ImageIndex.shop_potion_one] = Resources.Load<Sprite>("Shop/Sprites/Potion_one");

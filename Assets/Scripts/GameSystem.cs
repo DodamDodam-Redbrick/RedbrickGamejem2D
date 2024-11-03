@@ -89,7 +89,7 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(CoStartGame());
+        // StartCoroutine(CoStartGame());
         //shopList = null;
         //GetShop();
 #if UNITY_EDITOR
@@ -541,4 +541,6 @@ public class GameSystem : MonoBehaviour
 
         
     }
+
+
 }
