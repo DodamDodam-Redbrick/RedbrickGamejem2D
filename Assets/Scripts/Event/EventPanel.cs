@@ -24,7 +24,7 @@ public class EventPanel : MonoBehaviour
             EventOptionType optionType = eventOption.optionType;
 
             RewardType rewardType = (RewardType)optionType;
-            Reward reward = GameSystem.Instance.GetReward(rewardType, true);
+            Reward reward = GameSystem.Instance.GetReward(rewardType);
 
             EventPopUp eventPopUp = GetUnUseEventPool();
 

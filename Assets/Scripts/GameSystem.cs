@@ -69,6 +69,9 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField]
     public GameObject defeatedPanel;
+
+    [SerializeField]
+    public GameObject winPanel;
     
     public List<RewardType> shopList;
     public int shopAmount = 6;
@@ -240,6 +243,22 @@ public class GameSystem : MonoBehaviour
         }
     }
 
+    public void OnClickWinPanel()
+    {
+        GetRandomReward(false, CloseBattleMap);
+
+        HideWinPanel();
+    }
+
+    public void ShowWinPanel()
+    {
+        winPanel.gameObject.SetActive(true);
+    }
+
+    public void HideWinPanel()
+    {
+        winPanel.gameObject.SetActive(false);
+    }
 
     public void GoToMainMenu()
     {
@@ -317,7 +336,8 @@ public class GameSystem : MonoBehaviour
 
         SyncUnitData();
 
-        GetRandomReward(false ,CloseBattleMap);
+        ShowWinPanel();
+        //winPanel 열어서 reward 창으로 넘김
     }
 
     void SyncUnitData()
