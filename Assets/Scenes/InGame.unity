@@ -1545,6 +1545,7 @@ GameObject:
   - component: {fileID: 1300500729}
   - component: {fileID: 1300500730}
   - component: {fileID: 1300500731}
+  - component: {fileID: 1300500732}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -1664,6 +1665,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &1300500732
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300500728}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1357c0ce14abe8f4090a36dff728c0ae, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!224 &1332146146 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7607112709285244840, guid: d59ebb181bc33364d957085406516287, type: 3}
@@ -3318,6 +3340,7 @@ MonoBehaviour:
   defeatedPanel: {fileID: 1601499089}
   shopList: 
   shopAmount: 6
+  placedUnit: []
   mainCharacter:
     entityPrefab: {fileID: 0}
     bulletPrefab: {fileID: 0}
@@ -3338,7 +3361,6 @@ MonoBehaviour:
   minimapPrefab: {fileID: 6274140249890337117, guid: 5b3ec0cce63a1ee4a89ef2123a0a3853, type: 3}
   playerLayout: {fileID: 863807036}
   battleMap: {fileID: 0}
-  isFirstReward: 1
   isOnPanel: 0
 --- !u!4 &2147320674
 Transform:
