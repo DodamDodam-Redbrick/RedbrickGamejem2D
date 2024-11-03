@@ -59,6 +59,9 @@ public class GameSystem : MonoBehaviour
     public int shopAmount = 6;
 
     [HideInInspector]
+    public List<Unit> placedUnit = new List<Unit>();
+
+    [HideInInspector]
     public UnitInfo mainCharacter;
 
     [SerializeField]
@@ -265,7 +268,19 @@ public class GameSystem : MonoBehaviour
     {
         SetMinimapLayout();
 
+        SyncUnitData();
+
         GetRandomReward(false ,CloseBattleMap);
+    }
+
+    void SyncUnitData()
+    {
+        List<UnitInfo> unitList = Player.Instance.unitList;
+
+        foreach (Unit unit in placedUnit)
+        {
+            unitList[unit.cardIndex] = unit.unitInfo;
+        }
     }
 
     public void GetUnitReward(UnitType unitType, UnityAction endAction = null)

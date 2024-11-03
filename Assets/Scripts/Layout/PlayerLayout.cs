@@ -45,6 +45,7 @@ public class PlayerLayout : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI nowCost;
+
     [SerializeField]
     Image costFillImage;
 
@@ -237,6 +238,8 @@ public class PlayerLayout : MonoBehaviour
                         battleCoin -= selectedUnit.unitInfo.cost;
                         SetNowCost();
 
+                        GameSystem.Instance.placedUnit.Add(selectedUnit);
+
                         selectedUnitCard.DeactiveUnitCard();
                         selectedUnit.isSpawning = false;
                     }
@@ -275,6 +278,7 @@ public class PlayerLayout : MonoBehaviour
     {
         gameObject.SetActive(true);
         battleCoin = 0;
+        GameSystem.Instance.placedUnit.Clear();
         SetNowCost();
         Init();
     }
