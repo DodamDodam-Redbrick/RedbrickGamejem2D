@@ -69,7 +69,7 @@ public class RoomManager : MonoBehaviour
         else
         {
             GameSystem.Instance.FinishLoading();
-            GameSystem.Instance.GetReward();
+            GameSystem.Instance.GetRandomReward();
         }
     }
 

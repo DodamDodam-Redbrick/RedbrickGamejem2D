@@ -10,10 +10,12 @@ public class EventPopUp : MonoBehaviour
 {
     [SerializeField] Button optionButton;
     [SerializeField] TextMeshProUGUI optionText;
+    List<Reward> rewards = new List<Reward>();
 
-
-    public void Set(string option)
+    public void Set(string option, Reward reward)
     {
+        rewards.Add(reward);
+
         optionText.text = option;
 
         optionButton.onClick.AddListener(() => OnClickOption());
@@ -21,13 +23,8 @@ public class EventPopUp : MonoBehaviour
 
     public void OnClickOption()
     {
-        //switch (optionType)
-        //{
-        //    case EventOptionType.gold:
-        //        //Player.Instance.ChangeGold(currentEvent.options);
-        //        break;
-        //}
-        GameSystem.Instance.FinishGetEvent();
+        GameSystem.Instance.rewardPanel.ShowPopupPanel(rewards, GameSystem.Instance.FinishGetEvent);
+
     }
 
 }

@@ -18,10 +18,16 @@ public class EventPanel : MonoBehaviour
         mainText.text = showEvent.content;
         for(int i = 0; i < showEvent.options.Count; i++) 
         {
-            string option = showEvent.options[i].option;
-            EventOptionType optionType = showEvent.options[i].optionType;
+            EventOption eventOption = showEvent.options[i];
+
+            string option = eventOption.option;
+            EventOptionType optionType = eventOption.optionType;
+
+            RewardType rewardType = (RewardType)optionType;
+            Reward reward = GameSystem.Instance.GetReward(rewardType, true);
 
             EventPopUp eventPopUp = GetUnUseEventPool();
+
             if (eventPopUp != null)
             {
                 eventPopUp.gameObject.SetActive(true);
@@ -31,7 +37,8 @@ public class EventPanel : MonoBehaviour
                 eventPopUp = Instantiate(eventPopUpPrefab, eventLayOut).GetComponent<EventPopUp>();
                 eventPools.Add(eventPopUp);
             }
-            eventPopUp.Set(option);
+
+            eventPopUp.Set(option, reward);
         }
     }
 
