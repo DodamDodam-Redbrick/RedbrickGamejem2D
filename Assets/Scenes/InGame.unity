@@ -2418,6 +2418,8 @@ MonoBehaviour:
             unitType: 10
             placeNodeType: 0
             thumbnail: {fileID: 0}
+  rewardChanceDatas:
+    _serializedList: []
 --- !u!4 &1356933290
 Transform:
   m_ObjectHideFlags: 0
@@ -3543,7 +3545,7 @@ MonoBehaviour:
   outlineSize: 1
   mapMoveTime: 1
   bulletSpeed: 3
-  rewardAmount: 2
+  rewardAmount: 3
   minRewardGold: 5
   maxRewardGold: 10
   eventPanel: {fileID: 1521222171}

@@ -336,13 +336,11 @@ public class GameSystem : MonoBehaviour
 
     public void GetRandomReward(bool isOnlyUnit = false, UnityAction endAction = null)
     {
-        //랜덤으로 리워드 정하기
+        // 랜덤으로 리워드 정하기
         List<Reward> rewards = new List<Reward>();
-
-        while(rewards.Count <= rewardAmount)
+        while (rewards.Count < rewardAmount)
         {
-            RewardType rewardType = GetRandomEnumType<RewardType>();
-
+            RewardType rewardType = GetRandomRewardType();
             Reward reward = GetReward(rewardType, isOnlyUnit);
 
             if (reward == null)
@@ -352,6 +350,36 @@ public class GameSystem : MonoBehaviour
         }
 
         rewardPanel.ShowPopupPanel(rewards, endAction);
+    }
+
+    private RewardType GetRandomRewardType()
+    {
+        float totalWeight = DataManager.Instance.rewardChanceDatas
+                            .Where(pair => !IsShopReward(pair.Key)) // shop_potion 타입 제외
+                            .Sum(pair => pair.Value);
+        float randomValue = UnityEngine.Random.Range(0, totalWeight);
+        float cumulativeWeight = 0f;
+
+        foreach (var rewardChance in DataManager.Instance.rewardChanceDatas)
+        {
+            if (IsShopReward(rewardChance.Key))
+                continue;
+
+            cumulativeWeight += rewardChance.Value;
+            if (randomValue <= cumulativeWeight)
+            {
+                return rewardChance.Key;
+            }
+        }
+
+        return RewardType.reward_gold; // Default return value, should not reach here
+    }
+
+    private bool IsShopReward(RewardType rewardType)
+    {
+        return rewardType == RewardType.shop_potion_one
+            || rewardType == RewardType.shop_potion_two
+            || rewardType == RewardType.shop_potion_three;
     }
 
     public void FinishGetReward(UnityAction endAction = null)
