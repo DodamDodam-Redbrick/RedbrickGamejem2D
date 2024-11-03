@@ -527,13 +527,4 @@ public class GameSystem : MonoBehaviour
 
         
     }
-
-    public void StartTestBattle()
-    {
-        battleMap = Instantiate(DataManager.Instance.mapDatas[MapType.firstStage_one]).GetComponent<BattleManager>();
-        battleMap.Init();
-        battleMap.StartBattle();
-
-        SetBattleLayout();
-    }
 }
