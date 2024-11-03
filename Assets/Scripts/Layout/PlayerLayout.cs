@@ -23,6 +23,15 @@ public class PlayerLayout : MonoBehaviour
     }
 
     [SerializeField]
+    float addCoinTime = 1f;
+    float t = 0;
+    [SerializeField]
+    int addCoinAmount = 1;
+
+    [SerializeField]
+    public int battleCoin;
+
+    [SerializeField]
     float placeDistance = 1f;
 
     [SerializeField]
@@ -36,6 +45,8 @@ public class PlayerLayout : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI nowCost;
+    [SerializeField]
+    Image costFillImage;
 
     [SerializeField]
     GraphicRaycaster canvasRaycaster;
@@ -68,6 +79,15 @@ public class PlayerLayout : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        t += Time.deltaTime;
+        costFillImage.fillAmount = t / addCoinTime;
+        if (addCoinTime <= t)
+        {
+            t = 0f;
+            battleCoin += addCoinAmount;
+            
+            SetNowCost();
+        }
         if (gameObject.activeInHierarchy)
         {
             if (step == 0) //드래그해서 놓을 때 까지
@@ -111,6 +131,14 @@ public class PlayerLayout : MonoBehaviour
                                 return;
                             }
 
+                            if(unitCard.unit.cost > battleCoin)
+                            {
+                                Debug.Log("돈이부족해소환할수없습니다!");
+                                return;
+                            }    
+
+                            battleCoin -= unitCard.unit.cost;
+                            SetNowCost();
                             selectedUnitCard = unitCard;
                             selectedUnit = Instantiate(selectedUnitCard.unit.entityPrefab, GameSystem.Instance.battleMap.transform).GetComponentInChildren<Unit>();
                             selectedUnit.Init(selectedUnitCard.unit, selectedUnitCard.cardIndex);
@@ -227,6 +255,8 @@ public class PlayerLayout : MonoBehaviour
     public void Show()
     {
         gameObject.SetActive(true);
+        battleCoin = 0;
+        SetNowCost();
         Init();
     }
 
@@ -277,8 +307,8 @@ public class PlayerLayout : MonoBehaviour
         return null;
     }
 
-    public void SetNowCost(int value)
+    public void SetNowCost()
     {
-        nowCost.text = value.ToString();
+        nowCost.text = $"{battleCoin}";
     }
 }

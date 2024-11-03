@@ -184,13 +184,12 @@ public class Enemy : MonoBehaviour
         if(coDie == null)
             coDie = StartCoroutine(CoDie());
 
-        GameSystem.Instance.battleMap.KillCount += 1;
     }
 
     IEnumerator CoDie()
     {
         //죽는 애니메이션하고 죽을때까지 기다리고 없애기
-
+        GameSystem.Instance.battleMap.CountKillCount();
         //재활용 안됨
         Destroy(gameObject);
 
@@ -303,7 +302,7 @@ public class Enemy : MonoBehaviour
                 targetNode = myWay[index];
             }
 
-            if (inBoundUnits.Contains(vsUnit)) //애니메이션 중에도 멈춰야함
+            if (!inBoundUnits.Contains(vsUnit)) //애니메이션 중에도 멈춰야함
             {
                 transform.position = Vector2.MoveTowards(transform.position, targetNode.myPos, Time.deltaTime * enemyInfo.entityStats.moveSpeed);
             }

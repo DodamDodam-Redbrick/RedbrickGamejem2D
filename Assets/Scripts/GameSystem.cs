@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using static Unity.VisualScripting.Dependencies.Sqlite.SQLite3;
 
 public class GameSystem : MonoBehaviour
@@ -23,7 +24,7 @@ public class GameSystem : MonoBehaviour
     public int difficultRoomCount = 5;
 
     [SerializeField]
-    public float outlineSize = 1f;
+    public float outlineSize = 100f;
 
     [SerializeField, Tooltip("초단위")]
     float mapMoveTime = 2;
@@ -41,6 +42,7 @@ public class GameSystem : MonoBehaviour
     int maxRewardGold = 10;
 
     [Header("Panels")]
+
     [SerializeField]
     public EventPanel eventPanel;
 
@@ -49,6 +51,10 @@ public class GameSystem : MonoBehaviour
 
     [SerializeField]
     public ShopPanel shopPanel;
+
+    [SerializeField]
+    public GameObject defeatedPanel;
+    
     public List<RewardType> shopList;
     public int shopAmount = 6;
 
@@ -74,7 +80,7 @@ public class GameSystem : MonoBehaviour
     public float MapMoveTime { get { return mapMoveTime; } }
 
     public bool isFirstReward = true;
-
+    public bool isOnPanel = false;
     private void Awake()
     {
         Instance = this;
@@ -84,8 +90,8 @@ public class GameSystem : MonoBehaviour
     void Start()
     {
         StartCoroutine(CoStartGame());
-        shopList = null;
-        GetShop();
+        //shopList = null;
+        //GetShop();
 #if UNITY_EDITOR
         mainCharacter = DataManager.Instance.unitData[UnitType.mainCharacter].DeepCopy();
         //shopList = null;
@@ -167,6 +173,14 @@ public class GameSystem : MonoBehaviour
         }
 
       
+    }
+
+
+    public void GoToMainMenu()
+    {
+        SceneName changeSceneName = SceneName.MainMenu;
+
+        SceneManager.LoadScene(changeSceneName.ToString());
     }
 
     public void CloseBattleMap()
@@ -287,6 +301,7 @@ public class GameSystem : MonoBehaviour
     {
 
         //할거 다하고 메인메뉴로 가기 (가기전에 통계표 보여주는것도 ㄱㅊ을듯
+        defeatedPanel.SetActive(true);
     }
 
     public void ShowRandomRewardPopup(int count)
@@ -433,7 +448,6 @@ public class GameSystem : MonoBehaviour
             case RewardType.unit_sword_3:
                 unit = DataManager.Instance.unitData[unitType].DeepCopy();
                 reward.unit = unit;
-                Debug.Log($"{reward.unit.unitType}");
                 break;
 
             case RewardType.unit_archer_1:
@@ -491,4 +505,16 @@ public class GameSystem : MonoBehaviour
         return reward;
     }
 
+    public bool OnPanels()
+    {
+        if(eventPanel.gameObject.activeSelf == true || shopPanel.gameObject.activeSelf == true || rewardPanel.gameObject.activeSelf == true)
+            isOnPanel = true;
+
+        else
+            isOnPanel = false;
+
+        return isOnPanel;
+
+        
+    }
 }

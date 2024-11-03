@@ -381,8 +381,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uB3C4\uB2F4\uB3C4\uB2F4 \uAC8C\uC784"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aa33810298aed8147837b410030afe7a, type: 2}
-  m_sharedMaterial: {fileID: -1969702673288749243, guid: aa33810298aed8147837b410030afe7a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dfbcef9802c5b1148bab66d597773da5, type: 2}
+  m_sharedMaterial: {fileID: 2844311464281304262, guid: dfbcef9802c5b1148bab66d597773da5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -590,8 +590,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uAC8C\uC784\uC2DC\uC791"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aa33810298aed8147837b410030afe7a, type: 2}
-  m_sharedMaterial: {fileID: -1969702673288749243, guid: aa33810298aed8147837b410030afe7a, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: dfbcef9802c5b1148bab66d597773da5, type: 2}
+  m_sharedMaterial: {fileID: 2844311464281304262, guid: dfbcef9802c5b1148bab66d597773da5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1018,19 +1018,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2010125168}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2010125170}
-        m_TargetAssemblyTypeName: StartGame, Assembly-CSharp
-        m_MethodName: OnClickStartGameButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2010125168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1081,7 +1069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793aedc3557cf974ba2449cdde047687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeSceneName: 0
+  changeSceneName: 1
 --- !u!1 &2144272287
 GameObject:
   m_ObjectHideFlags: 0
