@@ -98,8 +98,7 @@ public class GameSystem : MonoBehaviour
         //GetShop();
         //GetReward();
         //GetEvent();
-        GetUnitReward(UnitType.sword_2);
-        StartSpecificBattle(MapType.firstStage_one);
+        GetUnitReward(UnitType.sword_2, StartTestBattle);
 #endif
     }
 
@@ -225,9 +224,9 @@ public class GameSystem : MonoBehaviour
         SetBattleLayout();
     }
 
-    public void StartSpecificBattle(MapType mapType)
+    public void StartTestBattle()
     {
-        battleMap = Instantiate(DataManager.Instance.mapDatas[mapType]).GetComponent<BattleManager>();
+        battleMap = Instantiate(DataManager.Instance.mapDatas[MapType.firstStage_one]).GetComponent<BattleManager>();
         battleMap.Init();
         battleMap.StartBattle();
 
