@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class EditDeckPanel : MonoBehaviour
 {
     [SerializeField]
+    TextMeshProUGUI discriptionText;
+    [SerializeField]
     GameObject selectDectPanel;
     [SerializeField]
     GameObject[] editDectPopUp;
@@ -18,10 +20,11 @@ public class EditDeckPanel : MonoBehaviour
     public int maxDeckIndex = 5;
     private void OnEnable()
     {
+        goldText.text = $"{Player.Instance.gold}";
         foreach (GameObject popup in editDectPopUp)
         {
             Transform popUpTrans = popup.transform;
-            foreach(Transform child in popUpTrans)
+            foreach (Transform child in popUpTrans)
             {
                 Destroy(child.gameObject);
             }
@@ -54,17 +57,15 @@ public class EditDeckPanel : MonoBehaviour
             unitObj.name = ($"{deckInfo[deckInfo.Count - 1].unitType}");
             Image unitImage = unitObj.AddComponent<Image>();
             unitImage.sprite = deckInfo[deckInfo.Count - 1].thumbnail;
-            Button unitButton = unitObj.AddComponent<Button>();
-            unitButton.onClick.AddListener(OnClickSelectDeckButton);
+            TextMeshProUGUI unitText = Instantiate(discriptionText);
+            unitText.text = $"{DataManager.Instance.rewardData[(RewardType)deckInfo[deckInfo.Count - 1].unitType].description}";
+            unitText.transform.SetParent(editDectPopUp[deckInfo.Count - 1].transform, false);
+            unitText.transform.localPosition = new Vector3(0, -160, 0);
             unitObj.transform.SetParent(editDectPopUp[deckInfo.Count - 1].transform, false);
             unitObj.transform.localScale = new Vector3(4, 4, 4);
             unitObj.transform.localPosition += new Vector3(0, 130, 0);
         }
     }
 
-    public void OnClickSelectDeckButton()
-    {
-
-    }
 }
 

@@ -222,7 +222,7 @@ public class GameSystem : MonoBehaviour
                 break;
 
             case RoomType.battle:
-
+                minimap.OffDeckButton();
                 StartBattle();
 
                 break;
