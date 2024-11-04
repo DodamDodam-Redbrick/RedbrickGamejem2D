@@ -88,7 +88,7 @@ public class Enemy : MonoBehaviour
 
     Unit vsUnit;
 
-    List<Unit> inBoundUnits = new List<Unit>();
+    public List<Unit> inBoundUnits = new List<Unit>();
 
     int cardIndex;
 

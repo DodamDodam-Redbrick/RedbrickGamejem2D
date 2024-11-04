@@ -36,12 +36,6 @@ public class PlayerLayout : MonoBehaviour
     float placeDistance = 1f;
 
     [SerializeField]
-    GameObject lowArea;
-
-    [SerializeField]
-    GameObject highArea;
-
-    [SerializeField]
     GameObject unitGroup;
 
     [SerializeField]
@@ -165,6 +159,8 @@ public class PlayerLayout : MonoBehaviour
                             selectedUnit = Instantiate(selectedUnitCard.unit.entityPrefab, GameSystem.Instance.battleMap.transform).GetComponentInChildren<Unit>();
                             selectedUnit.Init(selectedUnitCard.unit, selectedUnitCard.cardIndex);
                             selectedUnit.isSpawning = true;
+
+                            GameSystem.Instance.battleMap.ShowArea(unitCard.unit.placeNodeType);
                         }
                     }
                 }
@@ -192,6 +188,7 @@ public class PlayerLayout : MonoBehaviour
                             selectedUnitCard = null;
                         }
 
+                        GameSystem.Instance.battleMap.HideArea();
                     }
                 }
             }
@@ -279,24 +276,6 @@ public class PlayerLayout : MonoBehaviour
         eventSystem = GetComponent<EventSystem>();
 
         SetUnitCards();
-    }
-
-    public void ShowArea(NodeType nodeType)
-    {
-        if (nodeType == NodeType.lowRoad)
-        {
-            lowArea.SetActive(true);
-        }
-        else if (nodeType == NodeType.highRoad)
-        {
-            highArea.SetActive(true);
-        }
-    }
-
-    public void HideArea()
-    {
-        lowArea.SetActive(false);
-        highArea.SetActive(false);
     }
 
 

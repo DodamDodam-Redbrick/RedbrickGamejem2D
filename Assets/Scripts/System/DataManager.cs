@@ -418,29 +418,29 @@ public class DataManager : MonoBehaviour
 
         prefabData[EntityType.mainCharacter] = Resources.Load<GameObject>("Battle/Prefabs/MainCha");
 
-        prefabData[EntityType.sword_1] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
-        prefabData[EntityType.sword_2] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
-        prefabData[EntityType.sword_3] = Resources.Load<GameObject>("Battle/Prefabs/Sword");
+        prefabData[EntityType.sword_1] = Resources.Load<GameObject>("Battle/Prefabs/Unit/Sword");
+        prefabData[EntityType.sword_2] = Resources.Load<GameObject>("Battle/Prefabs/Unit/Sword");
+        prefabData[EntityType.sword_3] = Resources.Load<GameObject>("Battle/Prefabs/Unit/Sword");
 
-        prefabData[EntityType.archer_1] = Resources.Load<GameObject>("Battle/Prefabs/Archer");
-        prefabData[EntityType.archer_2] = Resources.Load<GameObject>("Battle/Prefabs/Archer");
-        prefabData[EntityType.archer_3] = Resources.Load<GameObject>("Battle/Prefabs/Archer");
+        prefabData[EntityType.archer_1] = Resources.Load<GameObject>("Battle/Prefabs/Unit/Archer");
+        prefabData[EntityType.archer_2] = Resources.Load<GameObject>("Battle/Prefabs/Unit/Archer");
+        prefabData[EntityType.archer_3] = Resources.Load<GameObject>("Battle/Prefabs/Unit/Archer");
 
-        prefabData[EntityType.wizard_1] = Resources.Load<GameObject>("Battle/Prefabs/Wizard");
-        prefabData[EntityType.wizard_2] = Resources.Load<GameObject>("Battle/Prefabs/Wizard");
-        prefabData[EntityType.wizard_3] = Resources.Load<GameObject>("Battle/Prefabs/Wizard");
+        prefabData[EntityType.wizard_1] = Resources.Load<GameObject>("Battle/Prefabs/Unit/Wizard");
+        prefabData[EntityType.wizard_2] = Resources.Load<GameObject>("Battle/Prefabs/Unit/Wizard");
+        prefabData[EntityType.wizard_3] = Resources.Load<GameObject>("Battle/Prefabs/Unit/Wizard");
 
-        prefabData[EntityType.soldier_1] = Resources.Load<GameObject>("Battle/Prefabs/Soldier");
-        prefabData[EntityType.soldier_2] = Resources.Load<GameObject>("Battle/Prefabs/Soldier");
-        prefabData[EntityType.soldier_3] = Resources.Load<GameObject>("Battle/Prefabs/Soldier");
+        prefabData[EntityType.soldier_1] = Resources.Load<GameObject>("Battle/Prefabs/Unit/Soldier");
+        prefabData[EntityType.soldier_2] = Resources.Load<GameObject>("Battle/Prefabs/Unit/Soldier");
+        prefabData[EntityType.soldier_3] = Resources.Load<GameObject>("Battle/Prefabs/Unit/Soldier");
     }
 
     private void ApplyMapData()
     {
-        mapDatas[MapType.firstStage_one] = Resources.Load<GameObject>("Battle/Prefabs/EasyMap01");
-        mapDatas[MapType.firstStage_two] = Resources.Load<GameObject>("Battle/Prefabs/Map2");
+        mapDatas[MapType.firstStage_one] = Resources.Load<GameObject>("Battle/Prefabs/Map/EasyMap01");
+        mapDatas[MapType.firstStage_two] = Resources.Load<GameObject>("Battle/Prefabs/Map/Map2");
 
-        mapDatas[MapType.firstStage_Boss] = Resources.Load<GameObject>("Battle/Prefabs/Map3");
+        mapDatas[MapType.firstStage_Boss] = Resources.Load<GameObject>("Battle/Prefabs/Map/Map3");
     }
 
 

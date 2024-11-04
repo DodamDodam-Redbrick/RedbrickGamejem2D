@@ -132,7 +132,8 @@ public class Unit : MonoBehaviour
             AddvsEnemy();
             foreach(Enemy enemy in vsEnemy)
             {
-                enemy.SetvsUnit(this);
+                if(enemy.inBoundUnits.Contains(this))
+                    enemy.SetvsUnit(this);
             }
         }
 

@@ -27,6 +27,12 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     int killCount = 0;
 
+    [SerializeField]
+    GameObject lowArea;
+
+    [SerializeField]
+    GameObject highArea;
+
     [HideInInspector]
     public MapGrid mapGrid;
 
@@ -47,6 +53,24 @@ public class BattleManager : MonoBehaviour
         mainCharacter.transform.parent.position = mainCharacterPos.position;
         mainCharacter.transform.parent.rotation = mainCharacterPos.rotation;
         mainCharacter.Init(GameSystem.Instance.mainCharacter);
+    }
+
+    public void ShowArea(NodeType nodeType)
+    {
+        if (nodeType == NodeType.lowRoad)
+        {
+            lowArea.SetActive(true);
+        }
+        else if (nodeType == NodeType.highRoad)
+        {
+            highArea.SetActive(true);
+        }
+    }
+
+    public void HideArea()
+    {
+        lowArea.SetActive(false);
+        highArea.SetActive(false);
     }
 
     public void SpawnEnemies()
