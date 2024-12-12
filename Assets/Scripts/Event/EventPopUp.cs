@@ -18,6 +18,8 @@ public class EventPopUp : MonoBehaviour
 
         optionText.text = option;
 
+        optionButton.onClick.RemoveAllListeners();
+
         optionButton.onClick.AddListener(() => OnClickOption());
     }
 

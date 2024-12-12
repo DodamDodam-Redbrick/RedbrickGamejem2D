@@ -145,7 +145,6 @@ public class GameSystem : MonoBehaviour
             yield return null;
         }
 
-
         OnStartGame();
     }
 
@@ -170,7 +169,6 @@ public class GameSystem : MonoBehaviour
     void OnStartGame()
     {
         ShowLoading();
-
 
         //게임 시작하면
         //1. 맵 랜덤생성
@@ -338,6 +336,8 @@ public class GameSystem : MonoBehaviour
     public void FinishBattle()
     {
         PlaySound(winClip);
+
+        playerLayout.HideUnitCards();
 
         SetMinimapLayout();
 

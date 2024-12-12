@@ -108,7 +108,7 @@ public class Room : MonoBehaviour
 
     IEnumerator CoSpawnRoom()
     {
-        if(transform.parent.parent.GetComponent<RoomManager>().roomCount > GameSystem.Instance.difficultRoomCount)
+        if(RoomManager.Instance.roomCount > GameSystem.Instance.difficultRoomCount)
         {
             roomDifficult = RoomDifficult.hard;
         }
@@ -132,7 +132,7 @@ public class Room : MonoBehaviour
                 continue;
             }
 
-            if (spawnPoints[dir].isRoom) //이게 오류일 수도 있음
+            if (spawnPoints[dir].isRoom)
             {
                 continue;
             }

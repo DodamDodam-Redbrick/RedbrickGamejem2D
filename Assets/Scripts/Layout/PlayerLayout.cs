@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -314,7 +313,7 @@ public class PlayerLayout : MonoBehaviour
         }
     }
 
-    void HideUnitCards()
+    public void HideUnitCards()
     {
         foreach (UnitCard unitCard in unitCards)
         {
